@@ -1,0 +1,31 @@
+#!/usr/local/bin/bash
+
+file="$1"
+filename="${file%.*}"
+extension="${file##*.}"
+
+input_file=${filename,,_}; input_file=${filename//_}; input_file=${input_file}.in
+
+echo "${input_file}"
+
+case "${extension}" in
+  java)
+    javac "${file}"
+    java -cp . "${filename}" < ${input_file}
+    rm "${filename}".class
+    ;;
+
+  cpp)
+    g++ -Wall -std=c++2a -O2 -o "${filename}" "${file}"
+    ./"${filename}" < ${input_file}
+    rm "${filename}"
+    ;;
+
+  py)
+    python3 "${file}" < ${input_file}
+    ;;
+
+  *)
+    echo "Got some other file"
+    ;;
+esac
