@@ -62,7 +62,7 @@ First step - learn the essential fundamentals.
 
 ## Prep Work
 
-After mastering the Data Structures and Graphs above, practise the following till it becomes second-nature.
+After mastering the data structures and algorithms above, practise the following till it becomes second-nature.
 
 1. Implement an ArrayList from scratch
 
@@ -88,6 +88,6 @@ After mastering the Data Structures and Graphs above, practise the following til
 
 14. Learn Bit-Manipulation tricks (https://www.geeksforgeeks.org/bit-tricks-competitive-programming/)
 
-## Start Grinding LeetCode
+## Start Grinding LeetCode (and others)
 
 Guide: https://www.alimirio.com/posts/how-to-solve-problems-on-leetcode-to-prepare-for-technical-interviews
