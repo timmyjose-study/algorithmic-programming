@@ -5,8 +5,12 @@ filename="${file%.*}"
 extension="${file##*.}"
 
 input_file=${filename,,_}; input_file=${filename//_}; input_file=${input_file}.in
+input_file=${input_file:-/dev/stdin}
 
-echo "${input_file}"
+if [[ ! -f ${input_file} ]]
+then
+  input_file=/dev/stdin
+fi
 
 case "${extension}" in
   java)

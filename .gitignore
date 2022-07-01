@@ -3,3 +3,4 @@
 **/*.a
 **/*.rlib
 **/*.dylib
+**/*.class
