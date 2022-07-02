@@ -52,7 +52,7 @@
 
   12. Dijkstra's Algorithm [ ]
 
-  13. Tree Traversals (Recursive and Iterative in-order, pre-order, post-order using BFS and DFS) [ ]
+  13. Tree Traversals (Recursive and Iterative, in-order, pre-order, post-order using BFS and DFS) [ ]
 
   14. External Sort [ ]
 
@@ -67,7 +67,6 @@
   19. Count Connected Components in a Graph [ ]
 
   20. Find Strongly-Connected Components in a Graph [ ]
-
 
 
 ## Practice
