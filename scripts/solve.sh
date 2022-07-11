@@ -19,6 +19,12 @@ case "${extension}" in
     rm "${filename}".class
     ;;
 
+  c)
+    gcc -Wall -std=c17 -O2 -o "${filename}" "${file}"
+    ./"${filename}" < ${input_file}
+    rm "${filename}"
+    ;;
+
   cpp)
     g++ -Wall -std=c++2a -O2 -o "${filename}" "${file}"
     ./"${filename}" < ${input_file}
