@@ -1,59 +1,79 @@
 # Core Prep 
 
+Primary resource - TIH
+
+Secondary resources - 
+
+ Abdul Bari.
+ William Fiset.
+ Loonycorn.
+ TIH - The Tech Interview Handbook.
+ TAL - Data Structures using C and C++ (Tenebaum, Augenstein, and Langsam).
+ CLRS - Introduction to Algorithms (Cormen, Leiserson, Rivest, and Shamir.
+ ATB - Algorithmic Toolbox.
+ GFG - GeeksForGeeks.
+
+Strategy - Pragmatic. Use the TIH as a guide, dig deeper using secondary resources as and when needed.
+
+
 ## Data Structures
 
     ----------------------------------------------
     |        Topic          |  Priority | Status |
     | --------------------------------------------
-    | Array                 | High      |        |
-    |--------------------------------------------
-    | Dynamic Array         | High      |        |
-    |--------------------------------------------
-    | String                | High      |        |
-    | --------------------------------------------
-    | Hash Table            | Mid       |        |
-    | --------------------------------------------
-    | Recursion             | Mid       |        |
-    |---------------------------------------------
-                                                 |
-    -  ------------------------------------------|
-    | Sorting and Searching | High      |        |
-    | --------------------------------------------
-    | Matrix                | High      |        |
-    | --------------------------------------------
-    | Linked List           | Mid       |        |
-    | --------------------------------------------
-    | Queue                 | Mid       |        |
-    | --------------------------------------------
-    | Stack                 | Mid       |        |
-    | --------------------------------------------
-                                                 |
+    | Array                 | High      |        | TAL
+    |--------------------------------------------|
+    | Dynamic Array         | High      |        | ATB
+    |--------------------------------------------|
+    | String                | High      |        | HackerEarth/e-maxx
+    | -------------------------------------------|
+    | Hash Table            | Mid       |        | TAL/Abdul Bari/Fiset    
+    | -------------------------------------------|
+    | Recursion             | Mid       |        | TAL 
+    |--------------------------------------------|
+    |                                            |
     ---------------------------------------------|
-    | Tree                  | High      |        |
+    | Sorting and Searching | High      |        | TAL 
     | --------------------------------------------
-    | Graph                 | High      |        |
+    | Matrix                | High      |        | CLRS
     | --------------------------------------------
-    | Heap                  | Mid       |        |
+    | Linked List           | Mid       |        | TAL
     | --------------------------------------------
-    | Trie                  | Mid       |        |
+    | Queue                 | Mid       |        | TAL
     | --------------------------------------------
-                                                 |
+    | Stack                 | Mid       |        | TAL
+    | --------------------------------------------
+    |                                            |
+    ---------------------------------------------|
+    | Tree                  | High      |        | TAL
+    | --------------------------------------------
+    | Graph                 | High      |        | TAL/CLRS/Loonycorn
+    | --------------------------------------------
+    | Heap                  | Mid       |        | TAL / CLRS
+    | --------------------------------------------
+    | Trie                  | Mid       |        | HackerEarth
+    | --------------------------------------------
+    |                                            |
     |---------------------------------------------
-    | Interval              | Mid       |        |
+    | Interval              | Mid       |        | TIH
     | --------------------------------------------
-    | Dynamic Programming   | Low       |        |
+    | Dynamic Programming   | Low       |        | ATB 
     | --------------------------------------------
-    | Binary                | Low       |        |
+    | Binary                | Low       |        | e-maxx
     | --------------------------------------------
-    | Maths                 | Low       |        |
+    | Maths                 | Low       |        | e-maxx/GFG
     | --------------------------------------------
-    | Geometry              | Low       |        |
+    | Geometry              | Low       |        | e-maxx
     ----------------------------------------------
 
 
+
+
 Extras: 
-  * DSU [ ]
-  * Segment Trees [ ]
+
+  * MST [ ] CLRS
+  * DSU [ ] Fiset/ATB
+  * Segment Trees [ ] HackerEarth
 
 
 ## Algorithms
@@ -61,45 +81,45 @@ Extras:
    ------------------------------------------------------------------------------------------------------------------
    |                                   Algorithm                                                           | Status |
    |----------------------------------------------------------------------------------------------------------------|
-   | Bit Manipulation & Numbers — difference btw Unsigned vs signed numbers                                |        |
+   | Bit Manipulation & Numbers — difference btw Unsigned vs signed numbers                                |        | e-maxx
    |----------------------------------------------------------------------------------------------------------------|
-   | Stability in Sorting                                                                                  |        |
+   | Stability in Sorting                                                                                  |        | TAL/CLRS
    |----------------------------------------------------------------------------------------------------------------|
-   | Mergesort                                                                                             |        |
+   | Mergesort                                                                                             |        | TAL / CLRS
+   |----------------------------------------------------------------------------------------------------------------| 
+   | Quicksort                                                                                             |        | TAL / CLRS
    |----------------------------------------------------------------------------------------------------------------|
-   | Quicksort                                                                                             |        | 
+   | Heapsort — Sort it in-place to get O(1) space                                                         |        | TAL / CLRS
    |----------------------------------------------------------------------------------------------------------------|
-   | Heapsort — Sort it in-place to get O(1) space                                                         |        |
+   | Binary Search                                                                                         |        | TAL / CLRS
    |----------------------------------------------------------------------------------------------------------------|
-   | Binary Search                                                                                         |        |
+   | Selections — Kth Smallest Elements (Sort, QuickSelect, Mediums of Mediums) — Implement all three ways |        | GFG
    |----------------------------------------------------------------------------------------------------------------|
-   | Selections — Kth Smallest Elements (Sort, QuickSelect, Mediums of Mediums) — Implement all three ways |        |
+   | Permutations                                                                                          |        | e-maxx
    |----------------------------------------------------------------------------------------------------------------|
-   | Permutations                                                                                          |        |
+   | Subsets                                                                                               |        | e-maxx
    |----------------------------------------------------------------------------------------------------------------|
-   | Subsets                                                                                               |        |
+   | BFS Graph                                                                                             |        | TAL
    |----------------------------------------------------------------------------------------------------------------|
-   | BFS Graph                                                                                             |        |
+   | DFS Graph                                                                                             |        | TAL
    |----------------------------------------------------------------------------------------------------------------|
-   | DFS Graph                                                                                             |        |
+   | Dijkstra’s Algorithm (just learn the idea — no need to implement)                                     |        | CLRS
    |----------------------------------------------------------------------------------------------------------------|
-   | Dijkstra’s Algorithm (just learn the idea — no need to implement)                                     |        |
+   | Tree Traversals — BFS, DFS (in-order, pre-order, post-order): Implement Recursive and Iterative       |        | TAL
    |----------------------------------------------------------------------------------------------------------------|
-   | Tree Traversals — BFS, DFS (in-order, pre-order, post-order): Implement Recursive and Iterative       |        | 
+   | External Sort — No implementation; Just know the concept.                                             |        | CLRS
    |----------------------------------------------------------------------------------------------------------------|
-   | External Sort — No implementation; Just know the concept.                                             |        |
+   | NP-Complete (Video) — Just know the concept                                                           |        | CLRS
    |----------------------------------------------------------------------------------------------------------------|
-   | NP-Complete (Video) — Just know the concept                                                           |        |
+   | Topological Sort                                                                                      |        | Loonycorn
    |----------------------------------------------------------------------------------------------------------------|
-   | Topological Sort                                                                                      |        |
+   | Detect cycle in an undirected graph                                                                   |        | Loonycorn
    |----------------------------------------------------------------------------------------------------------------|
-   | Detect cycle in an undirected graph                                                                   |        |
+   | Detect a cycle in a directed graph                                                                    |        | Loonycorn
    |----------------------------------------------------------------------------------------------------------------|
-   | Detect a cycle in a directed graph                                                                    |        |
+   | Count connected components in a graph                                                                 |        | e-maxx / HackerEarth
    |----------------------------------------------------------------------------------------------------------------|
-   | Count connected components in a graph                                                                 |        |
-   |----------------------------------------------------------------------------------------------------------------|
-   | Find strongly connected components in a graph                                                         |        |
+   | Find strongly connected components in a graph                                                         |        | e-maxx / HackerEarth
    ------------------------------------------------------------------------------------------------------------------
 
 
