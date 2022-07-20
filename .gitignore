@@ -4,3 +4,4 @@
 **/*.rlib
 **/*.dylib
 **/*.class
+**/.DS_Store

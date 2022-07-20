@@ -5,7 +5,7 @@
     ----------------------------------------------
     |        Topic          |  Priority | Status |
     | --------------------------------------------
-    | Array                 | High      |        | 
+    | Array                 | High      |   ✓    | 
     |--------------------------------------------|
     | Dynamic Array         | High      |        | 
     |--------------------------------------------|
@@ -56,7 +56,7 @@ Extras:
   * MST [ ] 
   * DSU [ ]
   * Segment Trees [ ] 
-
+  * Indexed Priority Queue [ ]
 
 ## Algorithms
 
