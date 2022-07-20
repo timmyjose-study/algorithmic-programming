@@ -8,7 +8,9 @@ public class ParensBalance {
 
       while (tt-- != 0) {
         String input = in.nextLine().trim();
-        Stack<Character> st = new Stack<>(100);
+        // Stack<Character> st = new FixedArrayStack<>(100);
+        // Stack<Character> st = new DynamicArrayStack<>();
+        Stack<Character> st = new LinkedListStack<>();
         boolean valid = true;
 
         for (int i = 0; i < input.length(); i++) {
