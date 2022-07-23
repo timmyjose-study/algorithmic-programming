@@ -14,7 +14,7 @@ fi
 
 case "${extension}" in
   java)
-    javac "${file}"
+    javac -Xlint "${file}"
     java -cp . "${filename}" < ${input_file}
     rm "${filename}".class
     ;;
