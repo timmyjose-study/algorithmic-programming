@@ -13,12 +13,6 @@ then
 fi
 
 case "${extension}" in
-  java)
-    javac -Xlint "${file}"
-    java -cp . "${filename}" < ${input_file}
-    rm "${filename}".class
-    ;;
-
   c)
     gcc -Wall -std=c17 -O2 -o "${filename}" "${file}"
     ./"${filename}" < ${input_file}
@@ -31,8 +25,20 @@ case "${extension}" in
     rm "${filename}"
     ;;
 
+  java)
+    javac -Xlint "${file}"
+    java -cp . "${filename}" < ${input_file}
+    rm "${filename}".class
+    ;;
+
   py)
     python3 "${file}" < ${input_file}
+    ;;
+
+  rs)
+    rustc -O "${file}"
+    ./"${filename}" < ${input_file}
+    rm "${filename}"
     ;;
 
   *)
