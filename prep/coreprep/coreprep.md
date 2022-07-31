@@ -53,7 +53,7 @@ Extras:
 
   * Segment Trees [ ] 
   * Indexed Priority Queue [ ]
-  * DSU [ ✔ ]
+  * DSUF [ ✔ ]
 
 
 ## Algorithms
