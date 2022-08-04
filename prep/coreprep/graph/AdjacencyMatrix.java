@@ -3,7 +3,7 @@ import java.util.List;
 
 public class AdjacencyMatrix implements Graph {
   private int numVertices;
-  private int[][] mat;
+  private int[][] adj;
   private Graph.GraphType graphType;
 
   public AdjacencyMatrix(int numVertices) {
@@ -12,12 +12,12 @@ public class AdjacencyMatrix implements Graph {
 
   public AdjacencyMatrix(int numVertices, Graph.GraphType graphType) {
     this.numVertices = numVertices;
-    this.mat = new int[numVertices][numVertices];
+    this.adj = new int[numVertices][numVertices];
     this.graphType = graphType;
 
     for (int i = 0; i < numVertices; i++) {
       for (int j = 0; j < numVertices; j++) {
-        this.mat[i][j] = 0;
+        this.adj[i][j] = 0;
       }
     }
   }
@@ -28,9 +28,9 @@ public class AdjacencyMatrix implements Graph {
       throw new IllegalArgumentException("invalid vertex");
     }
 
-    this.mat[v1][v2] = 1;
+    this.adj[v1][v2] = 1;
     if (this.graphType == Graph.GraphType.UNDIRECTED) {
-      this.mat[v2][v1] = 1;
+      this.adj[v2][v1] = 1;
     }
   }
 
@@ -42,17 +42,36 @@ public class AdjacencyMatrix implements Graph {
 
     List<Integer> neighbours = new ArrayList<>();
     for (int i = 0; i < this.numVertices; i++) {
-      if (this.mat[v][i] == 1) {
+      if (this.adj[v][i] == 1) {
         neighbours.add(i);
       }
     }
-    neighbours.sort((x, y) -> Integer.compare(x, y));
-
     return neighbours;
   }
 
   @Override
   public int size() {
     return this.numVertices;
+  }
+
+  @Override
+  public int getIndegree(int v) {
+    if (this.graphType == Graph.GraphType.UNDIRECTED) {
+      throw new IllegalStateException(
+          "indegree is not defined for undirected graphs");
+    }
+
+    if (v < 0 || v >= this.numVertices) {
+      throw new IllegalArgumentException("invalid vertex");
+    }
+
+    int indegree = 0;
+    for (int i = 0; i < this.numVertices; i++) {
+      if (this.adj[i][v] == 1) {
+        indegree++;
+      }
+    }
+
+    return indegree;
   }
 }

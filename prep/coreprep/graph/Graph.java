@@ -8,5 +8,6 @@ public interface Graph {
 
   void addEdge(int v1, int v2);
   List<Integer> getAdjacentVertices(int v);
+  int getIndegree(int v);
   int size();
 }

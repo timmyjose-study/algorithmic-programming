@@ -25,6 +25,7 @@ public class Bfs {
     }
   }
 
+  // O(|V| + |E|)
   public static void bfs(Graph g) {
     boolean[] visited = new boolean[g.size()];
 

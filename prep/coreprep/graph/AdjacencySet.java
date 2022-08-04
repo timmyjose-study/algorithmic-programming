@@ -4,21 +4,22 @@ import java.util.List;
 import java.util.Set;
 
 public class AdjacencySet implements Graph {
-  static class Node {
+  static class Vertex {
     int v;
-    Set<Integer> neighbours;
+    Set<Integer> vertices;
 
-    Node(int v) {
+    Vertex(int v) {
       this.v = v;
-      this.neighbours = new HashSet<>();
+      this.vertices = new HashSet<>();
     }
 
-    void addAdjacentNeighbour(int v) { this.neighbours.add(v); }
-    Set<Integer> getAdjacentNeighbours() { return this.neighbours; }
+    void addEdge(int v) { this.vertices.add(v); }
+    Set<Integer> getAdjacentVertices() { return this.vertices; }
+    boolean hasEdge(int v) { return this.vertices.contains(v); }
   }
 
   private int numVertices;
-  private List<Node> vertices;
+  private List<Vertex> adj;
   private Graph.GraphType graphType;
 
   public AdjacencySet(int numVertices) {
@@ -28,10 +29,10 @@ public class AdjacencySet implements Graph {
   public AdjacencySet(int numVertices, Graph.GraphType graphType) {
     this.numVertices = numVertices;
     this.graphType = graphType;
-    this.vertices = new ArrayList<>(numVertices);
+    this.adj = new ArrayList<>(numVertices);
 
     for (int i = 0; i < numVertices; i++) {
-      this.vertices.add(new Node(i));
+      this.adj.add(new Vertex(i));
     }
   }
 
@@ -41,9 +42,9 @@ public class AdjacencySet implements Graph {
       throw new IllegalArgumentException("inavlid vertex");
     }
 
-    this.vertices.get(v1).addAdjacentNeighbour(v2);
+    this.adj.get(v1).addEdge(v2);
     if (this.graphType == Graph.GraphType.UNDIRECTED) {
-      this.vertices.get(v2).addAdjacentNeighbour(v1);
+      this.adj.get(v2).addEdge(v1);
     }
   }
 
@@ -54,17 +55,35 @@ public class AdjacencySet implements Graph {
     }
 
     List<Integer> neighbours = new ArrayList<>();
-    for (int vv : this.vertices.get(v).getAdjacentNeighbours()) {
+    for (int vv : this.adj.get(v).getAdjacentVertices()) {
       neighbours.add(vv);
     }
-
-    neighbours.sort((x, y) -> Integer.compare(x, y));
-
     return neighbours;
   }
 
   @Override
   public int size() {
     return this.numVertices;
+  }
+
+  @Override
+  public int getIndegree(int v) {
+    if (this.graphType == Graph.GraphType.UNDIRECTED) {
+      throw new IllegalStateException(
+          "indegree is not defined for undirected graphs");
+    }
+
+    if (v < 0 || v >= this.numVertices) {
+      throw new IllegalArgumentException("invalid vertex");
+    }
+
+    int indegree = 0;
+    for (int i = 0; i < numVertices; i++) {
+      if (this.adj.get(i).hasEdge(v)) {
+        indegree++;
+      }
+    }
+
+    return indegree;
   }
 }

@@ -27,6 +27,7 @@ public class Dfs {
     }
   }
 
+  // O(|V| + |E|)
   public static void dfsPre(Graph g) {
     boolean[] visited = new boolean[g.size()];
 
@@ -51,6 +52,7 @@ public class Dfs {
     }
   }
 
+  // O(|V| + |E|)
   public static void dfsPost(Graph g) {
     boolean[] visited = new boolean[g.size()];
 
