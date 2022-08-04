@@ -39,7 +39,7 @@ public class AdjacencySet implements Graph {
   @Override
   public void addEdge(int v1, int v2) {
     if (v1 < 0 || v1 >= this.numVertices || v2 < 0 || v2 >= this.numVertices) {
-      throw new IllegalArgumentException("inavlid vertex");
+      throw new IllegalArgumentException("invalid vertex");
     }
 
     this.adj.get(v1).addEdge(v2);
@@ -58,6 +58,7 @@ public class AdjacencySet implements Graph {
     for (int vv : this.adj.get(v).getAdjacentVertices()) {
       neighbours.add(vv);
     }
+
     return neighbours;
   }
 
