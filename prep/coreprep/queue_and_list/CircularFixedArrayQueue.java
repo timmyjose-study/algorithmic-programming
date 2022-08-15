@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class CircularFixedArrayQueue<T> implements Queue<T> {
   private T[] arr;
   private int front;
@@ -54,47 +56,38 @@ public class CircularFixedArrayQueue<T> implements Queue<T> {
   }
 
   public static void main(String[] args) throws Exception {
-    Queue<Integer> q = new CircularFixedArrayQueue<>(10);
+    try (Scanner in = new Scanner(System.in)) {
+      int n = in.nextInt();
+      Queue<Integer> q = new CircularFixedArrayQueue<>(n);
 
-    for (int i = 0; i < 10; i++) {
-      q.enqueue(i);
+      int nq = in.nextInt();
+      while (nq-- > 0) {
+        String[] cmd = in.nextLine().trim().split(" ");
+
+        switch (cmd[0]) {
+        case "enqueue":
+          q.enqueue(Integer.parseInt(cmd[1]));
+          break;
+
+        case "tillemptydequeue":
+          while (!q.isEmpty()) {
+            System.out.printf("%d ", q.dequeue());
+          }
+          break;
+
+        case "newline":
+          System.out.println();
+          break;
+
+        case "isfull":
+          System.out.println(q.isFull());
+          break;
+
+        case "isempty":
+          System.out.println(q.isEmpty());
+          break;
+        }
+      }
     }
-
-    System.out.println(q.isEmpty());
-
-    while (!q.isEmpty()) {
-      System.out.printf("%d ", q.dequeue());
-    }
-    System.out.println();
-    System.out.println(q.isEmpty());
-
-    for (int i = 0; i < 10; i++) {
-      q.enqueue(i);
-    }
-
-    while (!q.isEmpty()) {
-      System.out.printf("%d ", q.dequeue());
-    }
-    System.out.println();
-
-    for (int i = 0; i < 10; i++) {
-      q.enqueue(i);
-    }
-
-    for (int i = 0; i < 4; i++) {
-      System.out.printf("%d ", q.dequeue());
-    }
-    System.out.println();
-
-    q.enqueue(10);
-    q.enqueue(11);
-    q.enqueue(12);
-    q.enqueue(13);
-
-    while (!q.isEmpty()) {
-      System.out.printf("%d ", q.dequeue());
-    }
-
-    System.out.println();
   }
 }

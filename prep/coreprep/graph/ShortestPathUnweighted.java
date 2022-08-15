@@ -44,12 +44,9 @@ public class ShortestPathUnweighted {
     Map<Integer, DistanceInfo> dist =
         buildDistanceTable(g, source, destination);
 
-    if (dist.get(destination).distance == -1) {
-      System.out.printf("No path exists from %d to %d\n", source, destination);
-    } else {
-      System.out.printf("Shortest path distance from %d to %d = %d\n", source,
-                        destination, dist.get(destination).distance);
+    System.out.println(dist.get(destination).distance);
 
+    if (dist.get(destination).distance != -1) {
       Stack<Integer> st = new Stack<>();
       int prevVertex = -1, currVertex = destination;
 

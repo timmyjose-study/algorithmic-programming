@@ -15,7 +15,12 @@ public class Permutations {
       }
 
       List<List<Integer>> allPerms = solve(nums);
-      System.out.println(allPerms);
+      for (List<Integer> perm : allPerms) {
+        for (int p : perm) {
+          System.out.printf("%d ", p);
+        }
+        System.out.println();
+      }
     }
   }
 
@@ -24,7 +29,6 @@ public class Permutations {
     Set<Integer> visited = new HashSet<>();
 
     permutations(nums, new ArrayList<>(), visited, allPerms);
-    System.out.println(allPerms);
 
     return allPerms;
   }

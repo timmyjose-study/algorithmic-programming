@@ -20,13 +20,7 @@ public class UpperBound {
       for (int i = 0; i < q; i++) {
         elem = in.nextInt();
 
-        idx = upperBound(a, 0, n - 1, elem);
-        if (idx == n) {
-          System.out.printf("%d has no upper bound: index is %d\n", elem, idx);
-        } else {
-          System.out.printf("%d has an upper bound at index %d (elem %d)\n",
-                            elem, idx, a[idx]);
-        }
+        System.out.println(upperBound(a, 0, n - 1, elem));
       }
     }
   }

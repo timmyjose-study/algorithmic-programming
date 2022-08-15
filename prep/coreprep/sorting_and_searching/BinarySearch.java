@@ -20,19 +20,8 @@ public class BinarySearch {
       for (int i = 0; i < q; i++) {
         elem = in.nextInt();
 
-        idx = binarySearch(a, 0, n - 1, elem);
-        if (idx == -1) {
-          System.out.printf("%d not found\n", elem);
-        } else {
-          System.out.printf("%d found at index %d\n", elem, idx);
-        }
-
-        idx = binarySearchRec(a, 0, n - 1, elem);
-        if (idx == -1) {
-          System.out.printf("%d not found\n", elem);
-        } else {
-          System.out.printf("%d found at index %d\n", elem, idx);
-        }
+        System.out.println(binarySearch(a, 0, n - 1, elem));
+        System.out.println(binarySearchRec(a, 0, n - 1, elem));
       }
     }
   }

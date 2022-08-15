@@ -13,7 +13,6 @@ public class RabinKarp {
         String t = in.nextLine().trim();
 
         var res = rabinKarp(s, t);
-        System.out.printf("s = %s, t = %s\n", s, t);
         if (res.isEmpty()) {
           System.out.println(-1);
         } else {

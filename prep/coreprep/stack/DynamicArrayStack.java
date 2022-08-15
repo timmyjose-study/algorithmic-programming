@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class DynamicArrayStack<T> implements Stack<T> {
   private DynamicArray<T> arr;
 
@@ -35,16 +37,30 @@ public class DynamicArrayStack<T> implements Stack<T> {
   }
 
   public static void main(String[] args) {
-    Stack<Integer> st = new DynamicArrayStack<>();
+    try (Scanner in = new Scanner(System.in)) {
+      Stack<Integer> st = new DynamicArrayStack<>();
 
-    for (int i = 1; i <= 10; i++) {
-      st.push(i);
-    }
+      int nq = in.nextInt();
+      while (nq-- > 0) {
+        String[] cmd = in.nextLine().trim().split(" ");
 
-    while (!st.isEmpty()) {
-      System.out.printf("%d ", st.pop());
+        switch (cmd[0]) {
+        case "push":
+          st.push(Integer.parseInt(cmd[1]));
+          break;
+
+        case "tillemptypop":
+          while (!st.isEmpty()) {
+            System.out.printf("%d ", st.pop());
+          }
+          break;
+
+        case "newline":
+          System.out.println();
+          break;
+        }
+      }
     }
-    System.out.println();
   }
 }
 

@@ -101,11 +101,8 @@ public class Kosaraju {
       }
     }
 
-    if (scc.isEmpty()) {
-      System.out.println("No SCC found");
-    } else {
-      System.out.printf("No. of SCCs = %d\n", scc.size());
-
+    System.out.println(scc.size());
+    if (!scc.isEmpty()) {
       for (List<Integer> comp : scc) {
         for (int v : comp) {
           System.out.printf("%d ", v);

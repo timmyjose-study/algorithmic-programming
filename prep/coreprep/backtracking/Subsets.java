@@ -13,7 +13,12 @@ public class Subsets {
       }
 
       List<List<Integer>> subsets = solve(nums);
-      System.out.println(subsets);
+      for (List<Integer> subset : subsets) {
+        for (int s : subset) {
+          System.out.printf("%d ", s);
+        }
+        System.out.println();
+      }
     }
   }
 

@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class DynamicArray<T> implements List<T> {
   private T[] arr;
   private int len;
@@ -153,67 +155,55 @@ public class DynamicArray<T> implements List<T> {
   }
 
   public static void main(String[] args) throws Exception {
-    List<Integer> dynArr = new DynamicArray<>();
-    for (int i = 0; i < 5; i++) {
-      dynArr.pushFront(i);
-    }
+    try (Scanner in = new Scanner(System.in)) {
+      int n = in.nextInt();
+      DynamicArray<Integer> dynArr = new DynamicArray<>();
 
-    while (!dynArr.isEmpty()) {
-      System.out.printf("%d ", dynArr.popFront());
-    }
-    System.out.println();
+      while (n-- > 0) {
+        String[] cmd = in.nextLine().trim().split(" ");
 
-    for (int i = 5; i < 10; i++) {
-      dynArr.pushBack(i);
-    }
+        switch (cmd[0]) {
+        case "pushfront":
+          dynArr.pushFront(Integer.parseInt(cmd[1]));
+          break;
 
-    while (!dynArr.isEmpty()) {
-      System.out.printf("%d ", dynArr.popBack());
-    }
-    System.out.println();
+        case "popfront":
+          System.out.printf("%d ", dynArr.popFront());
+          break;
 
-    for (int i = 0, j = 1; i < 10; i++, j++) {
-      dynArr.pushFront(i);
-      dynArr.pushBack(j);
-    }
+        case "tillemptypopfront":
+          while (!dynArr.isEmpty()) {
+            System.out.printf("%d ", dynArr.popFront());
+          }
+          break;
 
-    while (true) {
-      System.out.printf("%d ", dynArr.popFront());
-      if (dynArr.isEmpty()) {
-        break;
+        case "newline":
+          System.out.println();
+          break;
+
+        case "tillemptypopback":
+          while (!dynArr.isEmpty()) {
+            System.out.printf("%d ", dynArr.popBack());
+          }
+          break;
+
+        case "pushback":
+          dynArr.pushBack(Integer.parseInt(cmd[1]));
+          break;
+
+        case "popback":
+          System.out.printf("%d ", dynArr.popBack());
+          break;
+
+        case "removeelem":
+          dynArr.removeElem(Integer.parseInt(cmd[1]));
+          break;
+
+        case "print":
+          System.out.println(dynArr);
+          break;
+        }
       }
-
-      System.out.printf("%d ", dynArr.popBack());
-      if (dynArr.isEmpty()) {
-        break;
-      }
     }
-    System.out.println();
-
-    dynArr.pushBack(100);
-    dynArr.pushBack(200);
-    dynArr.pushBack(300);
-    dynArr.pushBack(400);
-    dynArr.pushBack(500);
-    dynArr.pushBack(200);
-    System.out.println(dynArr);
-
-    dynArr.removeElem(200);
-    System.out.println(dynArr);
-
-    dynArr.removeElem(200);
-    System.out.println(dynArr);
-
-    dynArr.removeElem(100);
-    System.out.println(dynArr);
-
-    dynArr.removeElem(400);
-    System.out.println(dynArr);
-
-    dynArr.removeElem(300);
-    System.out.println(dynArr);
-
-    dynArr.removeElem(500);
-    System.out.println(dynArr);
   }
 }

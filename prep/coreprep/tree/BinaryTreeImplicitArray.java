@@ -14,8 +14,6 @@ public class BinaryTreeImplicitArray {
       String[] nodes = in.nextLine().trim().split(" ");
       tree.read(nodes, Integer::parseInt);
 
-      System.out.println("Height of tree = " + tree.height());
-
       tree.preOrder();
       tree.preOrderIter();
 
@@ -66,17 +64,6 @@ public class BinaryTreeImplicitArray {
           readRecursively(nodes, right(rootIndex), parser);
         }
       }
-    }
-
-    public int height() { return heightRecursive(0) - 1; }
-
-    private int heightRecursive(int rootIndex) {
-      if (this.arr.get(rootIndex) == null) {
-        return 0;
-      }
-
-      return 1 + Math.max(heightRecursive(left(rootIndex)),
-                          heightRecursive(right(rootIndex)));
     }
 
     public void preOrder() {

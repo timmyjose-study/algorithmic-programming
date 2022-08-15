@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class DynArrQueue<T> implements Queue<T> {
   private List<T> dynArr;
 
@@ -28,34 +30,37 @@ public class DynArrQueue<T> implements Queue<T> {
   }
 
   public static void main(String[] args) throws Exception {
-    Queue<Integer> q = new DynArrQueue<>();
+    try (Scanner in = new Scanner(System.in)) {
+      Queue<Integer> q = new DynArrQueue<>();
 
-    for (int i = 0; i < 10; i++) {
-      q.enqueue(i);
+      int nq = in.nextInt();
+      while (nq-- > 0) {
+        String[] cmd = in.nextLine().trim().split(" ");
+
+        switch (cmd[0]) {
+        case "enqueue":
+          q.enqueue(Integer.parseInt(cmd[1]));
+          break;
+
+        case "tillemptydequeue":
+          while (!q.isEmpty()) {
+            System.out.printf("%d ", q.dequeue());
+          }
+          break;
+
+        case "newline":
+          System.out.println();
+          break;
+
+        case "isfull":
+          System.out.println(q.isFull());
+          break;
+
+        case "isempty":
+          System.out.println(q.isEmpty());
+          break;
+        }
+      }
     }
-
-    while (!q.isEmpty()) {
-      System.out.printf("%d ", q.dequeue());
-    }
-    System.out.println();
-
-    q.enqueue(100);
-    q.enqueue(200);
-    q.enqueue(300);
-    q.enqueue(400);
-    q.enqueue(500);
-
-    q.dequeue();
-    q.dequeue();
-    q.dequeue();
-    q.enqueue(1);
-    q.enqueue(2);
-    q.enqueue(99);
-    q.enqueue(-11);
-
-    while (!q.isEmpty()) {
-      System.out.printf("%d ", q.dequeue());
-    }
-    System.out.println();
   }
 }

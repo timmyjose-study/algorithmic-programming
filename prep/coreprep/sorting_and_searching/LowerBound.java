@@ -20,14 +20,7 @@ public class LowerBound {
       for (int i = 0; i < q; i++) {
         elem = in.nextInt();
 
-        idx = lowerBound(a, 0, n - 1, elem);
-
-        if (idx == n) {
-          System.out.printf("%d has no lower bound, index: %d\n", elem, idx);
-        } else {
-          System.out.printf("%d has a lower bound at index %d (elem %d)\n",
-                            elem, idx, a[idx]);
-        }
+        System.out.println(lowerBound(a, 0, n - 1, elem));
       }
     }
   }

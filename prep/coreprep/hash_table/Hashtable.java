@@ -1,4 +1,4 @@
-import java.util.Objects;
+import java.util.*;
 
 public class HashTable<K extends Comparable<K>, V> {
   private static final int INITIAL_CAPACITY = 1;
@@ -198,73 +198,45 @@ public class HashTable<K extends Comparable<K>, V> {
         sb.append(node).append(" ");
         node = node.next;
       }
-      sb.append("\n");
     }
 
     return sb.toString();
   }
 
   public static void main(String[] args) {
-    HashTable<Integer, Integer> intmap = new HashTable<>();
+    try (Scanner in = new Scanner(System.in)) {
+      HashTable<Integer, Integer> intmap = new HashTable<>();
 
-    intmap.insert(1, 1);
-    intmap.insert(1, 1);
-    intmap.insert(1, 1);
-    intmap.insert(2, 2);
-    intmap.insert(3, 3);
+      int nq = in.nextInt();
+      while (nq-- > 0) {
+        String[] cmd = in.nextLine().trim().split(" ");
 
-    System.out.println(intmap);
-    System.out.println("size = " + intmap.size());
-    System.out.println("loadFactor = " + intmap.loadFactor());
+        switch (cmd[0]) {
+        case "insert":
+          intmap.insert(Integer.parseInt(cmd[1]), Integer.parseInt(cmd[2]));
+          break;
 
-    System.out.printf("Is %d present? %s\n", 1, intmap.containsKey(1));
-    if (intmap.containsKey(1)) {
-      System.out.printf("%d => %d\n", 1, intmap.get(1));
-    }
-    System.out.printf("Is %d present? %s\n", 100, intmap.containsKey(100));
+        case "remove":
+          intmap.remove(Integer.parseInt(cmd[1]));
+          break;
 
-    intmap.remove(1);
-    System.out.printf("Is %d present? %s\n", 1, intmap.containsKey(1));
-    if (intmap.containsKey(1)) {
-      System.out.printf("%d => %d\n", 1, intmap.get(1));
-    }
+        case "isempty":
+          System.out.println(intmap.isEmpty());
+          break;
 
-    intmap.remove(1);
-    System.out.println(intmap);
-    System.out.println("size = " + intmap.size());
-    System.out.println("loadFactor = " + intmap.loadFactor());
+        case "print":
+          System.out.println(intmap);
+          break;
 
-    intmap.remove(1);
-    System.out.println(intmap);
-    System.out.println("size = " + intmap.size());
-    System.out.println("loadFactor = " + intmap.loadFactor());
+        case "size":
+          System.out.println(intmap.size());
+          break;
 
-    intmap.remove(2);
-    intmap.remove(3);
-    System.out.println(intmap);
-    System.out.printf("Is intmap empty? %s\n", intmap.isEmpty());
-
-    HashTable<String, Integer> strMap = new HashTable<>();
-    strMap.insert("Hello", 5);
-    strMap.insert("World", 5);
-    strMap.insert("Again", 100);
-    strMap.insert("Again", 100);
-    System.out.println(strMap);
-
-    // stress test
-    for (int i = 0; i < 1_000_000; i++) {
-      intmap.insert(i, i);
-    }
-
-    System.out.printf("intmap size = %d, loadFactor = %.2f\n", intmap.size(),
-                      intmap.loadFactor());
-
-    for (int i = 0; i < 1_000_000; i++) {
-      intmap.remove(i);
-    }
-
-    if (!intmap.isEmpty()) {
-      throw new IllegalStateException("intmap is not empty!");
+        case "loadfactor":
+          System.out.println(intmap.loadFactor());
+          break;
+        }
+      }
     }
   }
 }

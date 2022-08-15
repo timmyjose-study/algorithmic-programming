@@ -6,13 +6,17 @@ public class PolyHash {
 
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
-      String s = in.nextLine().trim();
-      System.out.printf("hash(%s) = %d\n", s, hash(s));
+      int n = in.nextInt();
+
+      while (n-- > 0) {
+        String s = in.nextLine().trim();
+        System.out.printf("%d\n", hash(s));
+      }
     }
   }
 
   private static long hash(String s) {
-    long x = 31;
+    long x = 53;
     long p = (int)1e9 + 9;
     long xpow = 1;
     long hash = 0;

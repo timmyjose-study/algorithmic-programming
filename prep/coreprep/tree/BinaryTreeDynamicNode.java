@@ -12,8 +12,6 @@ public class BinaryTreeDynamicNode {
       String[] nodes = in.nextLine().trim().split(" ");
       tree.read(nodes, Integer::parseInt);
 
-      System.out.println("Height of tree = " + tree.height());
-
       tree.preOrder();
       tree.preOrderIter();
 
@@ -62,17 +60,6 @@ public class BinaryTreeDynamicNode {
       }
 
       return node;
-    }
-
-    public int height() { return heightRecursive(this.root) - 1; }
-
-    private int heightRecursive(Node<T> root) {
-      if (root == null) {
-        return 0;
-      }
-
-      return 1 +
-          Math.max(heightRecursive(root.left), heightRecursive(root.right));
     }
 
     public void preOrder() {

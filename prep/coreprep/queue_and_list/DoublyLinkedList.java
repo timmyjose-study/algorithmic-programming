@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class DoublyLinkedList<T> implements List<T> {
   static class Node<T> {
     T data;
@@ -152,67 +154,55 @@ public class DoublyLinkedList<T> implements List<T> {
   }
 
   public static void main(String[] args) throws Exception {
-    List<Integer> dll = new DoublyLinkedList<>();
-    for (int i = 0; i < 5; i++) {
-      dll.pushFront(i);
-    }
+    try (Scanner in = new Scanner(System.in)) {
+      int n = in.nextInt();
+      List<Integer> dll = new DoublyLinkedList<>();
 
-    while (!dll.isEmpty()) {
-      System.out.printf("%d ", dll.popFront());
-    }
-    System.out.println();
+      while (n-- > 0) {
+        String[] cmd = in.nextLine().trim().split(" ");
 
-    for (int i = 5; i < 10; i++) {
-      dll.pushBack(i);
-    }
+        switch (cmd[0]) {
+        case "pushfront":
+          dll.pushFront(Integer.parseInt(cmd[1]));
+          break;
 
-    while (!dll.isEmpty()) {
-      System.out.printf("%d ", dll.popBack());
-    }
-    System.out.println();
+        case "popfront":
+          System.out.printf("%d ", dll.popFront());
+          break;
 
-    for (int i = 0, j = 1; i < 10; i++, j++) {
-      dll.pushFront(i);
-      dll.pushBack(j);
-    }
+        case "tillemptypopfront":
+          while (!dll.isEmpty()) {
+            System.out.printf("%d ", dll.popFront());
+          }
+          break;
 
-    while (true) {
-      System.out.printf("%d ", dll.popFront());
-      if (dll.isEmpty()) {
-        break;
+        case "newline":
+          System.out.println();
+          break;
+
+        case "tillemptypopback":
+          while (!dll.isEmpty()) {
+            System.out.printf("%d ", dll.popBack());
+          }
+          break;
+
+        case "pushback":
+          dll.pushBack(Integer.parseInt(cmd[1]));
+          break;
+
+        case "popback":
+          System.out.printf("%d ", dll.popBack());
+          break;
+
+        case "removeelem":
+          dll.removeElem(Integer.parseInt(cmd[1]));
+          break;
+
+        case "print":
+          System.out.println(dll);
+          break;
+        }
       }
-
-      System.out.printf("%d ", dll.popBack());
-      if (dll.isEmpty()) {
-        break;
-      }
     }
-    System.out.println();
-
-    dll.pushBack(100);
-    dll.pushBack(200);
-    dll.pushBack(300);
-    dll.pushBack(400);
-    dll.pushBack(500);
-    dll.pushBack(200);
-    System.out.println(dll);
-
-    dll.removeElem(200);
-    System.out.println(dll);
-
-    dll.removeElem(200);
-    System.out.println(dll);
-
-    dll.removeElem(100);
-    System.out.println(dll);
-
-    dll.removeElem(400);
-    System.out.println(dll);
-
-    dll.removeElem(300);
-    System.out.println(dll);
-
-    dll.removeElem(500);
-    System.out.println(dll);
   }
 }

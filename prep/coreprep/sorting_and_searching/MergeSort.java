@@ -17,10 +17,8 @@ public class MergeSort {
       sort(a, 0, n - 1);
       display(a, n);
 
-      if (isSorted(a) && isSameAsOriginalArray(b, a)) {
-        System.out.println("PASSED");
-      } else {
-        System.out.println("FAILED");
+      if (!isSorted(a) && isSameAsOriginalArray(b, a)) {
+        throw new IllegalStateException("sorting failed");
       }
     }
   }

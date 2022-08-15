@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class SinglyLinkedList<T extends Comparable<T>> implements List<T> {
   static class Node<T> {
     T data;
@@ -143,64 +145,55 @@ public class SinglyLinkedList<T extends Comparable<T>> implements List<T> {
   }
 
   public static void main(String[] args) throws Exception {
-    List<Integer> sll = new SinglyLinkedList<>();
+    try (Scanner in = new Scanner(System.in)) {
+      int n = in.nextInt();
+      List<Integer> sll = new SinglyLinkedList<>();
 
-    for (int i = 0; i < 5; i++) {
-      sll.pushFront(i);
-    }
+      while (n-- > 0) {
+        String[] cmd = in.nextLine().trim().split(" ");
 
-    while (!sll.isEmpty()) {
-      System.out.printf("%d ", sll.popFront());
-    }
-    System.out.println();
+        switch (cmd[0]) {
+        case "pushfront":
+          sll.pushFront(Integer.parseInt(cmd[1]));
+          break;
 
-    for (int i = 5; i < 10; i++) {
-      sll.pushBack(i);
-    }
+        case "popfront":
+          System.out.printf("%d ", sll.popFront());
+          break;
 
-    while (!sll.isEmpty()) {
-      System.out.printf("%d ", sll.popBack());
-    }
-    System.out.println();
+        case "tillemptypopfront":
+          while (!sll.isEmpty()) {
+            System.out.printf("%d ", sll.popFront());
+          }
+          break;
 
-    for (int i = 0, j = 1; i < 10; i++, j++) {
-      sll.pushFront(i);
-      sll.pushBack(j);
-    }
+        case "newline":
+          System.out.println();
+          break;
 
-    while (true) {
-      System.out.printf("%d ", sll.popFront());
-      if (sll.isEmpty()) {
-        break;
+        case "tillemptypopback":
+          while (!sll.isEmpty()) {
+            System.out.printf("%d ", sll.popBack());
+          }
+          break;
+
+        case "pushback":
+          sll.pushBack(Integer.parseInt(cmd[1]));
+          break;
+
+        case "popback":
+          System.out.printf("%d ", sll.popBack());
+          break;
+
+        case "removeelem":
+          sll.removeElem(Integer.parseInt(cmd[1]));
+          break;
+
+        case "print":
+          System.out.println(sll);
+          break;
+        }
       }
-
-      System.out.printf("%d ", sll.popBack());
-      if (sll.isEmpty()) {
-        break;
-      }
     }
-    System.out.println();
-
-    sll.pushBack(100);
-    sll.pushBack(200);
-    sll.pushBack(300);
-    sll.pushBack(400);
-    sll.pushBack(500);
-    sll.pushBack(200);
-
-    System.out.println(sll);
-    sll.removeElem(200);
-    System.out.println(sll);
-    sll.removeElem(200);
-    System.out.println(sll);
-    sll.removeElem(100);
-    System.out.println(sll);
-
-    sll.removeElem(400);
-    System.out.println(sll);
-    sll.removeElem(300);
-    System.out.println(sll);
-    sll.removeElem(500);
-    System.out.println(sll);
   }
 }

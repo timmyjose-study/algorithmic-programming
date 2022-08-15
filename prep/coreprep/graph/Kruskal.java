@@ -74,6 +74,11 @@ public class Kruskal {
       return this.from == other.from && this.to == other.to ||
           this.from == other.to && this.to == other.from;
     }
+
+    @Override
+    public String toString() {
+      return from + " " + to;
+    }
   }
 
   public static void main(String[] args) {
@@ -94,12 +99,12 @@ public class Kruskal {
         weights.put(edge, w);
       }
 
-      System.out.println(kruskal(n, edges, weights));
+      kruskal(n, edges, weights);
     }
   }
 
   // O(|E|log|V|)
-  private static long kruskal(int numVertices, List<Edge> edges,
+  private static void kruskal(int numVertices, List<Edge> edges,
                               Map<Edge, Integer> weights) {
     List<Edge> mstEdges = new ArrayList<>();
     DSUF dsuf = new DSUF(numVertices);
@@ -118,6 +123,9 @@ public class Kruskal {
       mstCost += (long)weights.get(e);
     }
 
-    return mstCost;
+    System.out.println(mstCost);
+    for (Edge e : mstEdges) {
+      System.out.println(e);
+    }
   }
 }

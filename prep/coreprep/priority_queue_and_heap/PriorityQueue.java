@@ -98,13 +98,11 @@ public class PriorityQueue<T extends Comparable<T>> {
         minQueue.add(d);
       }
 
-      System.out.println("Max queue...");
       while (!maxQueue.isEmpty()) {
         System.out.printf("%s ", maxQueue.poll());
       }
       System.out.println();
 
-      System.out.println("Min queue...");
       while (!minQueue.isEmpty()) {
         System.out.printf("%s ", minQueue.poll());
       }
