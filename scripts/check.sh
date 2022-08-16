@@ -75,10 +75,11 @@ case "${extension}" in
       fi
 
       rm ${output_file}
+      rm ${filename}.class
     else
       java -cp . "${filename}" < ${input_file}
     fi
-    rm "${filename}".class
+    rm *.class
     ;;
 
   py)

@@ -1,0 +1,23 @@
+22
+insert 1 1
+insert 1 1
+insert 2 2
+insert 2 2
+insert 3 3
+print
+size
+loadfactor
+present 1
+present 100
+remove 1
+print
+size
+loadfactor
+remove 1
+print
+size
+loadfactor
+remove 2
+remove 3
+print
+isempty
