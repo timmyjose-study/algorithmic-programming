@@ -79,7 +79,7 @@ case "${extension}" in
     else
       java -cp . "${filename}" < ${input_file}
     fi
-    rm *.class
+    rm -f *.class
     ;;
 
   py)

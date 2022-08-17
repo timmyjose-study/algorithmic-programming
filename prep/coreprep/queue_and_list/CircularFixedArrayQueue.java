@@ -10,7 +10,7 @@ public class CircularFixedArrayQueue<T> implements Queue<T> {
   public CircularFixedArrayQueue(int size) {
     this.arr = (T[]) new Object[size];
     this.front = 0;
-    this.rear = front = 0;
+    this.rear = 0;
     this.size = 0;
   }
 
