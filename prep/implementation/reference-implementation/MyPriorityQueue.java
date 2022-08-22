@@ -1,19 +1,19 @@
 import java.util.*;
 
-public class PriorityQueue<T extends Comparable<T>> {
+public class MyPriorityQueue<T extends Comparable<T>> {
   private List<T> arr;
   private int size;
   private Comparator<? super T> comp;
 
   private static final int DEFAULT_SIZE = 1024;
 
-  public PriorityQueue(Comparator<? super T> comp) {
+  public MyPriorityQueue(Comparator<? super T> comp) {
     this.arr = new ArrayList<>(DEFAULT_SIZE);
     this.size = 0;
     this.comp = comp;
   }
 
-  public PriorityQueue() { this((T l, T r) -> l.compareTo(r)); }
+  public MyPriorityQueue() { this((T l, T r) -> l.compareTo(r)); }
 
   private int parent(int idx) { return idx / 2; }
 
@@ -89,9 +89,9 @@ public class PriorityQueue<T extends Comparable<T>> {
 
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
-      PriorityQueue<Integer> maxQueue = new PriorityQueue<>();
-      PriorityQueue<Integer> minQueue =
-          new PriorityQueue<>((x, y) -> y.compareTo(x));
+      MyPriorityQueue<Integer> maxQueue = new MyPriorityQueue<>();
+      MyPriorityQueue<Integer> minQueue =
+          new MyPriorityQueue<>((l, r) -> r.compareTo(l));
 
       int n = in.nextInt();
       for (int i = 0; i < n; i++) {

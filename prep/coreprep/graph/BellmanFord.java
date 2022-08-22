@@ -123,7 +123,7 @@ public class BellmanFord {
         Pair edge = new Pair(from, to);
 
         if (visited.contains(edge)) {
-          break;
+          continue;
         }
 
         visited.add(edge);
