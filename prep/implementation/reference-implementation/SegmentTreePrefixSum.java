@@ -1,6 +1,6 @@
-import java.util.Scanner;
+import java.util.*;
 
-public class PrefixSum {
+public class SegmentTreePrefixSum {
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
       int n = in.nextInt();
@@ -9,34 +9,27 @@ public class PrefixSum {
       int[] tree = new int[4 * n];
 
       for (int i = 0; i < n; i++) {
-        a[i] = in.nextInt();
-        ps[i] = a[i];
+        ps[i] = a[i] = in.nextInt();
       }
 
-      // prefix sum array
       for (int i = 1; i < n; i++) {
         ps[i] += ps[i - 1];
       }
 
-      // segment tree
       build(tree, 0, 0, n - 1, a);
 
       int nq = in.nextInt();
-      for (int i = 0; i < nq; i++) {
+      while (nq-- > 0) {
         int l = in.nextInt();
         int r = in.nextInt();
 
-        if (l == 0) {
-          System.out.printf("%d ", ps[r]);
-        } else {
-          System.out.printf("%d ", ps[r] - ps[l - 1]);
-        }
-
-        System.out.println(query(tree, 0, 0, n - 1, l, r));
+        System.out.printf("%d %d\n", l == 0 ? ps[r] : ps[r] - ps[l - 1],
+                          query(tree, 0, 0, n - 1, l, r));
       }
     }
   }
 
+  // O(n)
   private static void build(int[] tree, int node, int start, int end, int[] a) {
     if (start == end) {
       tree[node] = a[start];
@@ -48,22 +41,26 @@ public class PrefixSum {
     }
   }
 
+  // O(logn)
   private static void update(int[] tree, int node, int start, int end, int idx,
-                             int val) {
+                             int val, int[] a) {
     if (start == end) {
+      a[idx] += val;
       tree[node] += val;
     } else {
       int mid = start + (end - start) / 2;
+
       if (start <= idx && idx <= mid) {
-        update(tree, node, start, mid, idx, val);
+        update(tree, 2 * node + 1, start, mid, idx, val, a);
       } else {
-        update(tree, node, mid + 1, end, idx, val);
+        update(tree, 2 * node + 2, mid + 1, end, idx, val, a);
       }
 
       tree[node] = tree[2 * node + 1] + tree[2 * node + 2];
     }
   }
 
+  // O(logn)
   private static int query(int[] tree, int node, int start, int end, int l,
                            int r) {
     if (start > r || end < l) {

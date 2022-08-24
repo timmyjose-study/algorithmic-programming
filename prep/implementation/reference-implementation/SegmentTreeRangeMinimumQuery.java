@@ -1,42 +1,40 @@
-import java.util.Scanner;
+import java.util.*;
 
-public class PrefixSum {
+public class SegmentTreeRangeMinimumQuery {
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
       int n = in.nextInt();
-      int[] a = new int[n];
-      int[] ps = new int[n];
-      int[] tree = new int[4 * n];
+      int nq = in.nextInt();
 
+      int[] a = new int[n];
+      int[] tree = new int[4 * n];
       for (int i = 0; i < n; i++) {
         a[i] = in.nextInt();
-        ps[i] = a[i];
       }
+      in.nextLine();
 
-      // prefix sum array
-      for (int i = 1; i < n; i++) {
-        ps[i] += ps[i - 1];
-      }
-
-      // segment tree
       build(tree, 0, 0, n - 1, a);
 
-      int nq = in.nextInt();
-      for (int i = 0; i < nq; i++) {
-        int l = in.nextInt();
-        int r = in.nextInt();
+      while (nq-- > 0) {
+        String[] cmd = in.nextLine().trim().split(" ");
 
-        if (l == 0) {
-          System.out.printf("%d ", ps[r]);
-        } else {
-          System.out.printf("%d ", ps[r] - ps[l - 1]);
+        switch (cmd[0]) {
+        case "q":
+          int l = Integer.parseInt(cmd[1]);
+          int r = Integer.parseInt(cmd[2]);
+          System.out.println(query(tree, 0, 0, n - 1, l - 1, r - 1));
+          break;
+
+        case "u":
+          int idx = Integer.parseInt(cmd[1]);
+          int val = Integer.parseInt(cmd[2]);
+          update(tree, 0, 0, n - 1, idx - 1, val, a);
         }
-
-        System.out.println(query(tree, 0, 0, n - 1, l, r));
       }
     }
   }
 
+  // O(n)
   private static void build(int[] tree, int node, int start, int end, int[] a) {
     if (start == end) {
       tree[node] = a[start];
@@ -44,30 +42,34 @@ public class PrefixSum {
       int mid = start + (end - start) / 2;
       build(tree, 2 * node + 1, start, mid, a);
       build(tree, 2 * node + 2, mid + 1, end, a);
-      tree[node] = tree[2 * node + 1] + tree[2 * node + 2];
+      tree[node] = Math.min(tree[2 * node + 1], tree[2 * node + 2]);
     }
   }
 
+  // O(logn)
   private static void update(int[] tree, int node, int start, int end, int idx,
-                             int val) {
+                             int val, int[] a) {
     if (start == end) {
-      tree[node] += val;
+      a[idx] = val;
+      tree[node] = val;
     } else {
       int mid = start + (end - start) / 2;
+
       if (start <= idx && idx <= mid) {
-        update(tree, node, start, mid, idx, val);
+        update(tree, 2 * node + 1, start, mid, idx, val, a);
       } else {
-        update(tree, node, mid + 1, end, idx, val);
+        update(tree, 2 * node + 2, mid + 1, end, idx, val, a);
       }
 
-      tree[node] = tree[2 * node + 1] + tree[2 * node + 2];
+      tree[node] = Math.min(tree[2 * node + 1], tree[2 * node + 2]);
     }
   }
 
+  // O(logn)
   private static int query(int[] tree, int node, int start, int end, int l,
                            int r) {
     if (start > r || end < l) {
-      return 0;
+      return Integer.MAX_VALUE;
     }
 
     if (l <= start && end <= r) {
@@ -78,6 +80,6 @@ public class PrefixSum {
     int lval = query(tree, 2 * node + 1, start, mid, l, r);
     int rval = query(tree, 2 * node + 2, mid + 1, end, l, r);
 
-    return lval + rval;
+    return Math.min(lval, rval);
   }
 }

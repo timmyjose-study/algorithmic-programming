@@ -37,7 +37,6 @@ public class SearchEngine {
         }
       }
       node.isTerminal = true;
-      node.score = score;
     }
 
     public int check(String s) { return check(this.root, s); }
