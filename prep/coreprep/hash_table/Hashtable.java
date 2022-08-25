@@ -169,7 +169,7 @@ public class HashTable<K extends Comparable<K>, V> {
   }
 
   public V get(K key) {
-    int hash = key.hashCode();
+    int hash = hash(key);
 
     Node<K, V> node = this.table[hash];
     while (node != null && !node.key.equals(key)) {
@@ -208,6 +208,8 @@ public class HashTable<K extends Comparable<K>, V> {
       HashTable<Integer, Integer> intmap = new HashTable<>();
 
       int nq = in.nextInt();
+      in.nextLine();
+
       while (nq-- > 0) {
         String[] cmd = in.nextLine().trim().split(" ");
 
@@ -234,6 +236,14 @@ public class HashTable<K extends Comparable<K>, V> {
 
         case "loadfactor":
           System.out.println(intmap.loadFactor());
+          break;
+
+        case "present":
+          System.out.println(intmap.containsKey(Integer.parseInt(cmd[1])));
+          break;
+
+        case "get":
+          System.out.println(intmap.get(Integer.parseInt(cmd[1])));
           break;
         }
       }

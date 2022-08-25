@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class PolyHash {
   public static void main(String[] args) {
@@ -6,14 +6,15 @@ public class PolyHash {
       int n = in.nextInt();
       in.nextLine();
 
-      while (n-- > 0) {
+      for (int i = 0; i < n; i++) {
         String s = in.nextLine().trim();
-        System.out.printf("%d\n", hash(s));
+        System.out.printf("%d\n", polyHash(s));
       }
     }
   }
 
-  private static long hash(String s) {
+  // O(n)
+  private static long polyHash(String s) {
     long x = 53;
     long p = (long)1e9 + 7;
     long xpow = 1;
