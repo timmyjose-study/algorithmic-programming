@@ -1,0 +1,23 @@
+10 23
+enqueue 0
+enqueue 1
+enqueue 2
+enqueue 3
+enqueue 4
+enqueue 5
+enqueue 6
+enqueue 7
+enqueue 8
+enqueue 9
+isfull
+isempty
+dequeue
+dequeue
+isfull
+isempty
+enqueue 8
+enqueue 9
+isfull
+tillemptydequeue
+newline
+isempty
