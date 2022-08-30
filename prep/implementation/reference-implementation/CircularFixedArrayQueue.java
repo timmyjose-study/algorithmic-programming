@@ -15,7 +15,7 @@ public class CircularFixedArrayQueue<T> implements MyQueue<T> {
 
   @Override
   public boolean isFull() {
-    return this.size == this.arr.length;
+    throw new UnsupportedOperationException("is full");
   }
 
   @Override
@@ -25,10 +25,6 @@ public class CircularFixedArrayQueue<T> implements MyQueue<T> {
 
   @Override
   public void enqueue(T elem) {
-    if (isFull()) {
-      throw new IllegalStateException("queue full");
-    }
-
     if (this.rear == this.arr.length) {
       this.rear = 0;
     }
@@ -56,19 +52,17 @@ public class CircularFixedArrayQueue<T> implements MyQueue<T> {
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
       int n = in.nextInt();
+      int nq = in.nextInt();
+      in.nextLine();
+
       MyQueue<Integer> q = new CircularFixedArrayQueue<>(n);
 
-      int nq = in.nextInt();
       while (nq-- > 0) {
         String[] cmd = in.nextLine().trim().split(" ");
 
         switch (cmd[0]) {
         case "isempty":
           System.out.println(q.isEmpty());
-          break;
-
-        case "isfull":
-          System.out.println(q.isFull());
           break;
 
         case "enqueue":
@@ -87,7 +81,7 @@ public class CircularFixedArrayQueue<T> implements MyQueue<T> {
           while (!q.isEmpty()) {
             System.out.printf("%d ", q.dequeue());
           }
-          System.out.println();
+          break;
         }
       }
     }

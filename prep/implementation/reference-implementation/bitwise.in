@@ -1,4 +1,4 @@
-29
+27
 setbit 4 1
 setbit 3 1
 clearbit 6 1
@@ -13,8 +13,6 @@ striplastsetbit 7
 lowestsetbit 10
 divide 12 2
 multiply 12 2
-clearbitsfromlsbtopos 29 3
-clearbitsfrommsbtopos 215 4
 countsetbits 10
 countsetbits 11
 countsetbits 0

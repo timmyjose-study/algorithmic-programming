@@ -2,7 +2,7 @@ import java.util.*;
 
 public class MyHashTable {
   @SuppressWarnings({"rawtypes", "unchecked"})
-  static class HashTable<K, V extends Comparable<K>> {
+  static class HashTable<K, V> {
     private static final int DEFAULT_CAPACITY = 1;
     private static final double MIN_LOAD_FACTOR = 0.2;
     private static final double MAX_LOAD_FACTOR = 0.75;
@@ -52,12 +52,11 @@ public class MyHashTable {
       }
 
       insert(this.table, key, value);
+      this.size++;
 
       if (loadFactor() > HashTable.MAX_LOAD_FACTOR) {
         expandAndRehash();
       }
-
-      this.size++;
     }
 
     private void insert(Node<K, V>[] table, K key, V value) {

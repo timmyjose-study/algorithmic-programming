@@ -106,7 +106,7 @@ public class AdjacencySetBFS {
       visited[v] = true;
       System.out.printf("%d ", v);
 
-      for (int neighbour : g.getAdjacentVertices(currVertex)) {
+      for (int neighbour : g.getAdjacentVertices(v)) {
         if (!visited[neighbour]) {
           q.add(neighbour);
         }
@@ -117,31 +117,32 @@ public class AdjacencySetBFS {
   // O(|V| + |E|) / O(|V|)
   private static void bfsRec(Graph g) {
     boolean[] visited = new boolean[g.size()];
+    Queue<Integer> q = new ArrayDeque<>();
     for (int i = 0; i < g.size(); i++) {
-      bfsRec(g, visited, i);
+      if (!visited[i]) {
+        q.add(i);
+        bfsRec(g, visited, q);
+      }
     }
     System.out.println();
   }
 
-  private static void bfsRec(Graph g, boolean[] visited, int currVertex) {
-    if (visited[currVertex]) {
+  private static void bfsRec(Graph g, boolean[] visited, Queue<Integer> q) {
+    if (q.isEmpty()) {
       return;
     }
 
-    visited[currVertex] = true;
-    System.out.printf("%d ", currVertex);
+    int v = q.poll();
+    visited[v] = true;
+    System.out.printf("%d ", v);
 
-    for (int neighbour : g.getAdjacentVertices(currVertex)) {
-      if (!visited[neighbour]) {
-        System.out.printf("%d ", neighbour);
-      }
-    }
-
-    for (int neighbour : g.getAdjacentVertices(currVertex)) {
+    for (int neighbour : g.getAdjacentVertices(v)) {
       if (!visited[neighbour]) {
         visited[neighbour] = true;
-        bfsRec(g, visited, neighbour);
+        q.add(neighbour);
       }
     }
+
+    bfsRec(g, visited, q);
   }
 }

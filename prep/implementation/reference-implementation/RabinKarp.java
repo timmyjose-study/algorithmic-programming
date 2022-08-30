@@ -26,41 +26,41 @@ public class RabinKarp {
 
   // O(|s| + |t|)
   private static List<Integer> rabinKarp(String s, String t) {
-    long m = 53;
+    long x = 53;
     long p = (long)1e9 + 7;
     int slen = s.length(), tlen = t.length();
 
-    long[] ppow = new long[Math.max(slen, tlen)];
-    ppow[0] = 1;
-    for (int i = 1; i < ppow.length; i++) {
-      ppow[i] = (ppow[i - 1] * p) % m;
+    long[] xpow = new long[Math.max(slen, tlen)];
+    xpow[0] = 1;
+    for (int i = 1; i < xpow.length; i++) {
+      xpow[i] = (xpow[i - 1] * x) % p;
     }
 
     long shash = 0L;
     for (int i = 0; i < slen; i++) {
-      shash = (shash + (s.charAt(i) - 'a' + 1) * ppow[i]) % m;
+      shash = (shash + (s.charAt(i) - 'a' + 1) * xpow[i]) % p;
     }
 
     if (shash < 0) {
-      shash += m;
+      shash += p;
     }
 
     long[] thashes = new long[tlen + 1];
     for (int i = 0; i < tlen; i++) {
-      thashes[i + 1] = (thashes[i] + (t.charAt(i) - 'a' + 1) * ppow[i]) % m;
+      thashes[i + 1] = (thashes[i] + (t.charAt(i) - 'a' + 1) * xpow[i]) % p;
     }
 
     for (int i = 0; i < thashes.length; i++) {
       if (thashes[i] < 0) {
-        thashes[i] += m;
+        thashes[i] += p;
       }
     }
 
     List<Integer> occurrences = new ArrayList<>();
     for (int i = 0; i < tlen - slen + 1; i++) {
-      long currHash = (thashes[i + slen] + m - thashes[i]) % m;
+      long currHash = (thashes[i + slen] + p - thashes[i]) % p;
 
-      if (currHash == shash * ppow[i] % m) {
+      if (currHash == shash * xpow[i] % p) {
         occurrences.add(i);
       }
     }
