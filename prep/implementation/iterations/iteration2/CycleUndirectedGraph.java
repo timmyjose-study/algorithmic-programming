@@ -79,4 +79,32 @@ public class CycleUndirectedGraph {
       System.out.println(hasCycle(g));
     }
   }
+
+  public static boolean hasCycle(Graph g) {
+    boolean[] visited = new boolean[g.size()];
+    for (int i = 0; i < g.size(); i++) {
+      if (!visited[i]) {
+        if (dfs(g, visited, i, -1)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  private static boolean dfs(Graph g, boolean[] visited, int currVertex,
+                             int parent) {
+    visited[currVertex] = true;
+
+    for (int neighbour : g.getAdjacentVertices(currVertex)) {
+      if (!visited[neighbour]) {
+        if (dfs(g, visited, neighbour, currVertex)) {
+          return true;
+        }
+      } else if (neighbour != parent) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

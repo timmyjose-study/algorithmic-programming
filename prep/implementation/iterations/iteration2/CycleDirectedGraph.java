@@ -78,4 +78,37 @@ public class CycleDirectedGraph {
       System.out.println(hasCycle(g));
     }
   }
+
+  public static boolean hasCycle(Graph g) {
+    boolean[] visited = new boolean[g.size()];
+    boolean[] callSt = new boolean[g.size()];
+
+    for (int i = 0; i < g.size(); i++) {
+      if (!visited[i]) {
+        if (dfs(g, visited, callSt, i)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  private static boolean dfs(Graph g, boolean[] visited, boolean[] callSt,
+                             int currVertex) {
+    if (callSt[currVertex]) {
+      return true;
+    }
+
+    visited[currVertex] = true;
+    callSt[currVertex] = true;
+
+    for (int neighbour : g.getAdjacentVertices(currVertex)) {
+      if (dfs(g, visited, callSt, neighbour)) {
+        return true;
+      }
+    }
+
+    callSt[currVertex] = false;
+    return false;
+  }
 }

@@ -3,7 +3,7 @@ import java.util.*;
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class MyHashTable {
   static class HashTable<K extends Comparable<K>, V> {
-    static class Node<K extends Comparable<K>, V> {
+    static class Node<K, V> {
       K key;
       V value;
       Node<K, V> prev;
@@ -46,10 +46,11 @@ public class MyHashTable {
     }
 
     private void expandAndRehash() {
+      int oldCapacity = this.capacity;
       this.capacity *= 2;
 
       Node<K, V>[] newTable = new Node[this.capacity];
-      for (int i = 0; i < this.size; i++) {
+      for (int i = 0; i < oldCapacity; i++) {
         Node<K, V> currNode = this.table[i];
         while (currNode != null) {
           insert(newTable, currNode.key, currNode.value);
@@ -60,10 +61,11 @@ public class MyHashTable {
     }
 
     private void shrinkAndRehash() {
+      int oldCapacity = this.capacity;
       this.capacity /= 2;
 
       Node<K, V>[] newTable = new Node[this.capacity];
-      for (int i = 0; i < this.size; i++) {
+      for (int i = 0; i < oldCapacity; i++) {
         Node<K, V> currNode = this.table[i];
         while (currNode != null) {
           insert(newTable, currNode.key, currNode.value);

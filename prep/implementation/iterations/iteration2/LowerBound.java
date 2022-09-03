@@ -22,4 +22,39 @@ public class LowerBound {
       }
     }
   }
+
+  private static int lowerBound(int[] a, int low, int high, int elem) {
+    while (low < high) {
+      int mid = low + (high - low) / 2;
+
+      if (a[mid] < elem) {
+        low = mid + 1;
+      } else {
+        high = mid;
+      }
+    }
+
+    return a[low] >= elem ? low : a.length;
+  }
+
+  private static int lowerBoundRec(int[] a, int low, int high, int elem) {
+    if (low == high) {
+      return a[low] >= elem ? low : a.length;
+    }
+
+    int mid = low + (high - low) / 2;
+
+    if (a[mid] < elem) {
+      return lowerBoundRec(a, mid + 1, high, elem);
+    }
+
+    return lowerBoundRec(a, low, mid, elem);
+  }
+
+  private static void display(int[] a, int n) {
+    for (int i = 0; i < n; i++) {
+      System.out.printf("%d ", a[i]);
+    }
+    System.out.println();
+  }
 }

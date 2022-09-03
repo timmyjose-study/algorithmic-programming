@@ -84,4 +84,49 @@ public class ConnectedComponentsDFS {
       }
     }
   }
+
+  static class IntWrapper {
+    int val;
+    int ccId;
+
+    IntWrapper(int val) { this.val = val; }
+  }
+
+  public static void connectedComponents(Graph g, int v1, int v2) {
+    boolean[] visited = new boolean[g.size()];
+    IntWrapper v1ccId = new IntWrapper(v1);
+    IntWrapper v2ccId = new IntWrapper(v2);
+    int ccId = 0;
+
+    for (int i = 0; i < g.size(); i++) {
+      dfs(g, visited, v1ccId, v2ccId, ccId, i);
+      ccId++;
+    }
+
+    if (v1ccId.ccId == v2ccId.ccId) {
+      System.out.println("yes");
+    } else {
+      System.out.println("no");
+    }
+  }
+
+  private static void dfs(Graph g, boolean[] visited, IntWrapper v1ccId,
+                          IntWrapper v2ccId, int ccId, int currVertex) {
+    if (visited[currVertex]) {
+      return;
+    }
+
+    if (currVertex == v1ccId.val) {
+      v1ccId.ccId = ccId;
+    }
+
+    if (currVertex == v2ccId.val) {
+      v2ccId.ccId = ccId;
+    }
+
+    visited[currVertex] = true;
+    for (int neighbour : g.getAdjacentVertices(currVertex)) {
+      dfs(g, visited, v1ccId, v2ccId, ccId, neighbour);
+    }
+  }
 }

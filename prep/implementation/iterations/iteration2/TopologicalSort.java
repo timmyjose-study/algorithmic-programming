@@ -81,6 +81,45 @@ public class TopologicalSort {
     }
   }
 
+  public static void topologicalSort(Graph g) {
+    Queue<Integer> q = new ArrayDeque<>();
+
+    Map<Integer, Integer> indeg = new HashMap<>();
+    for (int i = 0; i < g.size(); i++) {
+      int d = g.indegree(i);
+      indeg.put(i, d);
+
+      if (d == 0) {
+        q.add(i);
+      }
+    }
+
+    List<Integer> processed = new ArrayList<>();
+
+    while (!q.isEmpty()) {
+      int v = q.poll();
+
+      processed.add(v);
+
+      for (int neighbour : g.getAdjacentVertices(v)) {
+        indeg.put(neighbour, indeg.get(neighbour) - 1);
+
+        if (indeg.get(neighbour) == 0) {
+          q.add(neighbour);
+        }
+      }
+    }
+
+    if (processed.size() != g.size()) {
+      throw new IllegalStateException("cycle detected");
+    }
+
+    for (int v : processed) {
+      System.out.printf("%d ", v);
+    }
+    System.out.println();
+  }
+
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
       int n = in.nextInt();

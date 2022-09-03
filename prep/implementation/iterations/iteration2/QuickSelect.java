@@ -14,8 +14,49 @@ public class QuickSelect {
 
       while (nq-- > 0) {
         int k = in.nextInt();
-        System.out.println(select(a, 0, n - 1, k));
+        System.out.println(quickSelect(a, 0, n - 1, k));
       }
     }
+  }
+
+  private static int quickSelect(int[] a, int low, int high, int k) {
+    int r = ThreadLocalRandom.current().nextInt(high - low + 1) + low;
+    swap(a, low, r);
+
+    int mid = partition(a, low, high);
+
+    if (mid == k) {
+      return a[mid];
+    } else if (mid < k) {
+      return quickSelect(a, mid + 1, high, k);
+    }
+    return quickSelect(a, low, mid - 1, k);
+  }
+
+  private static int partition(int[] a, int low, int high) {
+    int pivot = a[low];
+    int j = low;
+
+    for (int i = low + 1; i <= high; i++) {
+      if (a[i] <= pivot) {
+        j++;
+
+        if (j != i) {
+          swap(a, i, j);
+        }
+      }
+    }
+
+    if (j != low) {
+      swap(a, j, low);
+    }
+
+    return j;
+  }
+
+  private static void swap(int[] a, int x, int y) {
+    int t = a[x];
+    a[x] = a[y];
+    a[y] = t;
   }
 }

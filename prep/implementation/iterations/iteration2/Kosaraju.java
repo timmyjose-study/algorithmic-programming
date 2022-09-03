@@ -81,13 +81,81 @@ public class Kosaraju {
 
       int m = in.nextInt();
       for (int i = 0; i < m; i++) {
-        int from = in.nextInt(
+        int from = in.nextInt();
         int to = in.nextInt();
 
         g.addEdge(from, to);
       }
 
       kosaraju(g);
+    }
+  }
+
+  public static void kosaraju(Graph g) {
+    boolean[] visited = new boolean[g.size()];
+    Stack<Integer> st = new Stack<>();
+
+    for (int i = 0; i < g.size(); i++) {
+      dfs1(g, visited, i, st);
+    }
+
+    Graph trans = g.transpose();
+    List<List<Integer>> scc = new ArrayList<>();
+
+    Arrays.fill(visited, false);
+
+    while (!st.isEmpty()) {
+      int v = st.pop();
+
+      List<Integer> comp = new ArrayList<>();
+      dfs2(trans, visited, v, comp);
+
+      if (!comp.isEmpty()) {
+        scc.add(comp);
+      }
+    }
+
+    int sccCount = scc.size();
+    if (sccCount == 0) {
+      System.out.println("no SCC");
+    } else {
+      System.out.println(sccCount);
+
+      for (List<Integer> comp : scc) {
+        for (int c : comp) {
+          System.out.printf("%d ", c);
+        }
+        System.out.println();
+      }
+    }
+  }
+
+  private static void dfs1(Graph g, boolean[] visited, int currVertex,
+                           Stack<Integer> st) {
+    if (visited[currVertex]) {
+      return;
+    }
+
+    visited[currVertex] = true;
+
+    for (int neighbour : g.getAdjacentVertices(currVertex)) {
+      dfs1(g, visited, neighbour, st);
+    }
+
+    st.push(currVertex);
+  }
+
+  private static void dfs2(Graph g, boolean[] visited, int currVertex,
+                           List<Integer> comp) {
+    if (visited[currVertex]) {
+      return;
+    }
+
+    visited[currVertex] = true;
+    comp.add(currVertex);
+
+    for (int neighbour : g.getAdjacentVertices(currVertex)) {
+      dfs2(g, visited, neighbour, comp);
     }
   }
 }

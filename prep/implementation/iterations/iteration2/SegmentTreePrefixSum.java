@@ -28,4 +28,31 @@ public class SegmentTreePrefixSum {
       }
     }
   }
+
+  private static void build(int[] tree, int node, int start, int end, int[] a) {
+    if (start == end) {
+      tree[node] = a[start];
+    } else {
+      int mid = start + (end - start) / 2;
+      build(tree, 2 * node + 1, start, mid, a);
+      build(tree, 2 * node + 2, mid + 1, end, a);
+      tree[node] = tree[2 * node + 1] + tree[2 * node + 2];
+    }
+  }
+
+  private static int query(int[] tree, int node, int start, int end, int l,
+                           int r) {
+    if (r < start || end < l) {
+      return 0;
+    }
+
+    if (l <= start && end <= r) {
+      return tree[node];
+    } else {
+      int mid = start + (end - start) / 2;
+      int lval = query(tree, 2 * node + 1, start, mid, l, r);
+      int rval = query(tree, 2 * node + 2, mid + 1, end, l, r);
+      return lval + rval;
+    }
+  }
 }

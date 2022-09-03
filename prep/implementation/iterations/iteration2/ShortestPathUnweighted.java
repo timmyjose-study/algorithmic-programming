@@ -21,7 +21,6 @@ public class ShortestPathUnweighted {
           ns.add(v);
         }
 
-        ns.sort(Integer::compare);
         return ns;
       }
     }
@@ -59,6 +58,76 @@ public class ShortestPathUnweighted {
     @Override
     public int size() {
       return this.size;
+    }
+  }
+
+  static class DistanceInfo {
+    int distance;
+    int lastVertex;
+
+    DistanceInfo() {
+      this.distance = -1;
+      this.lastVertex = -1;
+    }
+  }
+
+  public static void shortestPaths(Graph g, int source) {
+    boolean[] visited = new boolean[g.size()];
+
+    DistanceInfo[] dist = new DistanceInfo[g.size()];
+    for (int i = 0; i < g.size(); i++) {
+      dist[i] = new DistanceInfo();
+    }
+
+    dist[source].distance = 0;
+    dist[source].lastVertex = source;
+
+    Queue<Integer> q = new ArrayDeque<>();
+    q.add(source);
+
+    while (!q.isEmpty()) {
+      int v = q.poll();
+
+      if (visited[v]) {
+        continue;
+      }
+
+      visited[v] = true;
+
+      for (int neighbour : g.getAdjacentVertices(v)) {
+        if (dist[neighbour].distance == -1) {
+          dist[neighbour].distance = 1 + dist[v].distance;
+          dist[neighbour].lastVertex = v;
+          q.add(neighbour);
+        }
+      }
+    }
+
+    for (int i = 0; i < g.size(); i++) {
+      if (i == source) {
+        continue;
+      }
+
+      int d = dist[i].distance;
+      if (d == -1) {
+        System.out.println("no path");
+      } else {
+        System.out.println(d);
+
+        Stack<Integer> st = new Stack<>();
+        int currVertex = i;
+
+        while (currVertex != source) {
+          st.push(currVertex);
+          currVertex = dist[currVertex].lastVertex;
+        }
+        st.push(source);
+
+        while (!st.isEmpty()) {
+          System.out.printf("%d ", st.pop());
+        }
+        System.out.println();
+      }
     }
   }
 

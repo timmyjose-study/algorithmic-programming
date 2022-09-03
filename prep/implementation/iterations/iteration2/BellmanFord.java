@@ -62,6 +62,133 @@ public class BellmanFord {
     }
   }
 
+  static class Pair {
+    int first;
+    int second;
+
+    Pair(int first, int second) {
+      this.first = first;
+      this.second = second;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (o == null || !(o instanceof Pair)) {
+        return false;
+      }
+
+      Pair other = (Pair)o;
+      return this.first == other.first && this.second == other.second;
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(this.first, this.second);
+    }
+  }
+
+  static class DistanceInfo {
+    int distance;
+    int lastVertex;
+
+    DistanceInfo() {
+      this.distance = Integer.MAX_VALUE;
+      this.lastVertex = -1;
+    }
+  }
+
+  public static void bellmanFord(Graph g, Map<Pair, Integer> weights,
+                                 int source) {
+    DistanceInfo[] dist = new DistanceInfo[g.size()];
+    for (int i = 0; i < g.size(); i++) {
+      dist[i] = new DistanceInfo();
+    }
+
+    dist[source].distance = 0;
+    dist[source].lastVertex = source;
+
+    Queue<Integer> q = new ArrayDeque<>();
+    Set<Pair> visited = new HashSet<>();
+
+    for (int i = 0; i < g.size() - 1; i++) {
+      for (int j = 0; j < g.size(); j++) {
+        q.add(j);
+      }
+
+      while (!q.isEmpty()) {
+        int v = q.poll();
+
+        for (int neighbour : g.getAdjacentVertices(v)) {
+          Pair edge = new Pair(v, neighbour);
+
+          if (visited.contains(edge)) {
+            continue;
+          }
+
+          visited.add(edge);
+
+          if (weights.get(edge) + dist[v].distance < dist[neighbour].distance) {
+            dist[neighbour].distance = weights.get(edge) + dist[v].distance;
+            dist[neighbour].lastVertex = v;
+          }
+        }
+      }
+
+      q.clear();
+      visited.clear();
+    }
+
+    for (int i = 0; i < g.size(); i++) {
+      q.add(i);
+    }
+
+    while (!q.isEmpty()) {
+      int v = q.poll();
+
+      for (int neighbour : g.getAdjacentVertices(v)) {
+        Pair edge = new Pair(v, neighbour);
+
+        if (visited.contains(edge)) {
+          continue;
+        }
+
+        visited.add(edge);
+
+        if (weights.get(edge) + dist[v].distance < dist[neighbour].distance) {
+          throw new IllegalStateException("negative weight cycle detected");
+        }
+      }
+    }
+
+    for (int i = 0; i < g.size(); i++) {
+      if (i == source) {
+        continue;
+      }
+
+      int d = dist[i].distance;
+
+      if (d == Integer.MAX_VALUE) {
+        System.out.println("no path");
+      } else {
+        System.out.println(d);
+
+        Stack<Integer> st = new Stack<>();
+        int currVertex = i;
+
+        while (currVertex != source) {
+          st.push(currVertex);
+          currVertex = dist[currVertex].lastVertex;
+        }
+        st.push(source);
+
+        while (!st.isEmpty()) {
+          System.out.printf("%d ", st.pop());
+        }
+        System.out.println();
+      }
+    }
+  }
+
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
       int n = in.nextInt();

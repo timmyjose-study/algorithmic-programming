@@ -1,13 +1,40 @@
 import java.util.*;
 
-public class DynamicArrayQueue<T> implements MyQueue<T> {
+public class DynamicArrayQueue<T extends Comparable<T>> implements MyQueue<T> {
+  private DynamicArray<T> dynArr;
+
+  public DynamicArrayQueue() { this.dynArr = new DynamicArray<>(); }
+
+  @Override
+  public void enqueue(T elem) {
+    this.dynArr.pushBack(elem);
+  }
+
+  @Override
+  public T dequeue() {
+    if (isEmpty()) {
+      throw new IllegalStateException("queue empty");
+    }
+
+    return this.dynArr.popFront();
+  }
+
+  @Override
+  public boolean isFull() {
+    throw new UnsupportedOperationException("isFull");
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return this.dynArr.isEmpty();
+  }
+
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
       int nq = in.nextInt();
       in.nextLine();
 
       MyQueue<Integer> q = new DynamicArrayQueue<>();
-
       while (nq-- > 0) {
         String[] cmd = in.nextLine().trim().split(" ");
 

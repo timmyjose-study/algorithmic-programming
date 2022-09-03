@@ -28,45 +28,41 @@ public class Subsets {
     }
   }
 
-  // O(n * 2^n) / O(n)
-  private static List<List<Integer>> subsets(int[] a, int n) {
+  public static List<List<Integer>> subsets(int[] a, int n) {
     List<List<Integer>> subsets = new ArrayList<>();
-    subsets(a, n, 0, new ArrayList<>(), subsets);
+    subsets(a, 0, n, new ArrayList<>(), subsets);
 
     return subsets;
   }
 
-  private static void subsets(int[] a, int n, int currIdx, List<Integer> sub,
+  private static void subsets(int[] a, int currIdx, int n,
+                              List<Integer> currSubset,
                               List<List<Integer>> subsets) {
     if (currIdx == n) {
       List<Integer> tmp = new ArrayList<>();
-      for (int s : sub) {
-        tmp.add(s);
+      for (int e : currSubset) {
+        tmp.add(e);
       }
-
       subsets.add(tmp);
-      return;
+    } else {
+      currSubset.add(a[currIdx]);
+      subsets(a, currIdx + 1, n, currSubset, subsets);
+      currSubset.remove(currSubset.size() - 1);
+      subsets(a, currIdx + 1, n, currSubset, subsets);
     }
-
-    sub.add(a[currIdx]);
-    subsets(a, n, currIdx + 1, sub, subsets);
-    sub.remove(sub.size() - 1);
-    subsets(a, n, currIdx + 1, sub, subsets);
   }
 
-  // O(n * 2^n) / O(n)
-  private static List<List<Integer>> subsetsBitmask(int[] a, int n) {
+  public static List<List<Integer>> subsetsBitmask(int[] a, int n) {
     List<List<Integer>> subsets = new ArrayList<>();
 
     for (int i = 0; i < (1 << n); i++) {
-      List<Integer> sub = new ArrayList<>();
-
+      List<Integer> currSubset = new ArrayList<>();
       for (int j = 0; j < n; j++) {
         if ((i & (1 << j)) != 0) {
-          sub.add(a[j]);
+          currSubset.add(a[j]);
         }
       }
-      subsets.add(sub);
+      subsets.add(currSubset);
     }
 
     return subsets;

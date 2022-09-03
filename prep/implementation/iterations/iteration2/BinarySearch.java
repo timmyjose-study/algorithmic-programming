@@ -22,4 +22,43 @@ public class BinarySearch {
       }
     }
   }
+
+  private static int binarySearch(int[] a, int low, int high, int elem) {
+    while (low <= high) {
+      int mid = low + (high - low) / 2;
+
+      if (a[mid] == elem) {
+        return mid;
+      } else if (a[mid] < elem) {
+        low = mid + 1;
+      } else {
+        high = mid - 1;
+      }
+    }
+
+    return -1;
+  }
+
+  private static int binarySearchRec(int[] a, int low, int high, int elem) {
+    if (low > high) {
+      return -1;
+    }
+
+    int mid = low + (high - low) / 2;
+
+    if (a[mid] == elem) {
+      return mid;
+    } else if (a[mid] < elem) {
+      return binarySearchRec(a, mid + 1, high, elem);
+    }
+
+    return binarySearchRec(a, low, mid - 1, elem);
+  }
+
+  private static void display(int[] a, int n) {
+    for (int i = 0; i < n; i++) {
+      System.out.printf("%d ", a[i]);
+    }
+    System.out.println();
+  }
 }

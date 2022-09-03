@@ -1,6 +1,77 @@
 import java.util.*;
 
 public class MyPriorityQueue<T extends Comparable<T>> {
+  private List<T> arr;
+  private Comparator<? super T> comp;
+
+  public MyPriorityQueue() { this((p, q) -> p.compareTo(q)); }
+
+  public MyPriorityQueue(Comparator<? super T> comp) {
+    this.arr = new ArrayList<>();
+    this.comp = comp;
+  }
+
+  private void swap(int x, int y) {
+    T tmp = this.arr.get(x);
+    this.arr.set(x, this.arr.get(y));
+    this.arr.set(y, tmp);
+  }
+
+  private int parent(int p) { return p / 2; }
+
+  private int left(int p) { return 2 * p + 1; }
+
+  private int right(int p) { return 2 * p + 2; }
+
+  private void siftUp(int p) {
+    while (p != 0 &&
+           comp.compare(this.arr.get(p), this.arr.get(parent(p))) > 0) {
+      swap(p, parent(p));
+      p = parent(p);
+    }
+  }
+
+  private void siftDown(int p) {
+    int maxIdx = p;
+
+    int leftIdx = left(p);
+    if (leftIdx < this.arr.size() &&
+        comp.compare(this.arr.get(leftIdx), this.arr.get(maxIdx)) > 0) {
+      maxIdx = leftIdx;
+    }
+
+    int rightIdx = right(p);
+    if (rightIdx < this.arr.size() &&
+        comp.compare(this.arr.get(rightIdx), this.arr.get(maxIdx)) > 0) {
+      maxIdx = rightIdx;
+    }
+
+    if (maxIdx != p) {
+      swap(p, maxIdx);
+      siftDown(maxIdx);
+    }
+  }
+
+  public void add(T elem) {
+    this.arr.add(elem);
+    siftUp(this.arr.size() - 1);
+  }
+
+  public T poll() {
+    if (isEmpty()) {
+      throw new IllegalStateException("empty queue");
+    }
+
+    T val = this.arr.get(0);
+    this.arr.set(0, this.arr.get(this.arr.size() - 1));
+    this.arr.remove(this.arr.size() - 1);
+    siftDown(0);
+
+    return val;
+  }
+
+  public boolean isEmpty() { return this.arr.isEmpty(); }
+
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
       int n = in.nextInt();
