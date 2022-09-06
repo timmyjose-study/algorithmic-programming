@@ -1,18 +1,16 @@
 import java.util.*;
 
 @SuppressWarnings("unchecked")
-public class LinkedListStack<T> implements MyStack<T> {
-  private MyList<T> dll;
+public class LinkedListStack<T extends Comparable<T>> implements MyStack<T> {
+  private DoublyLinkedList<T> dll;
 
   public LinkedListStack() { this.dll = new DoublyLinkedList<>(); }
 
-  // O(1)
   @Override
   public void push(T elem) {
     this.dll.pushBack(elem);
   }
 
-  // O(1)
   @Override
   public T pop() {
     if (isEmpty()) {
@@ -22,27 +20,26 @@ public class LinkedListStack<T> implements MyStack<T> {
     return this.dll.popBack();
   }
 
-  // O(1)
   @Override
   public T peek() {
     if (isEmpty()) {
       throw new IllegalStateException("stack underflow");
     }
 
-    T lastVal = this.dll.popBack();
-    this.dll.pushBack(lastVal);
+    T val = this.dll.popBack();
+    this.dll.pushBack(val);
 
-    return lastVal;
+    return val;
+  }
+
+  @Override
+  public boolean isFull() {
+    throw new UnsupportedOperationException("isFull");
   }
 
   @Override
   public boolean isEmpty() {
     return this.dll.isEmpty();
-  }
-
-  @Override
-  public boolean isFull() {
-    throw new UnsupportedOperationException("isfull");
   }
 
   public static void main(String[] args) {

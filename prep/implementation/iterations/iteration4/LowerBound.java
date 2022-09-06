@@ -23,7 +23,7 @@ public class LowerBound {
     }
   }
 
-  private static int lowerBound(int[] a, int low, int high, int elem) {
+  public static int lowerBound(int[] a, int low, int high, int elem) {
     while (low < high) {
       int mid = low + (high - low) / 2;
 
@@ -37,7 +37,7 @@ public class LowerBound {
     return a[low] >= elem ? low : a.length;
   }
 
-  private static int lowerBoundRec(int[] a, int low, int high, int elem) {
+  public static int lowerBoundRec(int[] a, int low, int high, int elem) {
     if (low >= high) {
       return a[low] >= elem ? low : a.length;
     }
@@ -46,9 +46,8 @@ public class LowerBound {
 
     if (a[mid] < elem) {
       return lowerBoundRec(a, mid + 1, high, elem);
-    } else {
-      return lowerBound(a, low, mid, elem);
     }
+    return lowerBoundRec(a, low, mid, elem);
   }
 
   private static void display(int[] a, int n) {

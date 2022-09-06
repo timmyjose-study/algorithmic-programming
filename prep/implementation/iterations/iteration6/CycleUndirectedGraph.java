@@ -3,7 +3,7 @@ import java.util.*;
 public class CycleUndirectedGraph {
   static interface Graph {
     void addEdge(int from, int to);
-    List<Integer> getAdjacenctVertices(int v);
+    List<Integer> getAdjacentVertices(int v);
     int size();
   }
 
@@ -15,7 +15,7 @@ public class CycleUndirectedGraph {
 
       void addEdge(int v) { this.vs.add(v); }
 
-      List<Integer> getAdjacenctVertices() {
+      List<Integer> getAdjacentVertices() {
         List<Integer> ns = new ArrayList<>();
         for (int v : this.vs) {
           ns.add(v);
@@ -48,12 +48,12 @@ public class CycleUndirectedGraph {
     }
 
     @Override
-    public List<Integer> getAdjacenctVertices(int v) {
+    public List<Integer> getAdjacentVertices(int v) {
       if (v < 0 || v >= this.size) {
         throw new IllegalArgumentException("invalid vertex");
       }
 
-      return this.vertices.get(v).getAdjacenctVertices();
+      return this.vertices.get(v).getAdjacentVertices();
     }
 
     @Override
@@ -80,8 +80,7 @@ public class CycleUndirectedGraph {
     }
   }
 
-  // O(|V| + |E|)
-  private static boolean hasCycle(Graph g) {
+  public static boolean hasCycle(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
       if (!visited[i]) {
@@ -90,23 +89,22 @@ public class CycleUndirectedGraph {
         }
       }
     }
-
     return false;
   }
 
   private static boolean dfs(Graph g, boolean[] visited, int currVertex,
                              int parent) {
     visited[currVertex] = true;
-    for (int neighbour : g.getAdjacenctVertices(currVertex)) {
+
+    for (int neighbour : g.getAdjacentVertices(currVertex)) {
       if (!visited[neighbour]) {
         if (dfs(g, visited, neighbour, currVertex)) {
           return true;
         }
-      } else if (parent != neighbour) {
+      } else if (neighbour != parent) {
         return true;
       }
     }
-
     return false;
   }
 }

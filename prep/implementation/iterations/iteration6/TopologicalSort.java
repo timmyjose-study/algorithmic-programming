@@ -3,7 +3,7 @@ import java.util.*;
 public class TopologicalSort {
   static interface Graph {
     void addEdge(int from, int to);
-    List<Integer> getAdjacenctVertices(int v);
+    List<Integer> getAdjacentVertices(int v);
     int indegree(int v);
     int size();
   }
@@ -16,7 +16,7 @@ public class TopologicalSort {
 
       void addEdge(int v) { this.vs.add(v); }
 
-      List<Integer> getAdjacenctVertices() {
+      List<Integer> getAdjacentVertices() {
         List<Integer> ns = new ArrayList<>();
         for (int v : this.vs) {
           ns.add(v);
@@ -51,12 +51,12 @@ public class TopologicalSort {
     }
 
     @Override
-    public List<Integer> getAdjacenctVertices(int v) {
+    public List<Integer> getAdjacentVertices(int v) {
       if (v < 0 || v >= this.size) {
         throw new IllegalArgumentException("invalid vertex");
       }
 
-      return this.vertices.get(v).getAdjacenctVertices();
+      return this.vertices.get(v).getAdjacentVertices();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class TopologicalSort {
       }
 
       int indeg = 0;
-      for (int i = 0; i < size(); i++) {
+      for (int i = 0; i < this.size; i++) {
         if (this.vertices.get(i).hasEdge(v)) {
           indeg++;
         }
@@ -79,6 +79,43 @@ public class TopologicalSort {
     public int size() {
       return this.size;
     }
+  }
+
+  public static void topologicalSort(Graph g) {
+    Queue<Integer> q = new ArrayDeque<>();
+
+    Map<Integer, Integer> deg = new HashMap<>();
+    for (int i = 0; i < g.size(); i++) {
+      int indeg = g.indegree(i);
+      deg.put(i, indeg);
+
+      if (indeg == 0) {
+        q.add(i);
+      }
+    }
+
+    List<Integer> ordering = new ArrayList<>();
+    while (!q.isEmpty()) {
+      int v = q.poll();
+
+      ordering.add(v);
+
+      for (int neighbour : g.getAdjacentVertices(v)) {
+        deg.put(neighbour, deg.get(neighbour) - 1);
+        if (deg.get(neighbour) == 0) {
+          q.add(neighbour);
+        }
+      }
+    }
+
+    if (ordering.size() != g.size()) {
+      throw new IllegalStateException("cycle detected");
+    }
+
+    for (int v : ordering) {
+      System.out.printf("%d ", v);
+    }
+    System.out.println();
   }
 
   public static void main(String[] args) {
@@ -96,42 +133,5 @@ public class TopologicalSort {
 
       topologicalSort(g);
     }
-  }
-
-  // O(|V| + |E|)
-  private static void topologicalSort(Graph g) {
-    Queue<Integer> q = new ArrayDeque<>();
-
-    Map<Integer, Integer> deg = new HashMap<>();
-    for (int i = 0; i < g.size(); i++) {
-      int d = g.indegree(i);
-      deg.put(i, g.indegree(i));
-
-      if (d == 0) {
-        q.add(i);
-      }
-    }
-
-    List<Integer> ordering = new ArrayList<>();
-    while (!q.isEmpty()) {
-      int v = q.poll();
-
-      ordering.add(v);
-      for (int neighbour : g.getAdjacenctVertices(v)) {
-        deg.put(neighbour, deg.get(neighbour) - 1);
-        if (deg.get(neighbour) == 0) {
-          q.add(neighbour);
-        }
-      }
-    }
-
-    if (ordering.size() != g.size()) {
-      throw new IllegalStateException("cycle detected");
-    }
-
-    for (int v : ordering) {
-      System.out.printf("%d ", v);
-    }
-    System.out.println();
   }
 }

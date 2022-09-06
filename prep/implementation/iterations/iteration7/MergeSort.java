@@ -16,14 +16,7 @@ public class MergeSort {
     }
   }
 
-  private static void display(int[] a, int n) {
-    for (int i = 0; i < n; i++) {
-      System.out.printf("%d ", a[i]);
-    }
-    System.out.println();
-  }
-
-  private static void sort(int[] a, int n) { sort(a, 0, n - 1); }
+  public static void sort(int[] a, int n) { sort(a, 0, n - 1); }
 
   private static void sort(int[] a, int low, int high) {
     if (low >= high) {
@@ -37,20 +30,20 @@ public class MergeSort {
   }
 
   private static void merge(int[] a, int low, int mid, int high) {
-    if (mid < low || high <= mid) {
+    if (low > mid || mid > high) {
       return;
     }
 
     int llen = mid - low + 1;
     int[] left = new int[llen];
-    for (int i = low; i <= mid; i++) {
-      left[i - low] = a[i];
+    for (int i = 0; i < llen; i++) {
+      left[i] = a[i + low];
     }
 
     int rlen = high - mid;
     int[] right = new int[rlen];
-    for (int i = mid + 1; i <= high; i++) {
-      right[i - mid - 1] = a[i];
+    for (int i = 0; i < rlen; i++) {
+      right[i] = a[mid + i + 1];
     }
 
     int lpos = 0, rpos = 0;
@@ -67,5 +60,12 @@ public class MergeSort {
         a[i] = left[lpos++];
       }
     }
+  }
+
+  private static void display(int[] a, int n) {
+    for (int i = 0; i < n; i++) {
+      System.out.printf("%d ", a[i]);
+    }
+    System.out.println();
   }
 }

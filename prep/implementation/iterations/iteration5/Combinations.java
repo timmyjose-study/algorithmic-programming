@@ -15,7 +15,7 @@ public class Combinations {
         a[i] = in.nextInt();
       }
 
-      List<List<Integer>> combinations = combine(a, n, k);
+      List<List<Integer>> combinations = combinations(a, n, k);
       for (List<Integer> comb : combinations) {
         for (int c : comb) {
           System.out.printf("%d ", c);
@@ -25,23 +25,23 @@ public class Combinations {
     }
   }
 
-  // O(n * nCk) / O(n)
-  private static List<List<Integer>> combine(int[] a, int n, int k) {
-    List<List<Integer>> combinations = new ArrayList<>();
-    combine(a, n, k, 0, new ArrayList<>(), combinations);
-    return combinations;
+  public static List<List<Integer>> combinations(int[] a, int n, int k) {
+    List<List<Integer>> combs = new ArrayList<>();
+    combinations(a, 0, n, new ArrayList<>(), combs, k);
+
+    return combs;
   }
 
-  private static void combine(int[] a, int n, int k, int currIdx,
-                              List<Integer> comb,
-                              List<List<Integer>> combinations) {
-    if (comb.size() == k) {
+  private static void combinations(int[] a, int currIdx, int n,
+                                   List<Integer> currComb,
+                                   List<List<Integer>> combs, int k) {
+    if (currComb.size() == k) {
       List<Integer> tmp = new ArrayList<>();
-      for (int c : comb) {
+      for (int c : currComb) {
         tmp.add(c);
       }
+      combs.add(tmp);
 
-      combinations.add(tmp);
       return;
     }
 
@@ -49,9 +49,9 @@ public class Combinations {
       return;
     }
 
-    comb.add(a[currIdx]);
-    combine(a, n, k, currIdx + 1, comb, combinations);
-    comb.remove(comb.size() - 1);
-    combine(a, n, k, currIdx + 1, comb, combinations);
+    currComb.add(a[currIdx]);
+    combinations(a, currIdx + 1, n, currComb, combs, k);
+    currComb.remove(currComb.size() - 1);
+    combinations(a, currIdx + 1, n, currComb, combs, k);
   }
 }

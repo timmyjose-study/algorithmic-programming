@@ -54,11 +54,13 @@ public class SegmentTreeRangeMinimumQuery {
       a[idx] = val;
     } else {
       int mid = start + (end - start) / 2;
-      if (start <= idx && idx <= mid) {
+
+      if (idx >= start && idx <= mid) {
         update(tree, 2 * node + 1, start, mid, idx, val, a);
       } else {
         update(tree, 2 * node + 2, mid + 1, end, idx, val, a);
       }
+
       tree[node] = Math.min(tree[2 * node + 1], tree[2 * node + 2]);
     }
   }
@@ -75,6 +77,7 @@ public class SegmentTreeRangeMinimumQuery {
       int mid = start + (end - start) / 2;
       int lval = query(tree, 2 * node + 1, start, mid, l, r);
       int rval = query(tree, 2 * node + 2, mid + 1, end, l, r);
+
       return Math.min(lval, rval);
     }
   }

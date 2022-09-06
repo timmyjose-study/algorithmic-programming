@@ -1,7 +1,7 @@
 import java.util.*;
 
-public class DynamicArrayQueue<T> implements MyQueue<T> {
-  private MyList<T> dynArr;
+public class DynamicArrayQueue<T extends Comparable<T>> implements MyQueue<T> {
+  private DynamicArray<T> dynArr;
 
   public DynamicArrayQueue() { this.dynArr = new DynamicArray<>(); }
 
@@ -15,18 +15,17 @@ public class DynamicArrayQueue<T> implements MyQueue<T> {
     if (isEmpty()) {
       throw new IllegalStateException("queue empty");
     }
-
     return this.dynArr.popFront();
+  }
+
+  @Override
+  public boolean isFull() {
+    throw new UnsupportedOperationException("isFull");
   }
 
   @Override
   public boolean isEmpty() {
     return this.dynArr.isEmpty();
-  }
-
-  @Override
-  public boolean isFull() {
-    throw new UnsupportedOperationException("is full");
   }
 
   public static void main(String[] args) {
@@ -35,7 +34,6 @@ public class DynamicArrayQueue<T> implements MyQueue<T> {
       in.nextLine();
 
       MyQueue<Integer> q = new DynamicArrayQueue<>();
-
       while (nq-- > 0) {
         String[] cmd = in.nextLine().trim().split(" ");
 

@@ -1,40 +1,38 @@
 import java.util.*;
 
 public class Trie {
-  static class Node {
+  static class TrieNode {
     boolean isTerminal;
     int score;
-    Map<Character, Node> children;
+    Map<Character, TrieNode> children;
 
-    Node() { this.children = new HashMap<>(); }
+    TrieNode() {
+      this.children = new HashMap<>();
+      this.score = -1;
+    }
   }
 
-  private Node root;
+  private TrieNode root;
 
-  public Trie() { this.root = new Node(); }
+  public Trie() { this.root = new TrieNode(); }
 
-  public void insert(String word, int score) { insert(this.root, word, score); }
+  public void insert(String s, int score) { insert(this.root, s, score); }
 
-  private void insert(Node node, String word, int score) {
-    for (int i = 0; i < word.length(); i++) {
-      char c = word.charAt(i);
+  private void insert(TrieNode node, String s, int score) {
+    for (char c : s.toCharArray()) {
       if (node.children.get(c) == null) {
-        node.children.put(c, new Node());
+        node.children.put(c, new TrieNode());
       }
       node = node.children.get(c);
-      if (node.score < score) {
-        node.score = score;
-      }
+      node.score = Math.max(node.score, score);
     }
-
     node.isTerminal = true;
   }
 
-  public int search(String word) { return search(this.root, word); }
+  public int search(String s) { return search(this.root, s); }
 
-  private int search(Node node, String word) {
-    for (int i = 0; i < word.length(); i++) {
-      char c = word.charAt(i);
+  private int search(TrieNode node, String s) {
+    for (char c : s.toCharArray()) {
       if (node.children.get(c) == null) {
         return -1;
       }

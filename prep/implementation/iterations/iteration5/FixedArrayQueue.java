@@ -2,19 +2,16 @@ import java.util.*;
 
 @SuppressWarnings("unchecked")
 public class FixedArrayQueue<T> implements MyQueue<T> {
-  private static final int DEFAULT_SIZE = 1024;
-
   private T[] arr;
   private int front;
   private int rear;
   private int size;
 
-  public FixedArrayQueue() { this(FixedArrayQueue.DEFAULT_SIZE); }
-
-  public FixedArrayQueue(int size) {
+  public FixedArrayQueue(int capacity) {
+    this.arr = (T[]) new Object[capacity];
+    this.front = 0;
+    this.rear = 0;
     this.size = 0;
-    this.arr = (T[]) new Object[size];
-    this.front = this.rear = 0;
   }
 
   @Override
@@ -23,8 +20,8 @@ public class FixedArrayQueue<T> implements MyQueue<T> {
       throw new IllegalStateException("queue full");
     }
 
-    this.size++;
     this.arr[this.front++] = elem;
+    this.size++;
   }
 
   @Override
@@ -33,8 +30,10 @@ public class FixedArrayQueue<T> implements MyQueue<T> {
       throw new IllegalStateException("queue empty");
     }
 
+    T val = this.arr[this.rear++];
     this.size--;
-    return this.arr[this.rear++];
+
+    return val;
   }
 
   @Override
@@ -44,7 +43,7 @@ public class FixedArrayQueue<T> implements MyQueue<T> {
 
   @Override
   public boolean isFull() {
-    return this.front == this.arr.length;
+    return this.size == this.arr.length - 1;
   }
 
   public static void main(String[] args) {

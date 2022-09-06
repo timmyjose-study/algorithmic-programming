@@ -1,50 +1,55 @@
 import java.util.*;
 
-@SuppressWarnings("unchecked")
-public class DynamicArray<T> implements MyList<T> {
+@SuppressWarnings({"rawtypes", "unchecked"})
+public class DynamicArray<T extends Comparable<T>> implements MyList<T> {
   private T[] arr;
   private int len;
   private int capacity;
 
+  private static final int DEFAULT_CAPACITY = 1;
+
   public DynamicArray() {
+    this.arr = (T[]) new Comparable[DynamicArray.DEFAULT_CAPACITY];
     this.len = 0;
-    this.capacity = 1;
-    this.arr = (T[]) new Object[this.capacity];
+    this.capacity = DynamicArray.DEFAULT_CAPACITY;
   }
 
-  // O(n)
+  private void expand() {
+    this.capacity *= 2;
+    T[] newArr = (T[]) new Comparable[this.capacity];
+    System.arraycopy(this.arr, 0, newArr, 0, this.len);
+    this.arr = newArr;
+  }
+
+  private void shrink() {
+    this.capacity /= 2;
+    T[] newArr = (T[]) new Comparable[this.capacity];
+    System.arraycopy(this.arr, 0, newArr, 0, this.len);
+    this.arr = newArr;
+  }
+
   @Override
   public void pushFront(T elem) {
     if (this.len == this.capacity) {
       expand();
     }
 
-    for (int i = this.len; i > 0; i--) {
+    this.len++;
+    for (int i = this.len - 1; i > 0; i--) {
       this.arr[i] = this.arr[i - 1];
     }
 
     this.arr[0] = elem;
-    this.len++;
   }
 
-  // O(1)
   @Override
   public void pushBack(T elem) {
     if (this.len == this.capacity) {
       expand();
     }
-
     this.arr[this.len++] = elem;
   }
 
-  private void expand() {
-    this.capacity *= 2;
-    T[] newArr = (T[]) new Object[this.capacity];
-    System.arraycopy(arr, 0, newArr, 0, len);
-    this.arr = newArr;
-  }
-
-  // O(n)
   @Override
   public T popFront() {
     if (isEmpty()) {
@@ -52,8 +57,7 @@ public class DynamicArray<T> implements MyList<T> {
     }
 
     T val = this.arr[0];
-
-    for (int i = 0; i < len; i++) {
+    for (int i = 0; i < this.len; i++) {
       this.arr[i] = this.arr[i + 1];
     }
     this.len--;
@@ -65,7 +69,6 @@ public class DynamicArray<T> implements MyList<T> {
     return val;
   }
 
-  // O(1)
   @Override
   public T popBack() {
     if (isEmpty()) {
@@ -82,59 +85,51 @@ public class DynamicArray<T> implements MyList<T> {
     return val;
   }
 
-  private void shrink() {
-    this.capacity /= 2;
-    T[] newArr = (T[]) new Object[this.capacity];
-    System.arraycopy(arr, 0, newArr, 0, len);
-    this.arr = newArr;
-  }
-
   @Override
   public T get(int idx) {
+    if (isEmpty()) {
+      throw new IllegalStateException("empty list");
+    }
+
     if (idx < 0 || idx >= this.len) {
-      throw new IllegalArgumentException("invalid index");
+      throw new IllegalStateException("invalid index");
     }
 
     return this.arr[idx];
   }
 
-  // O(n)
   @Override
   public void removeElem(T elem) {
     if (isEmpty()) {
-      throw new IllegalStateException("empty list");
+      return;
     }
 
-    int pos = -1;
-    for (int i = 0; i < len; i++) {
-      if (this.arr[i].equals(elem)) {
-        pos = i;
+    int elemPos = -1;
+    for (int i = 0; i < this.len; i++) {
+      if (this.arr[i].compareTo(elem) == 0) {
+        elemPos = i;
         break;
       }
     }
 
-    if (pos != -1) {
-      for (int i = pos; i < len; i++) {
-        this.arr[i] = this.arr[i + 1];
-      }
+    for (int i = elemPos; i < this.len; i++) {
+      this.arr[i] = this.arr[i + 1];
+    }
+    this.len--;
 
-      this.len--;
-      if (this.len < this.capacity / 2) {
-        shrink();
-      }
+    if (this.len < this.capacity / 2) {
+      shrink();
     }
   }
 
-  // O(1)
-  @Override
-  public boolean isEmpty() {
-    return this.len == 0;
-  }
-
-  // O(1)
   @Override
   public int size() {
     return this.len;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return this.len == 0;
   }
 
   @Override
@@ -145,13 +140,10 @@ public class DynamicArray<T> implements MyList<T> {
 
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < this.len; i++) {
-      if (i > 0) {
-        sb.append(" ");
-      }
-      sb.append(this.arr[i]);
+      sb.append(this.arr[i]).append(" ");
     }
 
-    return sb.toString();
+    return sb.toString().trim();
   }
 
   public static void main(String[] args) {

@@ -13,6 +13,7 @@ public class Bitwise {
         case "setbit": {
           int m = Integer.parseInt(cmd[1]);
           int pos = Integer.parseInt(cmd[2]);
+
           m |= 1 << pos;
           System.out.println(m);
         } break;
@@ -20,6 +21,7 @@ public class Bitwise {
         case "clearbit": {
           int m = Integer.parseInt(cmd[1]);
           int pos = Integer.parseInt(cmd[2]);
+
           m &= ~(1 << pos);
           System.out.println(m);
         } break;
@@ -27,14 +29,15 @@ public class Bitwise {
         case "togglebit": {
           int m = Integer.parseInt(cmd[1]);
           int pos = Integer.parseInt(cmd[2]);
+
           m ^= 1 << pos;
           System.out.println(m);
-
         } break;
 
         case "checkbit": {
           int m = Integer.parseInt(cmd[1]);
           int pos = Integer.parseInt(cmd[2]);
+
           System.out.println((m & (1 << pos)));
         } break;
 
@@ -52,45 +55,52 @@ public class Bitwise {
 
         case "striplastsetbit": {
           int m = Integer.parseInt(cmd[1]);
-          m = m & ~1;
+          m &= m - 1;
           System.out.println(m);
         } break;
 
         case "divide": {
           int m = Integer.parseInt(cmd[1]);
-          int k = (int)Math.log(Integer.parseInt(cmd[2]) / Math.log(2));
-          System.out.println((m >> k));
+          int k =
+              (int)Math.round(Math.log(Integer.parseInt(cmd[2]) / Math.log(2)));
+
+          m >>= k;
+          System.out.println(m);
         } break;
 
         case "multiply": {
           int m = Integer.parseInt(cmd[1]);
-          int k = (int)Math.log(Integer.parseInt(cmd[2]) / Math.log(2));
-          System.out.println((m << k));
+          int k =
+              (int)Math.round(Math.log(Integer.parseInt(cmd[2]) / Math.log(2)));
 
+          m <<= k;
+          System.out.println(m);
         } break;
 
         case "countsetbits": {
           int m = Integer.parseInt(cmd[1]);
-          int c = 0;
-          while (m > 0) {
-            c += m & 1;
+
+          int cnt = 0;
+          while (m != 0) {
+            cnt += m & 1;
             m >>= 1;
           }
-          System.out.println(c);
+          System.out.println(cnt);
         } break;
 
         case "log2": {
           int m = Integer.parseInt(cmd[1]);
-          int l = 0;
+
+          int log = 0;
           while ((m >>= 1) != 0) {
-            l++;
+            log++;
           }
-          System.out.println(l);
+          System.out.println(log);
         } break;
 
         case "checkpowerof2": {
           int m = Integer.parseInt(cmd[1]);
-          System.out.println((m & (m - 1)) == 0 ? "1" : "0");
+          System.out.println(((m & (m - 1)) == 0 ? "1" : "0"));
         } break;
 
         default:

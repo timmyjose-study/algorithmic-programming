@@ -16,13 +16,6 @@ public class SelectionSort {
     }
   }
 
-  private static void display(int[] a, int n) {
-    for (int i = 0; i < n; i++) {
-      System.out.printf("%d ", a[i]);
-    }
-    System.out.println();
-  }
-
   private static void sort(int[] a, int n) {
     for (int i = 0; i < n - 1; i++) {
       int minIdx = i;
@@ -42,5 +35,12 @@ public class SelectionSort {
     int t = a[x];
     a[x] = a[y];
     a[y] = t;
+  }
+
+  private static void display(int[] a, int n) {
+    for (int i = 0; i < n; i++) {
+      System.out.printf("%d ", a[i]);
+    }
+    System.out.println();
   }
 }

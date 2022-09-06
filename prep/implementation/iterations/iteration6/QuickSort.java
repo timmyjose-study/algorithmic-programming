@@ -17,21 +17,14 @@ public class QuickSort {
     }
   }
 
-  private static void display(int[] a, int n) {
-    for (int i = 0; i < n; i++) {
-      System.out.printf("%d ", a[i]);
-    }
-    System.out.println();
-  }
-
-  private static void sort(int[] a, int n) { sort(a, 0, n - 1); }
+  public static void sort(int[] a, int n) { sort(a, 0, n - 1); }
 
   private static void sort(int[] a, int low, int high) {
-    if (low >= high) {
+    if (low > high) {
       return;
     }
 
-    int r = ThreadLocalRandom.current().nextInt(high - low) + low;
+    int r = ThreadLocalRandom.current().nextInt(high - low + 1) + low;
     swap(a, low, r);
 
     int mid = partition(a, low, high);
@@ -47,14 +40,14 @@ public class QuickSort {
       if (a[i] <= pivot) {
         j++;
 
-        if (j != i) {
+        if (i != j) {
           swap(a, i, j);
         }
       }
     }
 
-    if (j != low) {
-      swap(a, j, low);
+    if (low != j) {
+      swap(a, low, j);
     }
 
     return j;
@@ -64,5 +57,12 @@ public class QuickSort {
     int t = a[x];
     a[x] = a[y];
     a[y] = t;
+  }
+
+  private static void display(int[] a, int n) {
+    for (int i = 0; i < n; i++) {
+      System.out.printf("%d ", a[i]);
+    }
+    System.out.println();
   }
 }

@@ -52,7 +52,7 @@ public class Bitwise {
 
         case "striplastsetbit": {
           int m = Integer.parseInt(cmd[1]);
-          m = m & ~1;
+          m &= m - 1;
           System.out.println(m);
         } break;
 

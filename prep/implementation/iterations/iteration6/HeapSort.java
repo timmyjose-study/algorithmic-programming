@@ -16,21 +16,26 @@ public class HeapSort {
     }
   }
 
-  private static void display(int[] a, int n) {
-    for (int i = 0; i < n; i++) {
-      System.out.printf("%d ", a[i]);
+  private static int left(int p) { return 2 * p + 1; }
+
+  private static int right(int p) { return 2 * p + 2; }
+
+  private static void siftDown(int[] a, int i, int n) {
+    int maxIdx = i;
+
+    int leftIdx = left(i);
+    if (leftIdx < n && a[leftIdx] > a[maxIdx]) {
+      maxIdx = leftIdx;
     }
-    System.out.println();
-  }
 
-  private static void sort(int[] a, int n) {
-    buildHeap(a, n);
+    int rightIdx = right(i);
+    if (rightIdx < n && a[rightIdx] > a[maxIdx]) {
+      maxIdx = rightIdx;
+    }
 
-    int len = n;
-    for (int i = 0; i < n; i++) {
-      swap(a, 0, len - 1);
-      len--;
-      siftDown(a, 0, len);
+    if (maxIdx != i) {
+      swap(a, i, maxIdx);
+      siftDown(a, maxIdx, n);
     }
   }
 
@@ -40,31 +45,26 @@ public class HeapSort {
     }
   }
 
-  private static void siftDown(int[] a, int pos, int n) {
-    int minIdx = pos;
-
-    int leftIdx = left(pos);
-    if (leftIdx < n && a[leftIdx] > a[minIdx]) {
-      minIdx = leftIdx;
-    }
-
-    int rightIdx = right(pos);
-    if (rightIdx < n && a[rightIdx] > a[minIdx]) {
-      minIdx = rightIdx;
-    }
-
-    if (pos != minIdx) {
-      swap(a, pos, minIdx);
-      siftDown(a, minIdx, n);
+  public static void sort(int[] a, int n) {
+    buildHeap(a, n);
+    int len = n;
+    for (int i = 0; i < n; i++) {
+      swap(a, 0, len - 1);
+      len--;
+      siftDown(a, 0, len);
     }
   }
-
-  private static int left(int p) { return 2 * p + 1; }
-  private static int right(int p) { return 2 * p + 2; }
 
   private static void swap(int[] a, int x, int y) {
     int t = a[x];
     a[x] = a[y];
     a[y] = t;
+  }
+
+  public static void display(int[] a, int n) {
+    for (int i = 0; i < n; i++) {
+      System.out.printf("%d ", a[i]);
+    }
+    System.out.println();
   }
 }

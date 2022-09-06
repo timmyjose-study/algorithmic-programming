@@ -23,36 +23,35 @@ public class BinarySearch {
     }
   }
 
-  private static int binarySearch(int[] a, int low, int high, int elem) {
+  public static int binarySearch(int[] a, int low, int high, int elem) {
     while (low <= high) {
       int mid = low + (high - low) / 2;
 
-      if (a[mid] == elem) {
-        return mid;
-      } else if (a[mid] < elem) {
+      if (a[mid] < elem) {
         low = mid + 1;
-      } else {
+      } else if (a[mid] > elem) {
         high = mid - 1;
+      } else {
+        return mid;
       }
     }
 
     return -1;
   }
 
-  private static int binarySearchRec(int[] a, int low, int high, int elem) {
+  public static int binarySearchRec(int[] a, int low, int high, int elem) {
     if (low > high) {
       return -1;
-    }
+    } else {
+      int mid = low + (high - low) / 2;
 
-    int mid = low + (high - low) / 2;
-
-    if (a[mid] == elem) {
+      if (a[mid] < elem) {
+        return binarySearchRec(a, mid + 1, high, elem);
+      } else if (a[mid] > elem) {
+        return binarySearchRec(a, low, mid - 1, elem);
+      }
       return mid;
-    } else if (a[mid] < elem) {
-      return binarySearchRec(a, mid + 1, high, elem);
     }
-
-    return binarySearchRec(a, low, mid - 1, elem);
   }
 
   private static void display(int[] a, int n) {

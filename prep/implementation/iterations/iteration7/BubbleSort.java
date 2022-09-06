@@ -16,18 +16,11 @@ public class BubbleSort {
     }
   }
 
-  private static void display(int[] a, int n) {
-    for (int i = 0; i < n; i++) {
-      System.out.printf("%d ", a[i]);
-    }
-    System.out.println();
-  }
-
   private static void sort(int[] a, int n) {
-    for (int i = 0; i < n; i++) {
-      for (int j = i + 1; j < n; j++) {
-        if (a[i] > a[j]) {
-          swap(a, i, j);
+    for (int i = 0; i < n - 1; i++) {
+      for (int j = 0; j < n - i - 1; j++) {
+        if (a[j] > a[j + 1]) {
+          swap(a, j, j + 1);
         }
       }
     }
@@ -37,5 +30,12 @@ public class BubbleSort {
     int t = a[x];
     a[x] = a[y];
     a[y] = t;
+  }
+
+  private static void display(int[] a, int n) {
+    for (int i = 0; i < n; i++) {
+      System.out.printf("%d ", a[i]);
+    }
+    System.out.println();
   }
 }

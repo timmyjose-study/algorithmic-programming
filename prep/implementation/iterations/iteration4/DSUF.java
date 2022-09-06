@@ -4,7 +4,7 @@ public class DSUF {
   private int[] rank;
   private int[] parent;
 
-  public DSUF(int size) {
+  DSUF(int size) {
     this.rank = new int[size];
     this.parent = new int[size];
 
@@ -19,11 +19,11 @@ public class DSUF {
   }
 
   public int find(int p) {
-    if (p != this.parent[p]) {
-      p = find(this.parent[p]);
+    if (p != parent[p]) {
+      p = find(parent[p]);
     }
 
-    return this.parent[p];
+    return parent[p];
   }
 
   public void union(int p, int q) {
@@ -34,12 +34,12 @@ public class DSUF {
       return;
     }
 
-    if (this.rank[pid] > this.rank[qid]) {
-      this.parent[qid] = pid;
+    if (rank[pid] > rank[qid]) {
+      parent[qid] = pid;
     } else {
-      this.parent[pid] = qid;
-      if (this.rank[pid] == this.rank[qid]) {
-        this.rank[qid]++;
+      parent[pid] = qid;
+      if (rank[pid] == rank[qid]) {
+        rank[qid]++;
       }
     }
   }
@@ -61,7 +61,7 @@ public class DSUF {
           break;
 
         case 1:
-          System.out.println(dsuf.find(p) == dsuf.find(q) ? 1 : 0);
+          System.out.println(dsuf.find(p) == dsuf.find(q) ? "1" : "0");
           break;
         }
       }

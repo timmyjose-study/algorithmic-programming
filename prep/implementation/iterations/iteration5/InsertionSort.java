@@ -16,13 +16,6 @@ public class InsertionSort {
     }
   }
 
-  private static void display(int[] a, int n) {
-    for (int i = 0; i < n; i++) {
-      System.out.printf("%d ", a[i]);
-    }
-    System.out.println();
-  }
-
   private static void sort(int[] a, int n) {
     for (int i = 1; i < n; i++) {
       int k = a[i];
@@ -36,9 +29,10 @@ public class InsertionSort {
     }
   }
 
-  private static void swap(int[] a, int x, int y) {
-    int t = a[x];
-    a[x] = a[y];
-    a[y] = t;
+  private static void display(int[] a, int n) {
+    for (int i = 0; i < n; i++) {
+      System.out.printf("%d ", a[i]);
+    }
+    System.out.println();
   }
 }

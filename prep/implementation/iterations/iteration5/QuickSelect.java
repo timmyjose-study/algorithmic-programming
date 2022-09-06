@@ -14,12 +14,16 @@ public class QuickSelect {
 
       while (nq-- > 0) {
         int k = in.nextInt();
-        System.out.println(select(a, 0, n - 1, k));
+
+        if (k >= n) {
+          throw new IllegalArgumentException("invalid value of k");
+        }
+        System.out.println(quickSelect(a, 0, n - 1, k));
       }
     }
   }
 
-  private static int select(int[] a, int low, int high, int k) {
+  public static int quickSelect(int[] a, int low, int high, int k) {
     int r = ThreadLocalRandom.current().nextInt(high - low + 1) + low;
     swap(a, low, r);
 
@@ -28,9 +32,9 @@ public class QuickSelect {
     if (mid == k) {
       return a[mid];
     } else if (mid < k) {
-      return select(a, mid + 1, high, k);
+      return quickSelect(a, mid + 1, high, k);
     }
-    return select(a, low, mid, k);
+    return quickSelect(a, low, mid - 1, k);
   }
 
   private static int partition(int[] a, int low, int high) {
@@ -47,7 +51,7 @@ public class QuickSelect {
       }
     }
 
-    if (j != low) {
+    if (low != j) {
       swap(a, low, j);
     }
 

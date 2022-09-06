@@ -20,7 +20,6 @@ public class Kosaraju {
           ns.add(v);
         }
 
-        ns.sort(Integer::compare);
         return ns;
       }
     }
@@ -57,9 +56,9 @@ public class Kosaraju {
 
     @Override
     public Graph transpose() {
-      Graph trans = new AdjacencySet(size());
+      Graph trans = new AdjacencySet(this.size);
 
-      for (int i = 0; i < size(); i++) {
+      for (int i = 0; i < size; i++) {
         for (int v : getAdjacentVertices(i)) {
           trans.addEdge(v, i);
         }
@@ -91,21 +90,18 @@ public class Kosaraju {
     }
   }
 
-  // O(|V| + |E|)
-  private static void kosaraju(Graph g) {
-    boolean[] visited = new boolean[g.size()];
+  public static void kosaraju(Graph g) {
     Stack<Integer> st = new Stack<>();
 
+    boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
-      if (!visited[i]) {
-        dfs1(g, visited, st, i);
-      }
+      dfs1(g, visited, i, st);
     }
-
-    Graph trans = g.transpose();
-    List<List<Integer>> scc = new ArrayList<>();
-
     Arrays.fill(visited, false);
+
+    List<List<Integer>> scc = new ArrayList<>();
+    Graph trans = g.transpose();
+
     while (!st.isEmpty()) {
       int v = st.pop();
 
@@ -114,11 +110,8 @@ public class Kosaraju {
       }
 
       List<Integer> comp = new ArrayList<>();
-      dfs2(trans, visited, comp, v);
-
-      if (!comp.isEmpty()) {
-        scc.add(comp);
-      }
+      dfs2(trans, visited, v, comp);
+      scc.add(comp);
     }
 
     System.out.println(scc.size());
@@ -130,22 +123,22 @@ public class Kosaraju {
     }
   }
 
-  private static void dfs1(Graph g, boolean[] visited, Stack<Integer> st,
-                           int currVertex) {
+  private static void dfs1(Graph g, boolean[] visited, int currVertex,
+                           Stack<Integer> st) {
     if (visited[currVertex]) {
       return;
     }
 
     visited[currVertex] = true;
-
     for (int neighbour : g.getAdjacentVertices(currVertex)) {
-      dfs1(g, visited, st, neighbour);
+      dfs1(g, visited, neighbour, st);
     }
+
     st.push(currVertex);
   }
 
-  private static void dfs2(Graph g, boolean[] visited, List<Integer> comp,
-                           int currVertex) {
+  private static void dfs2(Graph g, boolean[] visited, int currVertex,
+                           List<Integer> comp) {
     if (visited[currVertex]) {
       return;
     }
@@ -154,7 +147,7 @@ public class Kosaraju {
     comp.add(currVertex);
 
     for (int neighbour : g.getAdjacentVertices(currVertex)) {
-      dfs2(g, visited, comp, neighbour);
+      dfs2(g, visited, neighbour, comp);
     }
   }
 }

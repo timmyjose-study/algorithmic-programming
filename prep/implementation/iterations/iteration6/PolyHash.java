@@ -13,16 +13,15 @@ public class PolyHash {
     }
   }
 
-  // O(n)
-  private static long polyHash(String s) {
-    long x = 53;
+  public static long polyHash(String s) {
+    long m = 53;
     long p = (long)1e9 + 7;
-    long xpow = 1L;
-    long hash = 0L;
+    long mpow = 1L;
 
+    long hash = 0L;
     for (int i = s.length() - 1; i >= 0; i--) {
-      hash = (hash + (s.charAt(i) - 'a' + 1) * xpow) % p;
-      xpow = (xpow * x) % p;
+      hash = (hash + (s.charAt(i) - 'a' + 1) * mpow) % p;
+      mpow = (mpow * m) % p;
     }
 
     return hash;

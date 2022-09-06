@@ -7,10 +7,10 @@ public class RabinKarp {
       in.nextLine();
 
       for (int i = 0; i < n; i++) {
-        String needle = in.nextLine().trim();
-        String haystack = in.nextLine().trim();
+        String s = in.nextLine().trim();
+        String t = in.nextLine().trim();
 
-        List<Integer> positions = rabinKarp(needle, haystack);
+        List<Integer> positions = rabinKarp(s, t);
         if (positions.isEmpty()) {
           System.out.println(-1);
         } else {
@@ -24,21 +24,20 @@ public class RabinKarp {
     }
   }
 
-  // O(|needle| + |haystack|)
-  private static List<Integer> rabinKarp(String s, String t) {
-    long x = 53;
+  public static List<Integer> rabinKarp(String s, String t) {
+    long m = 53;
     long p = (long)1e9 + 7;
     int slen = s.length(), tlen = t.length();
+    long[] mpow = new long[Math.max(slen, tlen)];
 
-    long[] xpow = new long[Math.max(slen, tlen)];
-    xpow[0] = 1L;
-    for (int i = 1; i < xpow.length; i++) {
-      xpow[i] = (xpow[i - 1] * x) % p;
+    mpow[0] = 1L;
+    for (int i = 1; i < mpow.length; i++) {
+      mpow[i] = (mpow[i - 1] * m) % p;
     }
 
     long shash = 0L;
-    for (int i = 0; i < slen; i++) {
-      shash = (shash + (s.charAt(i) - 'a' + 1) * xpow[i]) % p;
+    for (int i = 0; i < s.length(); i++) {
+      shash = (shash + (s.charAt(i) - 'a' + 1) * mpow[i]) % p;
     }
 
     if (shash < 0) {
@@ -47,7 +46,7 @@ public class RabinKarp {
 
     long[] thashes = new long[tlen + 1];
     for (int i = 0; i < tlen; i++) {
-      thashes[i + 1] = (thashes[i] + (t.charAt(i) - 'a' + 1) * xpow[i]) % p;
+      thashes[i + 1] = (thashes[i] + (t.charAt(i) - 'a' + 1) * mpow[i]) % p;
     }
 
     for (int i = 0; i < thashes.length; i++) {
@@ -60,7 +59,7 @@ public class RabinKarp {
     for (int i = 0; i < tlen - slen + 1; i++) {
       long currHash = (thashes[i + slen] + p - thashes[i]) % p;
 
-      if (currHash == (shash * xpow[i] % p)) {
+      if (currHash == shash * mpow[i] % p) {
         positions.add(i);
       }
     }

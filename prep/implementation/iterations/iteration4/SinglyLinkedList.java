@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class SinglyLinkedList<T> implements MyList<T> {
+public class SinglyLinkedList<T extends Comparable<T>> implements MyList<T> {
   static class Node<T> {
     T data;
     Node<T> next;
@@ -19,21 +19,18 @@ public class SinglyLinkedList<T> implements MyList<T> {
     this.size = 0;
   }
 
-  // O(1)
   @Override
   public void pushFront(T elem) {
     if (this.head == null) {
       this.head = new Node<>(elem);
     } else {
-      Node<T> node = new Node<>(elem);
-      node.next = this.head;
-      this.head = node;
+      Node<T> newNode = new Node<>(elem);
+      newNode.next = this.head;
+      this.head = newNode;
     }
-
     this.size++;
   }
 
-  // O(n)
   @Override
   public void pushBack(T elem) {
     if (this.head == null) {
@@ -44,13 +41,12 @@ public class SinglyLinkedList<T> implements MyList<T> {
         currNode = currNode.next;
       }
 
-      currNode.next = new Node<>(elem);
+      Node<T> newNode = new Node<>(elem);
+      currNode.next = newNode;
     }
-
     this.size++;
   }
 
-  // O(1)
   @Override
   public T popFront() {
     if (isEmpty()) {
@@ -64,25 +60,30 @@ public class SinglyLinkedList<T> implements MyList<T> {
     return val;
   }
 
-  // O(n)
   @Override
   public T popBack() {
     if (isEmpty()) {
       throw new IllegalStateException("empty list");
     }
 
-    Node<T> prevNode = null;
-    Node<T> currNode = this.head;
-    while (currNode.next != null) {
-      prevNode = currNode;
-      currNode = currNode.next;
-    }
-
-    T val = currNode.data;
-    if (prevNode == null) {
+    T val = null;
+    if (this.head.next == null) {
+      val = this.head.data;
       this.head = null;
     } else {
-      prevNode.next = null;
+
+      Node<T> prev = null;
+      Node<T> currNode = this.head;
+
+      while (currNode.next != null) {
+        prev = currNode;
+        currNode = currNode.next;
+      }
+
+      val = currNode.data;
+      if (prev != null) {
+        prev.next = null;
+      }
     }
     this.size--;
 
@@ -91,23 +92,22 @@ public class SinglyLinkedList<T> implements MyList<T> {
 
   @Override
   public T get(int idx) {
-    throw new UnsupportedOperationException("get at index");
+    throw new UnsupportedOperationException("get");
   }
 
-  // O(n)
   @Override
   public void removeElem(T elem) {
     if (isEmpty()) {
-      throw new IllegalStateException("empty list");
+      return;
     }
 
-    if (this.head.data.equals(elem)) {
+    if (this.head.data.compareTo(elem) == 0) {
       this.head = this.head.next;
     } else {
-
       Node<T> prevNode = null;
       Node<T> currNode = this.head;
-      while (currNode != null && !currNode.data.equals(elem)) {
+
+      while (currNode != null && currNode.data.compareTo(elem) != 0) {
         prevNode = currNode;
         currNode = currNode.next;
       }
@@ -116,18 +116,18 @@ public class SinglyLinkedList<T> implements MyList<T> {
         return;
       }
 
-      prevNode.next = currNode.next;
+      if (prevNode != null) {
+        prevNode.next = currNode.next;
+      }
     }
     this.size--;
   }
 
-  // O(1)
   @Override
   public boolean isEmpty() {
     return this.size == 0;
   }
 
-  // O(1)
   @Override
   public int size() {
     return this.size;
@@ -141,12 +141,13 @@ public class SinglyLinkedList<T> implements MyList<T> {
 
     StringBuilder sb = new StringBuilder();
     Node<T> currNode = this.head;
+
     while (currNode != null) {
       sb.append(currNode.data).append(" ");
       currNode = currNode.next;
     }
 
-    return sb.toString();
+    return sb.toString().trim();
   }
 
   public static void main(String[] args) {

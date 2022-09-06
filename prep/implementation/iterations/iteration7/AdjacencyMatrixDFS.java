@@ -3,7 +3,7 @@ import java.util.*;
 public class AdjacencyMatrixDFS {
   static interface Graph {
     void addEdge(int from, int to);
-    List<Integer> getAdjacentVertices(int v);
+    List<Integer> getAdjacenctVertices(int v);
     int size();
   }
 
@@ -26,7 +26,7 @@ public class AdjacencyMatrixDFS {
     }
 
     @Override
-    public List<Integer> getAdjacentVertices(int v) {
+    public List<Integer> getAdjacenctVertices(int v) {
       if (v < 0 || v >= this.size) {
         throw new IllegalArgumentException("invalid vertex");
       }
@@ -47,29 +47,7 @@ public class AdjacencyMatrixDFS {
     }
   }
 
-  public static void main(String[] args) {
-    try (Scanner in = new Scanner(System.in)) {
-      int n = in.nextInt();
-      int m = in.nextInt();
-
-      Graph g = new AdjacencyMatrix(n);
-      for (int i = 0; i < m; i++) {
-        int from = in.nextInt();
-        int to = in.nextInt();
-
-        g.addEdge(from, to);
-        g.addEdge(to, from);
-      }
-
-      dfsPre(g);
-      dfsPreIter(g);
-      dfsPost(g);
-      dfsPostIter(g);
-    }
-  }
-
-  // O(|V| + |E|)
-  private static void dfsPre(Graph g) {
+  public static void dfsPre(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
       dfsPre(g, visited, i);
@@ -85,15 +63,12 @@ public class AdjacencyMatrixDFS {
     visited[currVertex] = true;
     System.out.printf("%d ", currVertex);
 
-    for (int neighbour : g.getAdjacentVertices(currVertex)) {
-      if (!visited[neighbour]) {
-        dfsPre(g, visited, neighbour);
-      }
+    for (int neighbour : g.getAdjacenctVertices(currVertex)) {
+      dfsPre(g, visited, neighbour);
     }
   }
 
-  // O(|V| + |E|)
-  private static void dfsPreIter(Graph g) {
+  public static void dfsPreIter(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
       if (!visited[i]) {
@@ -117,14 +92,15 @@ public class AdjacencyMatrixDFS {
       visited[v] = true;
       System.out.printf("%d ", v);
 
-      for (int neighbour : g.getAdjacentVertices(v)) {
-        st.push(neighbour);
+      for (int neighbour : g.getAdjacenctVertices(v)) {
+        if (!visited[neighbour]) {
+          st.push(neighbour);
+        }
       }
     }
   }
 
-  // O(|V| + |E|)
-  private static void dfsPost(Graph g) {
+  public static void dfsPost(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
       dfsPost(g, visited, i);
@@ -138,16 +114,15 @@ public class AdjacencyMatrixDFS {
     }
 
     visited[currVertex] = true;
-    for (int neighbour : g.getAdjacentVertices(currVertex)) {
-      if (!visited[neighbour]) {
-        dfsPost(g, visited, neighbour);
-      }
+
+    for (int neighbour : g.getAdjacenctVertices(currVertex)) {
+      dfsPost(g, visited, neighbour);
     }
+
     System.out.printf("%d ", currVertex);
   }
 
-  // O(|V| + |E|)
-  private static void dfsPostIter(Graph g) {
+  public static void dfsPostIter(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
       if (!visited[i]) {
@@ -160,8 +135,8 @@ public class AdjacencyMatrixDFS {
   private static void dfsPostIter(Graph g, boolean[] visited, int currVertex) {
     Stack<Integer> st = new Stack<>();
     Stack<Integer> revSt = new Stack<>();
-
     st.push(currVertex);
+
     while (!st.isEmpty()) {
       int v = st.pop();
 
@@ -172,13 +147,37 @@ public class AdjacencyMatrixDFS {
       visited[v] = true;
       revSt.push(v);
 
-      for (int neighbour : g.getAdjacentVertices(v)) {
-        st.push(neighbour);
+      for (int neighbour : g.getAdjacenctVertices(v)) {
+        if (!visited[neighbour]) {
+          st.push(neighbour);
+        }
       }
     }
 
     while (!revSt.isEmpty()) {
       System.out.printf("%d ", revSt.pop());
+    }
+  }
+
+  public static void main(String[] args) {
+    try (Scanner in = new Scanner(System.in)) {
+      int n = in.nextInt();
+      int m = in.nextInt();
+
+      Graph g = new AdjacencyMatrix(n);
+      for (int i = 0; i < m; i++) {
+        int from = in.nextInt();
+        int to = in.nextInt();
+
+        g.addEdge(from, to);
+        g.addEdge(to, from);
+      }
+
+      dfsPre(g);
+      dfsPreIter(g);
+
+      dfsPost(g);
+      dfsPostIter(g);
     }
   }
 }

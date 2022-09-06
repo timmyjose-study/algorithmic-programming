@@ -3,7 +3,7 @@ import java.util.*;
 public class ShortestPathUnweighted {
   static interface Graph {
     void addEdge(int from, int to);
-    List<Integer> getAdjacenctVertices(int v);
+    List<Integer> getAdjacentVertices(int v);
     int size();
   }
 
@@ -15,13 +15,12 @@ public class ShortestPathUnweighted {
 
       void addEdge(int v) { this.vs.add(v); }
 
-      List<Integer> getAdjacenctVertices() {
+      List<Integer> getAdjacentVertices() {
         List<Integer> ns = new ArrayList<>();
         for (int v : this.vs) {
           ns.add(v);
         }
 
-        ns.sort(Integer::compare);
         return ns;
       }
     }
@@ -48,17 +47,87 @@ public class ShortestPathUnweighted {
     }
 
     @Override
-    public List<Integer> getAdjacenctVertices(int v) {
+    public List<Integer> getAdjacentVertices(int v) {
       if (v < 0 || v >= this.size) {
         throw new IllegalArgumentException("invalid vertex");
       }
 
-      return this.vertices.get(v).getAdjacenctVertices();
+      return this.vertices.get(v).getAdjacentVertices();
     }
 
     @Override
     public int size() {
       return this.size;
+    }
+  }
+
+  static class DistanceInfo {
+    int distance;
+    int lastVertex;
+
+    DistanceInfo() {
+      this.distance = -1;
+      this.lastVertex = -1;
+    }
+  }
+
+  public static void shortestPath(Graph g, int source) {
+    DistanceInfo[] dist = new DistanceInfo[g.size()];
+    for (int i = 0; i < g.size(); i++) {
+      dist[i] = new DistanceInfo();
+    }
+
+    dist[source].distance = 0;
+    dist[source].lastVertex = source;
+
+    boolean[] visited = new boolean[g.size()];
+    Queue<Integer> q = new ArrayDeque<>();
+    q.add(source);
+
+    while (!q.isEmpty()) {
+      int from = q.poll();
+
+      if (visited[from]) {
+        continue;
+      }
+
+      visited[from] = true;
+
+      for (int neighbour : g.getAdjacentVertices(from)) {
+        if (!visited[neighbour]) {
+          if (dist[neighbour].distance == -1) {
+            dist[neighbour].distance = 1 + dist[from].distance;
+            dist[neighbour].lastVertex = from;
+            q.add(neighbour);
+          }
+        }
+      }
+    }
+
+    for (int i = 0; i < g.size(); i++) {
+      if (i == source) {
+        continue;
+      }
+
+      int d = dist[i].distance;
+      if (d == -1) {
+        System.out.println("no path");
+      } else {
+        System.out.println(d);
+        Stack<Integer> st = new Stack<>();
+        int currVertex = i;
+
+        while (currVertex != source) {
+          st.push(currVertex);
+          currVertex = dist[currVertex].lastVertex;
+        }
+        st.push(source);
+
+        while (!st.isEmpty()) {
+          System.out.printf("%d ", st.pop());
+        }
+        System.out.println();
+      }
     }
   }
 
@@ -77,78 +146,7 @@ public class ShortestPathUnweighted {
         g.addEdge(to, from);
       }
 
-      shortestPaths(g, source);
-    }
-  }
-
-  static class DistanceInfo {
-    int distance;
-    int lastVertex;
-
-    DistanceInfo(int distance, int lastVertex) {
-      this.distance = distance;
-      this.lastVertex = lastVertex;
-    }
-  }
-
-  // O(|V| + |E|)
-  private static void shortestPaths(Graph g, int source) {
-    DistanceInfo[] dist = new DistanceInfo[g.size()];
-    for (int i = 0; i < g.size(); i++) {
-      dist[i] = new DistanceInfo(-1, -1);
-    }
-
-    dist[source].distance = 0;
-    dist[source].lastVertex = source;
-
-    boolean[] visited = new boolean[g.size()];
-    Queue<Integer> q = new ArrayDeque<>();
-
-    q.add(source);
-    while (!q.isEmpty()) {
-      int v = q.poll();
-
-      if (visited[v]) {
-        continue;
-      }
-
-      visited[v] = true;
-
-      for (int neighbour : g.getAdjacenctVertices(v)) {
-        if (!visited[neighbour]) {
-          if (dist[neighbour].distance == -1) {
-            dist[neighbour].distance = 1 + dist[v].distance;
-            dist[neighbour].lastVertex = v;
-            q.add(neighbour);
-          }
-        }
-      }
-    }
-
-    for (int i = 0; i < g.size(); i++) {
-      if (i == source) {
-        continue;
-      }
-
-      int d = dist[i].distance;
-      if (d == -1) {
-        System.out.println("no path");
-      } else {
-        System.out.println(d);
-        Stack<Integer> st = new Stack<>();
-
-        int currVertex = i;
-        while (currVertex != source) {
-          st.push(currVertex);
-          currVertex = dist[currVertex].lastVertex;
-        }
-        st.push(source);
-
-        while (!st.isEmpty()) {
-          System.out.printf("%d ", st.pop());
-        }
-        System.out.println();
-      }
+      shortestPath(g, source);
     }
   }
 }

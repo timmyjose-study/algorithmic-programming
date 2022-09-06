@@ -18,7 +18,6 @@ public class AdjacencySetBFS {
         for (int v : this.vs) {
           ns.add(v);
         }
-        ns.sort((p, q) -> Integer.compare(p, q));
 
         return ns;
       }
@@ -60,27 +59,7 @@ public class AdjacencySetBFS {
     }
   }
 
-  public static void main(String[] args) {
-    try (Scanner in = new Scanner(System.in)) {
-      int n = in.nextInt();
-      int m = in.nextInt();
-
-      Graph g = new AdjacencySet(n);
-      for (int i = 0; i < m; i++) {
-        int from = in.nextInt();
-        int to = in.nextInt();
-
-        g.addEdge(from, to);
-        g.addEdge(to, from);
-      }
-
-      bfs(g);
-      bfsRec(g);
-    }
-  }
-
-  // O(|V| + |E|)
-  private static void bfs(Graph g) {
+  public static void bfs(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
       if (!visited[i]) {
@@ -105,19 +84,16 @@ public class AdjacencySetBFS {
       System.out.printf("%d ", v);
 
       for (int neighbour : g.getAdjacentVertices(v)) {
-        if (!visited[neighbour]) {
-          q.add(neighbour);
-        }
+        q.add(neighbour);
       }
     }
   }
 
-  // O(|V| + |E|)
-  private static void bfsRec(Graph g) {
+  public static void bfsRec(Graph g) {
     boolean[] visited = new boolean[g.size()];
-    Queue<Integer> q = new ArrayDeque<>();
     for (int i = 0; i < g.size(); i++) {
       if (!visited[i]) {
+        Queue<Integer> q = new ArrayDeque<>();
         q.add(i);
         bfsRec(g, visited, q);
       }
@@ -136,11 +112,29 @@ public class AdjacencySetBFS {
 
     for (int neighbour : g.getAdjacentVertices(v)) {
       if (!visited[neighbour]) {
-        visited[neighbour] = true;
         q.add(neighbour);
       }
     }
 
     bfsRec(g, visited, q);
+  }
+
+  public static void main(String[] args) {
+    try (Scanner in = new Scanner(System.in)) {
+      int n = in.nextInt();
+      int m = in.nextInt();
+
+      Graph g = new AdjacencySet(n);
+      for (int i = 0; i < m; i++) {
+        int from = in.nextInt();
+        int to = in.nextInt();
+
+        g.addEdge(from, to);
+        g.addEdge(to, from);
+      }
+
+      bfs(g);
+      bfsRec(g);
+    }
   }
 }

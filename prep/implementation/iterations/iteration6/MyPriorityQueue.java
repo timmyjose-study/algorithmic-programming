@@ -11,68 +11,66 @@ public class MyPriorityQueue<T extends Comparable<T>> {
     this.comp = comp;
   }
 
+  private void swap(int x, int y) {
+    T t = this.arr.get(x);
+    this.arr.set(x, this.arr.get(y));
+    this.arr.set(y, t);
+  }
+
+  private int parent(int p) { return p / 2; }
+
+  private int left(int p) { return 2 * p + 1; }
+
+  private int right(int p) { return 2 * p + 2; }
+
+  private void siftUp(int p) {
+    while (p != 0 &&
+           comp.compare(this.arr.get(p), this.arr.get(parent(p))) > 0) {
+      swap(p, parent(p));
+      p = parent(p);
+    }
+  }
+
+  private void siftDown(int p) {
+    int maxIdx = p;
+
+    int leftIdx = left(p);
+    if (leftIdx < this.arr.size() &&
+        comp.compare(this.arr.get(leftIdx), this.arr.get(maxIdx)) > 0) {
+      maxIdx = leftIdx;
+    }
+
+    int rightIdx = right(p);
+    if (rightIdx < this.arr.size() &&
+        comp.compare(this.arr.get(rightIdx), this.arr.get(maxIdx)) > 0) {
+      maxIdx = rightIdx;
+    }
+
+    if (maxIdx != p) {
+      swap(p, maxIdx);
+      siftDown(maxIdx);
+    }
+  }
+
   public void add(T elem) {
     this.arr.add(elem);
-    siftUp(size() - 1);
+    siftUp(this.arr.size() - 1);
   }
 
   public T poll() {
     if (isEmpty()) {
-      throw new IllegalStateException("empty priority queue");
+      throw new IllegalStateException("priority queue empty");
     }
 
     T val = this.arr.get(0);
-    swap(0, size() - 1);
-    arr.remove(arr.size() - 1);
+    this.arr.set(0, this.arr.get(this.arr.size() - 1));
+    this.arr.remove(this.arr.size() - 1);
     siftDown(0);
 
     return val;
   }
 
-  private void siftUp(int pos) {
-    while ((pos > 0) && (this.comp.compare(this.arr.get(pos),
-                                           this.arr.get(parent(pos))) > 0)) {
-      swap(pos, parent(pos));
-      pos = parent(pos);
-    }
-  }
-
-  private int parent(int pos) { return pos / 2; }
-
-  private int left(int pos) { return 2 * pos + 1; }
-
-  private int right(int pos) { return 2 * pos + 2; }
-
-  private void siftDown(int pos) {
-    int maxIdx = pos;
-
-    int leftIdx = left(pos);
-    if (leftIdx < size() &&
-        this.comp.compare(this.arr.get(maxIdx), this.arr.get(leftIdx)) < 0) {
-      maxIdx = leftIdx;
-    }
-
-    int rightIdx = right(pos);
-    if (rightIdx < size() &&
-        this.comp.compare(this.arr.get(maxIdx), this.arr.get(rightIdx)) < 0) {
-      maxIdx = rightIdx;
-    }
-
-    if (maxIdx != pos) {
-      swap(maxIdx, pos);
-      siftDown(maxIdx);
-    }
-  }
-
-  private void swap(int x, int y) {
-    T tmp = this.arr.get(x);
-    this.arr.set(x, this.arr.get(y));
-    this.arr.set(y, tmp);
-  }
-
-  public boolean isEmpty() { return size() == 0; }
-
-  public int size() { return this.arr.size(); }
+  public boolean isEmpty() { return this.arr.isEmpty(); }
 
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {

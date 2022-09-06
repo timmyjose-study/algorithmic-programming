@@ -1,7 +1,7 @@
 import java.util.*;
 
-public class LinkedListQueue<T> implements MyQueue<T> {
-  private MyList<T> dll;
+public class LinkedListQueue<T extends Comparable<T>> implements MyQueue<T> {
+  private DoublyLinkedList<T> dll;
 
   public LinkedListQueue() { this.dll = new DoublyLinkedList<>(); }
 
@@ -20,13 +20,13 @@ public class LinkedListQueue<T> implements MyQueue<T> {
   }
 
   @Override
-  public boolean isEmpty() {
-    return this.dll.isEmpty();
+  public boolean isFull() {
+    throw new UnsupportedOperationException("isFull");
   }
 
   @Override
-  public boolean isFull() {
-    throw new UnsupportedOperationException("is full");
+  public boolean isEmpty() {
+    return this.dll.isEmpty();
   }
 
   public static void main(String[] args) {
@@ -35,7 +35,6 @@ public class LinkedListQueue<T> implements MyQueue<T> {
       in.nextLine();
 
       MyQueue<Integer> q = new LinkedListQueue<>();
-
       while (nq-- > 0) {
         String[] cmd = in.nextLine().trim().split(" ");
 

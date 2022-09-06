@@ -2,19 +2,14 @@ import java.util.*;
 
 @SuppressWarnings("unchecked")
 public class FixedArrayStack<T> implements MyStack<T> {
-  private static final int DEFAULT_SIZE = 1024;
-
   private T[] arr;
   private int top;
-
-  public FixedArrayStack() { this(FixedArrayStack.DEFAULT_SIZE); }
 
   public FixedArrayStack(int size) {
     this.arr = (T[]) new Object[size];
     this.top = -1;
   }
 
-  // O(1)
   @Override
   public void push(T elem) {
     if (isFull()) {
@@ -24,23 +19,19 @@ public class FixedArrayStack<T> implements MyStack<T> {
     this.arr[++this.top] = elem;
   }
 
-  // O(1)
   @Override
   public T pop() {
     if (isEmpty()) {
-      throw new IllegalStateException("stack underflow");
+      throw new IllegalStateException("stack undeflow");
     }
-
     return this.arr[this.top--];
   }
 
-  // O(1)
   @Override
   public T peek() {
     if (isEmpty()) {
       throw new IllegalStateException("stack underflow");
     }
-
     return this.arr[this.top];
   }
 

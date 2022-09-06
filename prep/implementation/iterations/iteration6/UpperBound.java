@@ -23,7 +23,7 @@ public class UpperBound {
     }
   }
 
-  private static int upperBound(int[] a, int low, int high, int elem) {
+  public static int upperBound(int[] a, int low, int high, int elem) {
     while (low < high) {
       int mid = low + (high - low) / 2;
 
@@ -37,7 +37,7 @@ public class UpperBound {
     return a[low] > elem ? low : a.length;
   }
 
-  private static int upperBoundRec(int[] a, int low, int high, int elem) {
+  public static int upperBoundRec(int[] a, int low, int high, int elem) {
     if (low >= high) {
       return a[low] > elem ? low : a.length;
     }
@@ -47,7 +47,6 @@ public class UpperBound {
     if (a[mid] <= elem) {
       return upperBoundRec(a, mid + 1, high, elem);
     }
-
     return upperBoundRec(a, low, mid, elem);
   }
 

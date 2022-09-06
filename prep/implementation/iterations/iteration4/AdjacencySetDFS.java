@@ -14,13 +14,12 @@ public class AdjacencySetDFS {
       Vertex() { this.vs = new HashSet<>(); }
 
       void addEdge(int v) { this.vs.add(v); }
+
       List<Integer> getAdjacentVertices() {
         List<Integer> ns = new ArrayList<>();
         for (int v : this.vs) {
           ns.add(v);
         }
-
-        ns.sort(Integer::compare);
 
         return ns;
       }
@@ -32,7 +31,6 @@ public class AdjacencySetDFS {
     AdjacencySet(int size) {
       this.size = size;
       this.vertices = new ArrayList<>(size);
-
       for (int i = 0; i < size; i++) {
         this.vertices.add(new Vertex());
       }
@@ -62,29 +60,7 @@ public class AdjacencySetDFS {
     }
   }
 
-  public static void main(String[] args) {
-    try (Scanner in = new Scanner(System.in)) {
-      int n = in.nextInt();
-      int m = in.nextInt();
-
-      Graph g = new AdjacencySet(n);
-      for (int i = 0; i < m; i++) {
-        int from = in.nextInt();
-        int to = in.nextInt();
-
-        g.addEdge(from, to);
-        g.addEdge(to, from);
-      }
-
-      dfsPre(g);
-      dfsPreIter(g);
-      dfsPost(g);
-      dfsPostIter(g);
-    }
-  }
-
-  // O(|V| + |E|)
-  private static void dfsPre(Graph g) {
+  public static void dfsPre(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
       dfsPre(g, visited, i);
@@ -105,8 +81,7 @@ public class AdjacencySetDFS {
     }
   }
 
-  // O(|V| + |E|)
-  private static void dfsPreIter(Graph g) {
+  public static void dfsPreIter(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
       if (!visited[i]) {
@@ -128,18 +103,15 @@ public class AdjacencySetDFS {
       }
 
       visited[v] = true;
-      System.out.printf("%d ", v);
 
+      System.out.printf("%d ", v);
       for (int neighbour : g.getAdjacentVertices(v)) {
-        if (!visited[neighbour]) {
-          st.push(neighbour);
-        }
+        st.push(neighbour);
       }
     }
   }
 
-  // O(|V| + |E|)
-  private static void dfsPost(Graph g) {
+  public static void dfsPost(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
       dfsPost(g, visited, i);
@@ -153,7 +125,6 @@ public class AdjacencySetDFS {
     }
 
     visited[currVertex] = true;
-
     for (int neighbour : g.getAdjacentVertices(currVertex)) {
       dfsPost(g, visited, neighbour);
     }
@@ -161,8 +132,7 @@ public class AdjacencySetDFS {
     System.out.printf("%d ", currVertex);
   }
 
-  // O(|V| + |E|)
-  private static void dfsPostIter(Graph g) {
+  public static void dfsPostIter(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
       if (!visited[i]) {
@@ -175,10 +145,14 @@ public class AdjacencySetDFS {
   private static void dfsPostIter(Graph g, boolean[] visited, int currVertex) {
     Stack<Integer> st = new Stack<>();
     Stack<Integer> revSt = new Stack<>();
-
     st.push(currVertex);
+
     while (!st.isEmpty()) {
       int v = st.pop();
+
+      if (visited[v]) {
+        continue;
+      }
 
       visited[v] = true;
       revSt.push(v);
@@ -192,6 +166,28 @@ public class AdjacencySetDFS {
 
     while (!revSt.isEmpty()) {
       System.out.printf("%d ", revSt.pop());
+    }
+  }
+
+  public static void main(String[] args) {
+    try (Scanner in = new Scanner(System.in)) {
+      int n = in.nextInt();
+      int m = in.nextInt();
+
+      Graph g = new AdjacencySet(n);
+      for (int i = 0; i < m; i++) {
+        int from = in.nextInt();
+        int to = in.nextInt();
+
+        g.addEdge(from, to);
+        g.addEdge(to, from);
+      }
+
+      dfsPre(g);
+      dfsPreIter(g);
+
+      dfsPost(g);
+      dfsPostIter(g);
     }
   }
 }

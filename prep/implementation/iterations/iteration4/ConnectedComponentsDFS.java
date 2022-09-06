@@ -3,7 +3,7 @@ import java.util.*;
 public class ConnectedComponentsDFS {
   static interface Graph {
     void addEdge(int from, int to);
-    List<Integer> getAdjacenctVertices(int v);
+    List<Integer> getAdjacentVertices(int v);
     int size();
   }
 
@@ -15,7 +15,7 @@ public class ConnectedComponentsDFS {
 
       void addEdge(int v) { this.vs.add(v); }
 
-      List<Integer> getAdjacenctVertices() {
+      List<Integer> getAdjacentVertices() {
         List<Integer> ns = new ArrayList<>();
         for (int v : this.vs) {
           ns.add(v);
@@ -48,11 +48,11 @@ public class ConnectedComponentsDFS {
     }
 
     @Override
-    public List<Integer> getAdjacenctVertices(int v) {
+    public List<Integer> getAdjacentVertices(int v) {
       if (v < 0 || v >= this.size) {
         throw new IllegalArgumentException("invalid vertex");
       }
-      return this.vertices.get(v).getAdjacenctVertices();
+      return this.vertices.get(v).getAdjacentVertices();
     }
 
     @Override
@@ -60,8 +60,6 @@ public class ConnectedComponentsDFS {
       return this.size;
     }
   }
-
-  static class IntWrapper { int val; }
 
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
@@ -87,39 +85,49 @@ public class ConnectedComponentsDFS {
     }
   }
 
-  // O(|V| + |E|)
-  private static void connectedComponents(Graph g, int v1, int v2) {
-    IntWrapper v1Id = new IntWrapper();
-    IntWrapper v2Id = new IntWrapper();
+  static class IntWrapper {
+    int ival;
+    int ccId;
 
+    IntWrapper(int ival) { this.ival = ival; }
+  }
+
+  public static void connectedComponents(Graph g, int v1, int v2) {
     boolean[] visited = new boolean[g.size()];
     int ccId = 0;
+    IntWrapper v1Id = new IntWrapper(v1);
+    IntWrapper v2Id = new IntWrapper(v2);
+
     for (int i = 0; i < g.size(); i++) {
-      dfs(g, visited, ccId, v1, v2, v1Id, v2Id, i);
+      if (!visited[i]) {
+        dfs(g, visited, i, ccId, v1Id, v2Id);
+      }
       ccId++;
     }
 
-    System.out.println(v1Id.val == v2Id.val ? "yes" : "no");
+    if (v1Id.ccId == v2Id.ccId) {
+      System.out.println("yes");
+    } else {
+      System.out.println("no");
+    }
   }
 
-  private static void dfs(Graph g, boolean[] visited, int ccId, int v1, int v2,
-                          IntWrapper v1Id, IntWrapper v2Id, int currVertex) {
-    if (visited[currVertex]) {
-      return;
-    }
-
+  private static void dfs(Graph g, boolean[] visited, int currVertex, int ccId,
+                          IntWrapper v1Id, IntWrapper v2Id) {
     visited[currVertex] = true;
 
-    if (currVertex == v1) {
-      v1Id.val = ccId;
+    if (v1Id.ival == currVertex) {
+      v1Id.ccId = ccId;
     }
 
-    if (currVertex == v2) {
-      v2Id.val = ccId;
+    if (v2Id.ival == currVertex) {
+      v2Id.ccId = ccId;
     }
 
-    for (int neighbour : g.getAdjacenctVertices(currVertex)) {
-      dfs(g, visited, ccId, v1, v2, v1Id, v2Id, neighbour);
+    for (int neighbour : g.getAdjacentVertices(currVertex)) {
+      if (!visited[neighbour]) {
+        dfs(g, visited, neighbour, ccId, v1Id, v2Id);
+      }
     }
   }
 }

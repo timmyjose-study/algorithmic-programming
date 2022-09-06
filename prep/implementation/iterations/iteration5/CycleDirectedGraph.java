@@ -3,7 +3,7 @@ import java.util.*;
 public class CycleDirectedGraph {
   static interface Graph {
     void addEdge(int from, int to);
-    List<Integer> getAdjacenctVertices(int v);
+    List<Integer> getAdjacentVertices(int v);
     int size();
   }
 
@@ -15,7 +15,7 @@ public class CycleDirectedGraph {
 
       void addEdge(int v) { this.vs.add(v); }
 
-      List<Integer> getAdjacenctVertices() {
+      List<Integer> getAdjacentVertices() {
         List<Integer> ns = new ArrayList<>();
         for (int v : this.vs) {
           ns.add(v);
@@ -48,12 +48,12 @@ public class CycleDirectedGraph {
     }
 
     @Override
-    public List<Integer> getAdjacenctVertices(int v) {
+    public List<Integer> getAdjacentVertices(int v) {
       if (v < 0 || v >= this.size) {
         throw new IllegalArgumentException("invalid vertex");
       }
 
-      return this.vertices.get(v).getAdjacenctVertices();
+      return this.vertices.get(v).getAdjacentVertices();
     }
 
     @Override
@@ -79,39 +79,36 @@ public class CycleDirectedGraph {
     }
   }
 
-  // O(|V| + |E|)
-  private static boolean hasCycle(Graph g) {
+  public static boolean hasCycle(Graph g) {
     boolean[] visited = new boolean[g.size()];
-    boolean[] callStack = new boolean[g.size()];
+    boolean[] callSt = new boolean[g.size()];
 
     for (int i = 0; i < g.size(); i++) {
       if (!visited[i]) {
-        if (dfs(g, visited, callStack, i)) {
+        if (dfs(g, visited, callSt, i)) {
           return true;
         }
       }
     }
-
     return false;
   }
 
-  private static boolean dfs(Graph g, boolean[] visited, boolean[] callStack,
+  private static boolean dfs(Graph g, boolean[] visited, boolean[] callSt,
                              int currVertex) {
-    if (callStack[currVertex]) {
+    if (callSt[currVertex]) {
       return true;
     }
 
     visited[currVertex] = true;
-    callStack[currVertex] = true;
+    callSt[currVertex] = true;
 
-    for (int neighbour : g.getAdjacenctVertices(currVertex)) {
-      if (dfs(g, visited, callStack, neighbour)) {
+    for (int neighbour : g.getAdjacentVertices(currVertex)) {
+      if (dfs(g, visited, callSt, neighbour)) {
         return true;
       }
     }
 
-    callStack[currVertex] = false;
-
+    callSt[currVertex] = false;
     return false;
   }
 }

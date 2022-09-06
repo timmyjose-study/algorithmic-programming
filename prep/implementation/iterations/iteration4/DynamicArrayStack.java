@@ -1,18 +1,16 @@
 import java.util.*;
 
 @SuppressWarnings("unchecked")
-public class DynamicArrayStack<T> implements MyStack<T> {
-  private MyList<T> dynArr;
+public class DynamicArrayStack<T extends Comparable<T>> implements MyStack<T> {
+  private DynamicArray<T> dynArr;
 
   public DynamicArrayStack() { this.dynArr = new DynamicArray<>(); }
 
-  // O(1)
   @Override
   public void push(T elem) {
     this.dynArr.pushBack(elem);
   }
 
-  // O(1)
   @Override
   public T pop() {
     if (isEmpty()) {
@@ -22,14 +20,16 @@ public class DynamicArrayStack<T> implements MyStack<T> {
     return this.dynArr.popBack();
   }
 
-  // O(1)
   @Override
   public T peek() {
     if (isEmpty()) {
       throw new IllegalStateException("stack underflow");
     }
 
-    return this.dynArr.get(this.dynArr.size() - 1);
+    T val = this.dynArr.popBack();
+    this.dynArr.pushBack(val);
+
+    return val;
   }
 
   @Override
@@ -39,7 +39,7 @@ public class DynamicArrayStack<T> implements MyStack<T> {
 
   @Override
   public boolean isFull() {
-    throw new UnsupportedOperationException("isfull");
+    throw new UnsupportedOperationException("isFull");
   }
 
   public static void main(String[] args) {

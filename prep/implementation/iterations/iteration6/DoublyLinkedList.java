@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class DoublyLinkedList<T> implements MyList<T> {
+public class DoublyLinkedList<T extends Comparable<T>> implements MyList<T> {
   static class Node<T> {
     T data;
     Node<T> prev;
@@ -17,52 +17,50 @@ public class DoublyLinkedList<T> implements MyList<T> {
   private Node<T> tail;
   private int size;
 
-  public DoublyLinkedList() {
-    this.head = null;
-    this.tail = null;
-    this.size = 0;
-  }
+  public DoublyLinkedList() { this.head = this.tail = null; }
 
-  // O(1)
   @Override
   public void pushFront(T elem) {
     if (this.head == null) {
       this.head = this.tail = new Node<>(elem);
     } else {
-      Node<T> node = new Node<>(elem);
-      node.next = this.head;
-      this.head.prev = node;
-      this.head = node;
+      Node<T> newNode = new Node<>(elem);
+      newNode.next = this.head;
+      this.head.prev = newNode;
+      this.head = newNode;
     }
+
     this.size++;
   }
 
-  // O(1)
   @Override
   public void pushBack(T elem) {
     if (this.tail == null) {
       this.tail = this.head = new Node<>(elem);
     } else {
-      Node<T> node = new Node<>(elem);
-      node.prev = this.tail;
-      this.tail.next = node;
-      this.tail = node;
+      Node<T> newNode = new Node<>(elem);
+      newNode.prev = this.tail;
+      this.tail.next = newNode;
+      this.tail = newNode;
     }
     this.size++;
   }
 
-  // O(1)
   @Override
   public T popFront() {
     if (isEmpty()) {
       throw new IllegalStateException("empty list");
     }
 
-    T val = this.head.data;
-
+    T val = null;
     if (this.head == this.tail) {
+      val = this.head.data;
       this.head = this.tail = null;
     } else {
+      val = this.head.data;
+      if (this.head.next != null) {
+        this.head.next.prev = null;
+      }
       this.head = this.head.next;
     }
     this.size--;
@@ -70,7 +68,6 @@ public class DoublyLinkedList<T> implements MyList<T> {
     return val;
   }
 
-  // O(1)
   @Override
   public T popBack() {
     if (isEmpty()) {
@@ -78,13 +75,16 @@ public class DoublyLinkedList<T> implements MyList<T> {
     }
 
     T val = null;
-    if (this.tail == this.head) {
-      val = this.head.data;
+
+    if (this.head == this.tail) {
+      val = this.tail.data;
       this.tail = this.head = null;
     } else {
       val = this.tail.data;
+      this.tail.prev.next = null;
       this.tail = this.tail.prev;
     }
+
     this.size--;
 
     return val;
@@ -92,49 +92,49 @@ public class DoublyLinkedList<T> implements MyList<T> {
 
   @Override
   public T get(int idx) {
-    throw new UnsupportedOperationException("get at index");
+    throw new UnsupportedOperationException("get");
   }
 
-  // O(n)
   @Override
   public void removeElem(T elem) {
     if (isEmpty()) {
-      throw new IllegalStateException("empty list");
-    }
-
-    Node<T> currNode = this.head;
-    while (currNode != null && !currNode.data.equals(elem)) {
-      currNode = currNode.next;
-    }
-
-    if (currNode == null) {
       return;
     }
 
-    if (currNode.prev == null) {
+    if (this.head == this.tail && this.head.data.compareTo(elem) == 0) {
       this.head = this.tail = null;
+    } else if (this.head.data.compareTo(elem) == 0) {
+      popFront();
+      return;
     } else {
-      currNode.prev.next = currNode.next;
-    }
+      Node<T> currNode = this.head;
+      while (currNode != null && currNode.data.compareTo(elem) != 0) {
+        currNode = currNode.next;
+      }
 
-    if (currNode.next == null) {
-      this.tail = currNode.prev;
-    } else {
-      currNode.next.prev = currNode.prev;
+      if (currNode == null) {
+        return;
+      }
+
+      if (currNode.prev != null) {
+        currNode.prev.next = currNode.next;
+      }
+
+      if (currNode.next != null) {
+        currNode.next.prev = currNode.prev;
+      }
     }
     this.size--;
   }
 
-  // O(1)
-  @Override
-  public boolean isEmpty() {
-    return this.size == 0;
-  }
-
-  // O(1)
   @Override
   public int size() {
     return this.size;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return this.size == 0;
   }
 
   @Override
@@ -150,7 +150,7 @@ public class DoublyLinkedList<T> implements MyList<T> {
       currNode = currNode.next;
     }
 
-    return sb.toString();
+    return sb.toString().trim();
   }
 
   public static void main(String[] args) {
@@ -158,7 +158,7 @@ public class DoublyLinkedList<T> implements MyList<T> {
       int nq = in.nextInt();
       in.nextLine();
 
-      MyList<Integer> dll = new SinglyLinkedList<>();
+      MyList<Integer> dll = new DoublyLinkedList<>();
 
       while (nq-- > 0) {
         String[] cmd = in.nextLine().trim().split(" ");

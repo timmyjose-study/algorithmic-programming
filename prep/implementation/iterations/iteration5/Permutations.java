@@ -10,7 +10,7 @@ public class Permutations {
         a[i] = in.nextInt();
       }
 
-      List<List<Integer>> permutations = permute(a, n);
+      List<List<Integer>> permutations = permutations(a, n);
       for (List<Integer> perm : permutations) {
         for (int p : perm) {
           System.out.printf("%d ", p);
@@ -20,31 +20,31 @@ public class Permutations {
     }
   }
 
-  // O(n * n!) / O(n)
-  private static List<List<Integer>> permute(int[] a, int n) {
-    List<List<Integer>> permutations = new ArrayList<>();
+  public static List<List<Integer>> permutations(int[] a, int n) {
+    List<List<Integer>> perms = new ArrayList<>();
     Set<Integer> visited = new HashSet<>();
-    permute(a, n, visited, new ArrayList<>(), permutations);
-    return permutations;
+    permutations(a, n, visited, new ArrayList<>(), perms);
+
+    return perms;
   }
 
-  private static void permute(int[] a, int n, Set<Integer> visited,
-                              List<Integer> perm,
-                              List<List<Integer>> permutations) {
-    if (perm.size() == n) {
+  private static void permutations(int[] a, int n, Set<Integer> visited,
+                                   List<Integer> currPerm,
+                                   List<List<Integer>> perms) {
+    if (currPerm.size() == n) {
       List<Integer> tmp = new ArrayList<>();
-      for (int p : perm) {
+      for (int p : currPerm) {
         tmp.add(p);
       }
-      permutations.add(tmp);
+      perms.add(tmp);
     } else {
       for (int e : a) {
         if (!visited.contains(e)) {
-          perm.add(e);
           visited.add(e);
-          permute(a, n, visited, perm, permutations);
+          currPerm.add(e);
+          permutations(a, n, visited, currPerm, perms);
           visited.remove(e);
-          perm.remove(perm.size() - 1);
+          currPerm.remove(currPerm.size() - 1);
         }
       }
     }
