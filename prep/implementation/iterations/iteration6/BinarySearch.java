@@ -11,9 +11,9 @@ public class BinarySearch {
         a[i] = in.nextInt();
       }
 
-      display(a, n);
+      display(a);
       Arrays.sort(a);
-      display(a, n);
+      display(a);
 
       while (nq-- > 0) {
         int elem = in.nextInt();
@@ -42,21 +42,21 @@ public class BinarySearch {
   public static int binarySearchRec(int[] a, int low, int high, int elem) {
     if (low > high) {
       return -1;
-    } else {
-      int mid = low + (high - low) / 2;
-
-      if (a[mid] < elem) {
-        return binarySearchRec(a, mid + 1, high, elem);
-      } else if (a[mid] > elem) {
-        return binarySearchRec(a, low, mid - 1, elem);
-      }
-      return mid;
     }
+
+    int mid = low + (high - low) / 2;
+
+    if (a[mid] < elem) {
+      return binarySearchRec(a, mid + 1, high, elem);
+    } else if (a[mid] > elem) {
+      return binarySearchRec(a, low, mid - 1, elem);
+    }
+    return mid;
   }
 
-  private static void display(int[] a, int n) {
-    for (int i = 0; i < n; i++) {
-      System.out.printf("%d ", a[i]);
+  private static void display(int[] a) {
+    for (int e : a) {
+      System.out.printf("%d ", e);
     }
     System.out.println();
   }

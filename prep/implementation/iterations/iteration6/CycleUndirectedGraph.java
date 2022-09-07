@@ -64,19 +64,23 @@ public class CycleUndirectedGraph {
 
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
-      int n = in.nextInt();
-      Graph g = new AdjacencySet(n);
+      int tt = in.nextInt();
 
-      int m = in.nextInt();
-      for (int i = 0; i < m; i++) {
-        int from = in.nextInt();
-        int to = in.nextInt();
+      while (tt-- > 0) {
+        int n = in.nextInt();
+        Graph g = new AdjacencySet(n);
 
-        g.addEdge(from, to);
-        g.addEdge(to, from);
+        int m = in.nextInt();
+        for (int i = 0; i < m; i++) {
+          int from = in.nextInt();
+          int to = in.nextInt();
+
+          g.addEdge(from, to);
+          g.addEdge(to, from);
+        }
+
+        System.out.println(hasCycle(g));
       }
-
-      System.out.println(hasCycle(g));
     }
   }
 

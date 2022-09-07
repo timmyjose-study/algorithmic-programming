@@ -76,15 +76,13 @@ public class AdjacencySetBFS {
     while (!q.isEmpty()) {
       int v = q.poll();
 
-      if (visited[v]) {
-        continue;
-      }
-
       visited[v] = true;
       System.out.printf("%d ", v);
 
       for (int neighbour : g.getAdjacentVertices(v)) {
-        q.add(neighbour);
+        if (!visited[neighbour]) {
+          q.add(neighbour);
+        }
       }
     }
   }

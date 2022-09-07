@@ -50,31 +50,27 @@ public class AdjacencyMatrixBFS {
   public static void bfs(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
-      bfs(g, visited, i);
+      if (!visited[i]) {
+        bfs(g, visited, i);
+      }
     }
     System.out.println();
   }
 
   private static void bfs(Graph g, boolean[] visited, int currVertex) {
-    if (visited[currVertex]) {
-      return;
-    }
-
     Queue<Integer> q = new ArrayDeque<>();
     q.add(currVertex);
 
     while (!q.isEmpty()) {
       int v = q.poll();
 
-      if (visited[v]) {
-        continue;
-      }
-
       visited[v] = true;
       System.out.printf("%d ", v);
 
       for (int neighbour : g.getAdjacentVertices(v)) {
-        q.add(neighbour);
+        if (!visited[neighbour]) {
+          q.add(neighbour);
+        }
       }
     }
   }
@@ -97,16 +93,14 @@ public class AdjacencyMatrixBFS {
     }
 
     int v = q.poll();
-
-    if (visited[v]) {
-      return;
-    }
-
     visited[v] = true;
-    System.out.printf("%s ", v);
+
+    System.out.printf("%d ", v);
 
     for (int neighbour : g.getAdjacentVertices(v)) {
-      q.add(neighbour);
+      if (!visited[neighbour]) {
+        q.add(neighbour);
+      }
     }
 
     bfsRec(g, visited, q);

@@ -10,9 +10,9 @@ public class MergeSort {
         a[i] = in.nextInt();
       }
 
-      display(a, n);
+      display(a);
       sort(a, n);
-      display(a, n);
+      display(a);
     }
   }
 
@@ -37,7 +37,7 @@ public class MergeSort {
     int llen = mid - low + 1;
     int[] left = new int[llen];
     for (int i = 0; i < llen; i++) {
-      left[i] = a[i + low];
+      left[i] = a[low + i];
     }
 
     int rlen = high - mid;
@@ -54,17 +54,17 @@ public class MergeSort {
         } else {
           a[i] = right[rpos++];
         }
-      } else if (lpos >= llen) {
-        a[i] = right[rpos++];
-      } else {
+      } else if (lpos < llen) {
         a[i] = left[lpos++];
+      } else {
+        a[i] = right[rpos++];
       }
     }
   }
 
-  private static void display(int[] a, int n) {
-    for (int i = 0; i < n; i++) {
-      System.out.printf("%d ", a[i]);
+  private static void display(int[] a) {
+    for (int e : a) {
+      System.out.printf("%d ", e);
     }
     System.out.println();
   }

@@ -43,18 +43,17 @@ public class SegmentTreePrefixSum {
   public static void update(int[] tree, int node, int start, int end, int idx,
                             int val, int[] a) {
     if (start == end) {
-      tree[node] += val;
-      a[idx] += val;
+      tree[node] = val;
+      a[idx] = val;
     } else {
       int mid = start + (end - start) / 2;
-
       if (idx >= start && idx <= mid) {
         update(tree, 2 * node + 1, start, mid, idx, val, a);
-      } else
+      } else {
         update(tree, 2 * node + 2, mid + 1, end, idx, val, a);
+      }
+      tree[node] = tree[2 * node + 1] + tree[2 * node + 2];
     }
-
-    tree[node] = tree[2 * node + 1] + tree[2 * node + 2];
   }
 
   public static int query(int[] tree, int node, int start, int end, int l,
@@ -65,12 +64,11 @@ public class SegmentTreePrefixSum {
 
     if (l <= start && end <= r) {
       return tree[node];
-    } else {
-      int mid = start + (end - start) / 2;
-      int lval = query(tree, 2 * node + 1, start, mid, l, r);
-      int rval = query(tree, 2 * node + 2, mid + 1, end, l, r);
-
-      return lval + rval;
     }
+
+    int mid = start + (end - start) / 2;
+    int lval = query(tree, 2 * node + 1, start, mid, l, r);
+    int rval = query(tree, 2 * node + 2, mid + 1, end, l, r);
+    return lval + rval;
   }
 }

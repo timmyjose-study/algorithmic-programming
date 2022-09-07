@@ -63,21 +63,21 @@ public class AdjacencySetDFS {
   public static void dfsPre(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
-      dfsPre(g, visited, i);
+      if (!visited[i]) {
+        dfsPre(g, visited, i);
+      }
     }
     System.out.println();
   }
 
   private static void dfsPre(Graph g, boolean[] visited, int currVertex) {
-    if (visited[currVertex]) {
-      return;
-    }
-
     visited[currVertex] = true;
     System.out.printf("%d ", currVertex);
 
     for (int neighbour : g.getAdjacentVertices(currVertex)) {
-      dfsPre(g, visited, neighbour);
+      if (!visited[neighbour]) {
+        dfsPre(g, visited, neighbour);
+      }
     }
   }
 
@@ -98,15 +98,13 @@ public class AdjacencySetDFS {
     while (!st.isEmpty()) {
       int v = st.pop();
 
-      if (visited[v]) {
-        continue;
-      }
-
       visited[v] = true;
-
       System.out.printf("%d ", v);
+
       for (int neighbour : g.getAdjacentVertices(v)) {
-        st.push(neighbour);
+        if (!visited[neighbour]) {
+          st.push(neighbour);
+        }
       }
     }
   }
@@ -114,21 +112,21 @@ public class AdjacencySetDFS {
   public static void dfsPost(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
-      dfsPost(g, visited, i);
+      if (!visited[i]) {
+        dfsPost(g, visited, i);
+      }
     }
     System.out.println();
   }
 
   private static void dfsPost(Graph g, boolean[] visited, int currVertex) {
-    if (visited[currVertex]) {
-      return;
-    }
-
     visited[currVertex] = true;
-    for (int neighbour : g.getAdjacentVertices(currVertex)) {
-      dfsPost(g, visited, neighbour);
-    }
 
+    for (int neighbour : g.getAdjacentVertices(currVertex)) {
+      if (!visited[neighbour]) {
+        dfsPost(g, visited, neighbour);
+      }
+    }
     System.out.printf("%d ", currVertex);
   }
 
@@ -145,14 +143,10 @@ public class AdjacencySetDFS {
   private static void dfsPostIter(Graph g, boolean[] visited, int currVertex) {
     Stack<Integer> st = new Stack<>();
     Stack<Integer> revSt = new Stack<>();
-    st.push(currVertex);
 
+    st.push(currVertex);
     while (!st.isEmpty()) {
       int v = st.pop();
-
-      if (visited[v]) {
-        continue;
-      }
 
       visited[v] = true;
       revSt.push(v);

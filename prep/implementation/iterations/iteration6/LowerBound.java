@@ -11,9 +11,9 @@ public class LowerBound {
         a[i] = in.nextInt();
       }
 
-      display(a, n);
+      display(a);
       Arrays.sort(a);
-      display(a, n);
+      display(a);
 
       while (nq-- > 0) {
         int elem = in.nextInt();
@@ -43,16 +43,15 @@ public class LowerBound {
     }
 
     int mid = low + (high - low) / 2;
-
     if (a[mid] < elem) {
       return lowerBoundRec(a, mid + 1, high, elem);
     }
     return lowerBoundRec(a, low, mid, elem);
   }
 
-  private static void display(int[] a, int n) {
-    for (int i = 0; i < n; i++) {
-      System.out.printf("%d ", a[i]);
+  private static void display(int[] a) {
+    for (int e : a) {
+      System.out.printf("%d ", e);
     }
     System.out.println();
   }

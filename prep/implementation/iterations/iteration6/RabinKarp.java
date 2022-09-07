@@ -27,16 +27,16 @@ public class RabinKarp {
   public static List<Integer> rabinKarp(String s, String t) {
     long m = 53;
     long p = (long)1e9 + 7;
+
     int slen = s.length(), tlen = t.length();
     long[] mpow = new long[Math.max(slen, tlen)];
-
-    mpow[0] = 1L;
+    mpow[0] = 1;
     for (int i = 1; i < mpow.length; i++) {
       mpow[i] = (mpow[i - 1] * m) % p;
     }
 
-    long shash = 0L;
-    for (int i = 0; i < s.length(); i++) {
+    long shash = 0;
+    for (int i = 0; i < slen; i++) {
       shash = (shash + (s.charAt(i) - 'a' + 1) * mpow[i]) % p;
     }
 

@@ -36,12 +36,11 @@ public class Combinations {
                                    List<Integer> currComb,
                                    List<List<Integer>> combs, int k) {
     if (currComb.size() == k) {
-      List<Integer> tmp = new ArrayList<>();
+      List<Integer> tmp = new ArrayList<>(currComb.size());
       for (int c : currComb) {
         tmp.add(c);
       }
       combs.add(tmp);
-
       return;
     }
 

@@ -61,6 +61,28 @@ public class Dijkstra {
     }
   }
 
+  public static void main(String[] args) {
+    try (Scanner in = new Scanner(System.in)) {
+      int n = in.nextInt();
+      int m = in.nextInt();
+      int source = in.nextInt();
+
+      Graph g = new AdjacencySet(n);
+      Map<Pair, Integer> weights = new HashMap<>();
+
+      for (int i = 0; i < m; i++) {
+        int from = in.nextInt();
+        int to = in.nextInt();
+        int w = in.nextInt();
+
+        g.addEdge(from, to);
+        weights.put(new Pair(from, to), w);
+      }
+
+      dijkstra(g, weights, source);
+    }
+  }
+
   static class Pair {
     int first;
     int second;
@@ -112,7 +134,7 @@ public class Dijkstra {
     while (!pq.isEmpty()) {
       Pair p = pq.poll();
       int from = p.first;
-      int distance = p.second;
+      int weigh = p.second;
 
       for (int neighbour : g.getAdjacentVertices(from)) {
         Pair edge = new Pair(from, neighbour);
@@ -136,7 +158,6 @@ public class Dijkstra {
         System.out.println("no path");
       } else {
         System.out.println(d);
-
         Stack<Integer> st = new Stack<>();
         int currVertex = i;
 
@@ -151,28 +172,6 @@ public class Dijkstra {
         }
         System.out.println();
       }
-    }
-  }
-
-  public static void main(String[] args) {
-    try (Scanner in = new Scanner(System.in)) {
-      int n = in.nextInt();
-      int m = in.nextInt();
-      int source = in.nextInt();
-
-      Graph g = new AdjacencySet(n);
-      Map<Pair, Integer> weights = new HashMap<>();
-
-      for (int i = 0; i < m; i++) {
-        int from = in.nextInt();
-        int to = in.nextInt();
-        int w = in.nextInt();
-
-        g.addEdge(from, to);
-        weights.put(new Pair(from, to), w);
-      }
-
-      dijkstra(g, weights, source);
     }
   }
 }

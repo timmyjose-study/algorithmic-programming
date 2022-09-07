@@ -50,21 +50,21 @@ public class AdjacencyMatrixDFS {
   public static void dfsPre(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
-      dfsPre(g, visited, i);
+      if (!visited[i]) {
+        dfsPre(g, visited, i);
+      }
     }
     System.out.println();
   }
 
   private static void dfsPre(Graph g, boolean[] visited, int currVertex) {
-    if (visited[currVertex]) {
-      return;
-    }
-
     visited[currVertex] = true;
     System.out.printf("%d ", currVertex);
 
     for (int neighbour : g.getAdjacenctVertices(currVertex)) {
-      dfsPre(g, visited, neighbour);
+      if (!visited[neighbour]) {
+        dfsPre(g, visited, neighbour);
+      }
     }
   }
 
@@ -85,10 +85,6 @@ public class AdjacencyMatrixDFS {
     while (!st.isEmpty()) {
       int v = st.pop();
 
-      if (visited[v]) {
-        continue;
-      }
-
       visited[v] = true;
       System.out.printf("%d ", v);
 
@@ -103,20 +99,20 @@ public class AdjacencyMatrixDFS {
   public static void dfsPost(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
-      dfsPost(g, visited, i);
+      if (!visited[i]) {
+        dfsPost(g, visited, i);
+      }
     }
     System.out.println();
   }
 
   private static void dfsPost(Graph g, boolean[] visited, int currVertex) {
-    if (visited[currVertex]) {
-      return;
-    }
-
     visited[currVertex] = true;
 
     for (int neighbour : g.getAdjacenctVertices(currVertex)) {
-      dfsPost(g, visited, neighbour);
+      if (!visited[neighbour]) {
+        dfsPost(g, visited, neighbour);
+      }
     }
 
     System.out.printf("%d ", currVertex);
@@ -135,17 +131,13 @@ public class AdjacencyMatrixDFS {
   private static void dfsPostIter(Graph g, boolean[] visited, int currVertex) {
     Stack<Integer> st = new Stack<>();
     Stack<Integer> revSt = new Stack<>();
-    st.push(currVertex);
 
+    st.push(currVertex);
     while (!st.isEmpty()) {
       int v = st.pop();
 
-      if (visited[v]) {
-        continue;
-      }
-
-      visited[v] = true;
       revSt.push(v);
+      visited[v] = true;
 
       for (int neighbour : g.getAdjacenctVertices(v)) {
         if (!visited[neighbour]) {

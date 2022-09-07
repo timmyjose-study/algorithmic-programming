@@ -42,7 +42,6 @@ public class Kruskal {
       if (p != parent[p]) {
         p = find(parent[p]);
       }
-
       return parent[p];
     }
 
@@ -75,6 +74,23 @@ public class Kruskal {
       this.to = to;
       this.weight = weight;
     }
+
+    @Override
+    public boolean equals(Object o) {
+      if (o == null || !(o instanceof Edge)) {
+        return false;
+      }
+
+      Edge other = (Edge)o;
+      return (this.weight == other.weight) &&
+          (this.from == other.from && this.to == other.to ||
+           this.from == other.to && this.to == other.from);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(this.from, this.to, this.weight);
+    }
   }
 
   public static void kruskal(DSUF dsuf, List<Edge> edges) {
@@ -83,19 +99,17 @@ public class Kruskal {
     List<Edge> mstEdges = new ArrayList<>();
     int mstCost = 0;
     for (Edge edge : edges) {
-      int from = edge.from;
-      int to = edge.to;
-
-      if (dsuf.find(from) != dsuf.find(to)) {
+      if (dsuf.find(edge.from) != dsuf.find(edge.to)) {
         mstEdges.add(edge);
         mstCost += edge.weight;
-        dsuf.union(from, to);
+        dsuf.union(edge.from, edge.to);
       }
     }
 
     System.out.println(mstCost);
     for (Edge edge : mstEdges) {
-      System.out.printf("%d %d\n", edge.from, edge.to);
+      System.out.printf("%d %d", edge.from, edge.to);
+      System.out.println();
     }
   }
 }

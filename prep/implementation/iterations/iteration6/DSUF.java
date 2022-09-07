@@ -4,7 +4,7 @@ public class DSUF {
   private int[] rank;
   private int[] parent;
 
-  DSUF(int size) {
+  public DSUF(int size) {
     this.rank = new int[size];
     this.parent = new int[size];
 

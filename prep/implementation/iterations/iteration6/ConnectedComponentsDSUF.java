@@ -23,7 +23,6 @@ public class ConnectedComponentsDSUF {
       if (p != parent[p]) {
         p = find(parent[p]);
       }
-
       return parent[p];
     }
 

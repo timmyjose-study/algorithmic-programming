@@ -10,25 +10,29 @@ public class BinaryTreeImplicitArray {
     }
 
     private Node<T>[] arr;
+    private int size;
 
-    public BinaryTree(int size) { this.arr = new Node[size]; }
+    BinaryTree(int size) {
+      this.size = size;
+      this.arr = new Node[size];
+    }
 
     public void build(String[] nodes, Function<String, T> parser) {
       buildRecursively(0, nodes, parser);
     }
 
-    private void buildRecursively(int root, String[] nodes,
+    private void buildRecursively(int node, String[] nodes,
                                   Function<String, T> parser) {
-      if (root >= this.arr.length || nodes[root].equals("null")) {
+      if (node >= this.size || nodes[node].equals("null")) {
         return;
       }
 
-      if (this.arr[root] == null) {
-        this.arr[root] = new Node<>(parser.apply(nodes[root]));
+      if (this.arr[node] == null) {
+        this.arr[node] = new Node<>(parser.apply(nodes[node]));
       }
 
-      buildRecursively(2 * root + 1, nodes, parser);
-      buildRecursively(2 * root + 2, nodes, parser);
+      buildRecursively(2 * node + 1, nodes, parser);
+      buildRecursively(2 * node + 2, nodes, parser);
     }
 
     public void dfsPreOrder() {
@@ -36,14 +40,14 @@ public class BinaryTreeImplicitArray {
       System.out.println();
     }
 
-    private void dfsPreOrder(int root) {
-      if (root >= this.arr.length || this.arr[root] == null) {
+    private void dfsPreOrder(int node) {
+      if (node >= this.size || this.arr[node] == null) {
         return;
       }
 
-      System.out.printf("%s ", this.arr[root].data);
-      dfsPreOrder(2 * root + 1);
-      dfsPreOrder(2 * root + 2);
+      System.out.printf("%s ", this.arr[node].data);
+      dfsPreOrder(2 * node + 1);
+      dfsPreOrder(2 * node + 2);
     }
 
     public void dfsPreOrderIter() {
@@ -51,16 +55,16 @@ public class BinaryTreeImplicitArray {
       st.push(0);
 
       while (!st.isEmpty()) {
-        int root = st.pop();
+        int node = st.pop();
 
-        System.out.printf("%s ", this.arr[root].data);
+        System.out.printf("%s ", this.arr[node].data);
 
-        if (2 * root + 2 < this.arr.length && this.arr[2 * root + 2] != null) {
-          st.push(2 * root + 2);
+        if (2 * node + 2 < this.size && this.arr[2 * node + 2] != null) {
+          st.push(2 * node + 2);
         }
 
-        if (2 * root + 1 < this.arr.length && this.arr[2 * root + 1] != null) {
-          st.push(2 * root + 1);
+        if (2 * node + 1 < this.size && this.arr[2 * node + 1] != null) {
+          st.push(2 * node + 1);
         }
       }
       System.out.println();
@@ -71,23 +75,23 @@ public class BinaryTreeImplicitArray {
       System.out.println();
     }
 
-    private void dfsInOrder(int root) {
-      if (root >= this.arr.length || this.arr[root] == null) {
+    private void dfsInOrder(int node) {
+      if (node >= this.size || this.arr[node] == null) {
         return;
       }
 
-      dfsInOrder(2 * root + 1);
-      System.out.printf("%s ", this.arr[root].data);
-      dfsInOrder(2 * root + 2);
+      dfsInOrder(2 * node + 1);
+      System.out.printf("%s ", this.arr[node].data);
+      dfsInOrder(2 * node + 2);
     }
 
     public void dfsInOrderIter() {
       Stack<Integer> st = new Stack<>();
       int currNode = 0;
 
-      while (currNode < this.arr.length && this.arr[currNode] != null ||
+      while (currNode < this.size && this.arr[currNode] != null ||
              !st.isEmpty()) {
-        while (currNode < this.arr.length && this.arr[currNode] != null) {
+        while (currNode < this.size && this.arr[currNode] != null) {
           st.push(currNode);
           currNode = 2 * currNode + 1;
         }
@@ -106,31 +110,31 @@ public class BinaryTreeImplicitArray {
       System.out.println();
     }
 
-    private void dfsPostOrder(int root) {
-      if (root >= this.arr.length || this.arr[root] == null) {
+    private void dfsPostOrder(int node) {
+      if (node >= this.size || this.arr[node] == null) {
         return;
       }
 
-      dfsPostOrder(2 * root + 1);
-      dfsPostOrder(2 * root + 2);
-      System.out.printf("%s ", this.arr[root].data);
+      dfsPostOrder(2 * node + 1);
+      dfsPostOrder(2 * node + 2);
+      System.out.printf("%s ", this.arr[node].data);
     }
 
     public void dfsPostOrderIter() {
       Stack<Integer> st = new Stack<>();
       Stack<Integer> revSt = new Stack<>();
-      st.push(0);
 
+      st.push(0);
       while (!st.isEmpty()) {
         int node = st.pop();
 
         revSt.push(node);
 
-        if (2 * node + 1 < this.arr.length && this.arr[2 * node + 1] != null) {
+        if (2 * node + 1 < this.size && this.arr[2 * node + 1] != null) {
           st.push(2 * node + 1);
         }
 
-        if (2 * node + 2 < this.arr.length && this.arr[2 * node + 2] != null) {
+        if (2 * node + 2 < this.size && this.arr[2 * node + 2] != null) {
           st.push(2 * node + 2);
         }
       }
@@ -147,13 +151,14 @@ public class BinaryTreeImplicitArray {
 
       while (!q.isEmpty()) {
         int node = q.poll();
+
         System.out.printf("%s ", this.arr[node].data);
 
-        if (2 * node + 1 < this.arr.length && this.arr[2 * node + 1] != null) {
+        if (2 * node + 1 < this.size && this.arr[2 * node + 1] != null) {
           q.add(2 * node + 1);
         }
 
-        if (2 * node + 2 < this.arr.length && this.arr[2 * node + 2] != null) {
+        if (2 * node + 2 < this.size && this.arr[2 * node + 2] != null) {
           q.add(2 * node + 2);
         }
       }
@@ -162,11 +167,12 @@ public class BinaryTreeImplicitArray {
 
     public int height() { return height(0); }
 
-    private int height(int root) {
-      if (root >= this.arr.length || this.arr[root] == null) {
+    private int height(int node) {
+      if (node >= this.size || this.arr[node] == null) {
         return 0;
       }
-      return 1 + Math.max(height(2 * root + 1), height(2 * root + 2));
+
+      return 1 + Math.max(height(2 * node + 1), height(2 * node + 2));
     }
 
     public void bfsRec() {
@@ -177,16 +183,16 @@ public class BinaryTreeImplicitArray {
       System.out.println();
     }
 
-    private void bfsRec(int root, int level) {
-      if (root >= this.arr.length || this.arr[root] == null) {
+    private void bfsRec(int node, int level) {
+      if (node >= this.size || this.arr[node] == null) {
         return;
       }
 
       if (level == 0) {
-        System.out.printf("%s ", this.arr[root].data);
+        System.out.printf("%s ", this.arr[node].data);
       } else {
-        bfsRec(2 * root + 1, level - 1);
-        bfsRec(2 * root + 2, level - 1);
+        bfsRec(2 * node + 1, level - 1);
+        bfsRec(2 * node + 2, level - 1);
       }
     }
   }

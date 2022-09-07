@@ -62,6 +62,28 @@ public class BellmanFord {
     }
   }
 
+  public static void main(String[] args) {
+    try (Scanner in = new Scanner(System.in)) {
+      int n = in.nextInt();
+      int m = in.nextInt();
+      int source = in.nextInt();
+
+      Graph g = new AdjacencySet(n);
+      Map<Pair, Integer> weights = new HashMap<>();
+
+      for (int i = 0; i < m; i++) {
+        int from = in.nextInt();
+        int to = in.nextInt();
+        int w = in.nextInt();
+
+        g.addEdge(from, to);
+        weights.put(new Pair(from, to), w);
+      }
+
+      bellmanFord(g, weights, source);
+    }
+  }
+
   static class Pair {
     int first;
     int second;
@@ -107,8 +129,8 @@ public class BellmanFord {
     dist[source].distance = 0;
     dist[source].lastVertex = source;
 
-    Set<Pair> visited = new HashSet<>();
     Queue<Integer> q = new ArrayDeque<>();
+    Set<Pair> visited = new HashSet<>();
 
     for (int i = 0; i < g.size() - 1; i++) {
       for (int j = 0; j < g.size(); j++) {
@@ -126,6 +148,7 @@ public class BellmanFord {
           }
 
           visited.add(edge);
+
           if (dist[from].distance + weights.get(edge) <
               dist[neighbour].distance) {
             dist[neighbour].distance = dist[from].distance + weights.get(edge);
@@ -138,8 +161,8 @@ public class BellmanFord {
       visited.clear();
     }
 
-    for (int j = 0; j < g.size(); j++) {
-      q.add(j);
+    for (int i = 0; i < g.size(); i++) {
+      q.add(i);
     }
 
     while (!q.isEmpty()) {
@@ -171,7 +194,6 @@ public class BellmanFord {
         System.out.println("no path");
       } else {
         System.out.println(d);
-
         Stack<Integer> st = new Stack<>();
         int currVertex = i;
 
@@ -186,28 +208,6 @@ public class BellmanFord {
         }
         System.out.println();
       }
-    }
-  }
-
-  public static void main(String[] args) {
-    try (Scanner in = new Scanner(System.in)) {
-      int n = in.nextInt();
-      int m = in.nextInt();
-      int source = in.nextInt();
-
-      Graph g = new AdjacencySet(n);
-      Map<Pair, Integer> weights = new HashMap<>();
-
-      for (int i = 0; i < m; i++) {
-        int from = in.nextInt();
-        int to = in.nextInt();
-        int w = in.nextInt();
-
-        g.addEdge(from, to);
-        weights.put(new Pair(from, to), w);
-      }
-
-      bellmanFord(g, weights, source);
     }
   }
 }

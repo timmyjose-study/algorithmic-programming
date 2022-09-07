@@ -32,7 +32,7 @@ public class Permutations {
                                    List<Integer> currPerm,
                                    List<List<Integer>> perms) {
     if (currPerm.size() == n) {
-      List<Integer> tmp = new ArrayList<>();
+      List<Integer> tmp = new ArrayList<>(n);
       for (int p : currPerm) {
         tmp.add(p);
       }

@@ -29,42 +29,41 @@ public class Subsets {
   }
 
   public static List<List<Integer>> subsets(int[] a, int n) {
-    List<List<Integer>> subsets = new ArrayList<>();
-    subsets(a, 0, n, new ArrayList<>(), subsets);
+    List<List<Integer>> subs = new ArrayList<>();
+    subsets(a, 0, n, new ArrayList<>(), subs);
 
-    return subsets;
+    return subs;
   }
 
   private static void subsets(int[] a, int currIdx, int n,
-                              List<Integer> currSubset,
-                              List<List<Integer>> subsets) {
+                              List<Integer> currSub, List<List<Integer>> subs) {
     if (currIdx == n) {
-      List<Integer> tmp = new ArrayList<>();
-      for (int s : currSubset) {
+      List<Integer> tmp = new ArrayList<>(currSub.size());
+      for (int s : currSub) {
         tmp.add(s);
       }
-      subsets.add(tmp);
+      subs.add(tmp);
     } else {
-      currSubset.add(a[currIdx]);
-      subsets(a, currIdx + 1, n, currSubset, subsets);
-      currSubset.remove(currSubset.size() - 1);
-      subsets(a, currIdx + 1, n, currSubset, subsets);
+      currSub.add(a[currIdx]);
+      subsets(a, currIdx + 1, n, currSub, subs);
+      currSub.remove(currSub.size() - 1);
+      subsets(a, currIdx + 1, n, currSub, subs);
     }
   }
 
   public static List<List<Integer>> subsetsBitmask(int[] a, int n) {
-    List<List<Integer>> subsets = new ArrayList<>();
+    List<List<Integer>> subs = new ArrayList<>();
 
     for (int i = 0; i < (1 << n); i++) {
-      List<Integer> currSubset = new ArrayList<>();
+      List<Integer> currSub = new ArrayList<>();
       for (int j = 0; j < n; j++) {
         if ((i & (1 << j)) != 0) {
-          currSubset.add(a[j]);
+          currSub.add(a[j]);
         }
       }
-      subsets.add(currSubset);
+      subs.add(currSub);
     }
 
-    return subsets;
+    return subs;
   }
 }

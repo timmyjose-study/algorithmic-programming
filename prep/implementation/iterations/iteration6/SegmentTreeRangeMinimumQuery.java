@@ -36,7 +36,7 @@ public class SegmentTreeRangeMinimumQuery {
     }
   }
 
-  private static void build(int[] tree, int node, int start, int end, int[] a) {
+  public static void build(int[] tree, int node, int start, int end, int[] a) {
     if (start == end) {
       tree[node] = a[start];
     } else {
@@ -47,38 +47,35 @@ public class SegmentTreeRangeMinimumQuery {
     }
   }
 
-  private static void update(int[] tree, int node, int start, int end, int idx,
-                             int val, int[] a) {
+  public static void update(int[] tree, int node, int start, int end, int idx,
+                            int val, int[] a) {
     if (start == end) {
       tree[node] = val;
       a[idx] = val;
     } else {
       int mid = start + (end - start) / 2;
-
       if (idx >= start && idx <= mid) {
         update(tree, 2 * node + 1, start, mid, idx, val, a);
       } else {
         update(tree, 2 * node + 2, mid + 1, end, idx, val, a);
       }
-
       tree[node] = Math.min(tree[2 * node + 1], tree[2 * node + 2]);
     }
   }
 
-  private static int query(int[] tree, int node, int start, int end, int l,
-                           int r) {
+  public static int query(int[] tree, int node, int start, int end, int l,
+                          int r) {
     if (l > end || r < start) {
       return Integer.MAX_VALUE;
     }
 
     if (l <= start && end <= r) {
       return tree[node];
-    } else {
-      int mid = start + (end - start) / 2;
-      int lval = query(tree, 2 * node + 1, start, mid, l, r);
-      int rval = query(tree, 2 * node + 2, mid + 1, end, l, r);
-
-      return Math.min(lval, rval);
     }
+
+    int mid = start + (end - start) / 2;
+    int lval = query(tree, 2 * node + 1, start, mid, l, r);
+    int rval = query(tree, 2 * node + 2, mid + 1, end, l, r);
+    return Math.min(lval, rval);
   }
 }

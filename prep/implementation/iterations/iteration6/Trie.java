@@ -8,7 +8,7 @@ public class Trie {
 
     TrieNode() {
       this.children = new HashMap<>();
-      this.score = -1;
+      this.score = 0;
     }
   }
 
@@ -26,7 +26,6 @@ public class Trie {
       node = node.children.get(c);
       node.score = Math.max(node.score, score);
     }
-    node.isTerminal = true;
   }
 
   public int search(String s) { return search(this.root, s); }

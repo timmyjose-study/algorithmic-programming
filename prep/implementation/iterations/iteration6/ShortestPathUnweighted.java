@@ -61,6 +61,24 @@ public class ShortestPathUnweighted {
     }
   }
 
+  public static void main(String[] args) {
+    try (Scanner in = new Scanner(System.in)) {
+      int n = in.nextInt();
+      int m = in.nextInt();
+      int source = in.nextInt();
+
+      Graph g = new AdjacencySet(n);
+      for (int i = 0; i < m; i++) {
+        int from = in.nextInt();
+        int to = in.nextInt();
+
+        g.addEdge(from, to);
+      }
+
+      shortestPath(g, source);
+    }
+  }
+
   static class DistanceInfo {
     int distance;
     int lastVertex;
@@ -85,19 +103,18 @@ public class ShortestPathUnweighted {
     q.add(source);
 
     while (!q.isEmpty()) {
-      int from = q.poll();
+      int v = q.poll();
 
-      if (visited[from]) {
+      if (visited[v]) {
         continue;
       }
 
-      visited[from] = true;
-
-      for (int neighbour : g.getAdjacentVertices(from)) {
+      visited[v] = true;
+      for (int neighbour : g.getAdjacentVertices(v)) {
         if (!visited[neighbour]) {
           if (dist[neighbour].distance == -1) {
-            dist[neighbour].distance = 1 + dist[from].distance;
-            dist[neighbour].lastVertex = from;
+            dist[neighbour].distance = 1 + dist[v].distance;
+            dist[neighbour].lastVertex = v;
             q.add(neighbour);
           }
         }
@@ -128,25 +145,6 @@ public class ShortestPathUnweighted {
         }
         System.out.println();
       }
-    }
-  }
-
-  public static void main(String[] args) {
-    try (Scanner in = new Scanner(System.in)) {
-      int n = in.nextInt();
-      int m = in.nextInt();
-      int source = in.nextInt();
-
-      Graph g = new AdjacencySet(n);
-      for (int i = 0; i < m; i++) {
-        int from = in.nextInt();
-        int to = in.nextInt();
-
-        g.addEdge(from, to);
-        g.addEdge(to, from);
-      }
-
-      shortestPath(g, source);
     }
   }
 }
