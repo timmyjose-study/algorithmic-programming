@@ -10,31 +10,33 @@ public class BinaryTreeDynamicNode {
 
       Node(T data) {
         this.data = data;
-        this.left = left;
-        this.right = right;
+        this.left = null;
+        this.right = null;
       }
     }
 
     private Node<T> root;
 
+    BinaryTree() { this.root = null; }
+
     public void build(String[] nodes, Function<String, T> parser) {
       this.root = buildRecursively(this.root, 0, nodes, parser);
     }
 
-    private Node<T> buildRecursively(Node<T> root, int currIdx, String[] nodes,
+    private Node<T> buildRecursively(Node<T> node, int currIdx, String[] nodes,
                                      Function<String, T> parser) {
       if (currIdx >= nodes.length || nodes[currIdx].equals("null")) {
         return null;
       }
 
-      if (root == null) {
-        root = new Node<>(parser.apply(nodes[currIdx]));
+      if (node == null) {
+        node = new Node<>(parser.apply(nodes[currIdx]));
       }
 
-      root.left = buildRecursively(root.left, 2 * currIdx + 1, nodes, parser);
-      root.right = buildRecursively(root.right, 2 * currIdx + 2, nodes, parser);
+      node.left = buildRecursively(node.left, 2 * currIdx + 1, nodes, parser);
+      node.right = buildRecursively(node.right, 2 * currIdx + 2, nodes, parser);
 
-      return root;
+      return node;
     }
 
     public void dfsPreOrder() {
@@ -42,14 +44,14 @@ public class BinaryTreeDynamicNode {
       System.out.println();
     }
 
-    private void dfsPreOrder(Node<T> root) {
-      if (root == null) {
+    private void dfsPreOrder(Node<T> node) {
+      if (node == null) {
         return;
       }
 
-      System.out.printf("%s ", root.data);
-      dfsPreOrder(root.left);
-      dfsPreOrder(root.right);
+      System.out.printf("%s ", node.data);
+      dfsPreOrder(node.left);
+      dfsPreOrder(node.right);
     }
 
     public void dfsPreOrderIter() {
@@ -77,14 +79,14 @@ public class BinaryTreeDynamicNode {
       System.out.println();
     }
 
-    private void dfsInOrder(Node<T> root) {
-      if (root == null) {
+    private void dfsInOrder(Node<T> node) {
+      if (node == null) {
         return;
       }
 
-      dfsInOrder(root.left);
-      System.out.printf("%s ", root.data);
-      dfsInOrder(root.right);
+      dfsInOrder(node.left);
+      System.out.printf("%s ", node.data);
+      dfsInOrder(node.right);
     }
 
     public void dfsInOrderIter() {
@@ -111,14 +113,14 @@ public class BinaryTreeDynamicNode {
       System.out.println();
     }
 
-    private void dfsPostOrder(Node<T> root) {
-      if (root == null) {
+    private void dfsPostOrder(Node<T> node) {
+      if (node == null) {
         return;
       }
 
-      dfsPostOrder(root.left);
-      dfsPostOrder(root.right);
-      System.out.printf("%s ", root.data);
+      dfsPostOrder(node.left);
+      dfsPostOrder(node.right);
+      System.out.printf("%s ", node.data);
     }
 
     public void dfsPostOrderIter() {
@@ -126,9 +128,9 @@ public class BinaryTreeDynamicNode {
       Stack<Node<T>> revSt = new Stack<>();
 
       st.push(this.root);
+
       while (!st.isEmpty()) {
         Node<T> node = st.pop();
-
         revSt.push(node);
 
         if (node.left != null) {
@@ -152,6 +154,7 @@ public class BinaryTreeDynamicNode {
 
       while (!q.isEmpty()) {
         Node<T> node = q.poll();
+
         System.out.printf("%s ", node.data);
 
         if (node.left != null) {
@@ -167,11 +170,12 @@ public class BinaryTreeDynamicNode {
 
     public int height() { return height(this.root); }
 
-    private int height(Node<T> root) {
-      if (root == null) {
+    private int height(Node<T> node) {
+      if (node == null) {
         return 0;
       }
-      return 1 + Math.max(height(root.left), height(root.right));
+
+      return 1 + Math.max(height(node.left), height(node.right));
     }
 
     public void bfsRec() {
@@ -182,16 +186,16 @@ public class BinaryTreeDynamicNode {
       System.out.println();
     }
 
-    private void bfsRec(Node<T> root, int level) {
-      if (root == null) {
+    private void bfsRec(Node<T> node, int level) {
+      if (node == null) {
         return;
       }
 
       if (level == 0) {
-        System.out.printf("%s ", root.data);
+        System.out.printf("%s ", node.data);
       } else {
-        bfsRec(root.left, level - 1);
-        bfsRec(root.right, level - 1);
+        bfsRec(node.left, level - 1);
+        bfsRec(node.right, level - 1);
       }
     }
   }

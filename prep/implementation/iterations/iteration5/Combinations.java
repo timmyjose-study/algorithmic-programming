@@ -41,14 +41,12 @@ public class Combinations {
         tmp.add(c);
       }
       combs.add(tmp);
-
       return;
     }
 
     if (currIdx == n) {
       return;
     }
-
     currComb.add(a[currIdx]);
     combinations(a, currIdx + 1, n, currComb, combs, k);
     currComb.remove(currComb.size() - 1);

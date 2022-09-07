@@ -4,17 +4,11 @@ public class MyPriorityQueue<T extends Comparable<T>> {
   private List<T> arr;
   private Comparator<? super T> comp;
 
-  public MyPriorityQueue() { this((p, q) -> p.compareTo(q)); }
+  MyPriorityQueue() { this((p, q) -> p.compareTo(q)); }
 
-  public MyPriorityQueue(Comparator<? super T> comp) {
-    this.arr = new ArrayList<>();
+  MyPriorityQueue(Comparator<? super T> comp) {
     this.comp = comp;
-  }
-
-  private void swap(int x, int y) {
-    T t = this.arr.get(x);
-    this.arr.set(x, this.arr.get(y));
-    this.arr.set(y, t);
+    this.arr = new ArrayList<>();
   }
 
   private int parent(int p) { return p / 2; }
@@ -22,6 +16,12 @@ public class MyPriorityQueue<T extends Comparable<T>> {
   private int left(int p) { return 2 * p + 1; }
 
   private int right(int p) { return 2 * p + 2; }
+
+  private void swap(int p, int q) {
+    T t = this.arr.get(p);
+    this.arr.set(p, this.arr.get(q));
+    this.arr.set(q, t);
+  }
 
   private void siftUp(int p) {
     while (p != 0 &&
@@ -59,18 +59,18 @@ public class MyPriorityQueue<T extends Comparable<T>> {
 
   public T poll() {
     if (isEmpty()) {
-      throw new IllegalStateException("priority queue empty");
+      throw new IllegalStateException("empty priority queue");
     }
 
     T val = this.arr.get(0);
-    this.arr.set(0, this.arr.get(this.arr.size() - 1));
+    swap(0, this.arr.size() - 1);
     this.arr.remove(this.arr.size() - 1);
     siftDown(0);
 
     return val;
   }
 
-  public boolean isEmpty() { return this.arr.isEmpty(); }
+  public boolean isEmpty() { return this.arr.size() == 0; }
 
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {

@@ -37,15 +37,15 @@ public class Permutations {
         tmp.add(p);
       }
       perms.add(tmp);
-    } else {
-      for (int e : a) {
-        if (!visited.contains(e)) {
-          visited.add(e);
-          currPerm.add(e);
-          permutations(a, n, visited, currPerm, perms);
-          visited.remove(e);
-          currPerm.remove(currPerm.size() - 1);
-        }
+      return;
+    }
+    for (int e : a) {
+      if (!visited.contains(e)) {
+        visited.add(e);
+        currPerm.add(e);
+        permutations(a, n, visited, currPerm, perms);
+        visited.remove(e);
+        currPerm.remove(currPerm.size() - 1);
       }
     }
   }

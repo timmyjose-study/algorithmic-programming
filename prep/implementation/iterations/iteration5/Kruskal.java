@@ -75,6 +75,22 @@ public class Kruskal {
       this.to = to;
       this.weight = weight;
     }
+
+    @Override
+    public boolean equals(Object o) {
+      if (o == null || !(o instanceof Edge)) {
+        return false;
+      }
+
+      Edge other = (Edge)o;
+      return this.from == other.from && this.to == other.to &&
+          this.weight == other.weight;
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(this.from, this.to, this.weight);
+    }
   }
 
   public static void kruskal(DSUF dsuf, List<Edge> edges) {
@@ -82,14 +98,16 @@ public class Kruskal {
 
     List<Edge> mstEdges = new ArrayList<>();
     int mstCost = 0;
+
     for (Edge edge : edges) {
       int from = edge.from;
       int to = edge.to;
+      int weight = edge.weight;
 
       if (dsuf.find(from) != dsuf.find(to)) {
-        mstEdges.add(edge);
-        mstCost += edge.weight;
         dsuf.union(from, to);
+        mstEdges.add(edge);
+        mstCost += weight;
       }
     }
 

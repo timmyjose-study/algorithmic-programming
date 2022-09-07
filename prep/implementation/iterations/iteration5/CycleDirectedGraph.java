@@ -64,18 +64,22 @@ public class CycleDirectedGraph {
 
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
-      int n = in.nextInt();
-      Graph g = new AdjacencySet(n);
+      int tt = in.nextInt();
 
-      int m = in.nextInt();
-      for (int i = 0; i < m; i++) {
-        int from = in.nextInt();
-        int to = in.nextInt();
+      while (tt-- > 0) {
+        int n = in.nextInt();
+        Graph g = new AdjacencySet(n);
 
-        g.addEdge(from, to);
+        int m = in.nextInt();
+        for (int i = 0; i < m; i++) {
+          int from = in.nextInt();
+          int to = in.nextInt();
+
+          g.addEdge(from, to);
+        }
+
+        System.out.println(hasCycle(g));
       }
-
-      System.out.println(hasCycle(g));
     }
   }
 
@@ -95,6 +99,7 @@ public class CycleDirectedGraph {
 
   private static boolean dfs(Graph g, boolean[] visited, boolean[] callSt,
                              int currVertex) {
+
     if (callSt[currVertex]) {
       return true;
     }
@@ -107,8 +112,8 @@ public class CycleDirectedGraph {
         return true;
       }
     }
-
     callSt[currVertex] = false;
+
     return false;
   }
 }

@@ -16,7 +16,7 @@ public class InsertionSort {
     }
   }
 
-  private static void sort(int[] a, int n) {
+  public static void sort(int[] a, int n) {
     for (int i = 1; i < n; i++) {
       int k = a[i];
       int j = i - 1;

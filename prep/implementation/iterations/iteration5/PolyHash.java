@@ -16,9 +16,9 @@ public class PolyHash {
   public static long polyHash(String s) {
     long m = 53;
     long p = (long)1e9 + 7;
-    long mpow = 1L;
+    long mpow = 1;
 
-    long hash = 0L;
+    long hash = 0;
     for (int i = s.length() - 1; i >= 0; i--) {
       hash = (hash + (s.charAt(i) - 'a' + 1) * mpow) % p;
       mpow = (mpow * m) % p;

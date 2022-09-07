@@ -28,7 +28,6 @@ public class QuickSelect {
     swap(a, low, r);
 
     int mid = partition(a, low, high);
-
     if (mid == k) {
       return a[mid];
     } else if (mid < k) {

@@ -13,6 +13,7 @@ public class AdjacencySetBFS {
       Vertex() { this.vs = new HashSet<>(); }
 
       void addEdge(int v) { this.vs.add(v); }
+
       List<Integer> getAdjacentVertices() {
         List<Integer> ns = new ArrayList<>();
         for (int v : this.vs) {
@@ -29,7 +30,6 @@ public class AdjacencySetBFS {
     AdjacencySet(int size) {
       this.size = size;
       this.vertices = new ArrayList<>(size);
-
       for (int i = 0; i < size; i++) {
         this.vertices.add(new Vertex());
       }
@@ -76,15 +76,13 @@ public class AdjacencySetBFS {
     while (!q.isEmpty()) {
       int v = q.poll();
 
-      if (visited[v]) {
-        continue;
-      }
-
       visited[v] = true;
-      System.out.printf("%d ", v);
+      System.out.printf("%s ", v);
 
       for (int neighbour : g.getAdjacentVertices(v)) {
-        q.add(neighbour);
+        if (!visited[neighbour]) {
+          q.add(neighbour);
+        }
       }
     }
   }
@@ -108,7 +106,7 @@ public class AdjacencySetBFS {
 
     int v = q.poll();
     visited[v] = true;
-    System.out.printf("%d ", v);
+    System.out.printf("%s ", v);
 
     for (int neighbour : g.getAdjacentVertices(v)) {
       if (!visited[neighbour]) {

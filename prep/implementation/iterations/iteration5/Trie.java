@@ -2,13 +2,13 @@ import java.util.*;
 
 public class Trie {
   static class TrieNode {
-    boolean isTerminal;
     int score;
+    boolean isTerminal;
     Map<Character, TrieNode> children;
 
     TrieNode() {
       this.children = new HashMap<>();
-      this.score = -1;
+      this.score = 0;
     }
   }
 
@@ -19,7 +19,8 @@ public class Trie {
   public void insert(String s, int score) { insert(this.root, s, score); }
 
   private void insert(TrieNode node, String s, int score) {
-    for (char c : s.toCharArray()) {
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
       if (node.children.get(c) == null) {
         node.children.put(c, new TrieNode());
       }
@@ -32,7 +33,9 @@ public class Trie {
   public int search(String s) { return search(this.root, s); }
 
   private int search(TrieNode node, String s) {
-    for (char c : s.toCharArray()) {
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
+
       if (node.children.get(c) == null) {
         return -1;
       }

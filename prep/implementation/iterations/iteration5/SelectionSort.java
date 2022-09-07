@@ -16,7 +16,7 @@ public class SelectionSort {
     }
   }
 
-  private static void sort(int[] a, int n) {
+  public static void sort(int[] a, int n) {
     for (int i = 0; i < n - 1; i++) {
       int minIdx = i;
       for (int j = i + 1; j < n; j++) {

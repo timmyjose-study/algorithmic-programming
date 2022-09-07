@@ -62,6 +62,28 @@ public class BellmanFord {
     }
   }
 
+  public static void main(String[] args) {
+    try (Scanner in = new Scanner(System.in)) {
+      int n = in.nextInt();
+      int m = in.nextInt();
+      int source = in.nextInt();
+
+      Graph g = new AdjacencySet(n);
+      Map<Pair, Integer> weights = new HashMap<>();
+
+      for (int i = 0; i < m; i++) {
+        int from = in.nextInt();
+        int to = in.nextInt();
+        int w = in.nextInt();
+
+        g.addEdge(from, to);
+        weights.put(new Pair(from, to), w);
+      }
+
+      bellmanFord(g, weights, source);
+    }
+  }
+
   static class Pair {
     int first;
     int second;
@@ -116,37 +138,37 @@ public class BellmanFord {
       }
 
       while (!q.isEmpty()) {
-        int from = q.poll();
+        int v = q.poll();
 
-        for (int neighbour : g.getAdjacentVertices(from)) {
-          Pair edge = new Pair(from, neighbour);
+        for (int neighbour : g.getAdjacentVertices(v)) {
+          Pair edge = new Pair(v, neighbour);
 
           if (visited.contains(edge)) {
             continue;
           }
 
           visited.add(edge);
-          if (dist[from].distance + weights.get(edge) <
-              dist[neighbour].distance) {
-            dist[neighbour].distance = dist[from].distance + weights.get(edge);
-            dist[neighbour].lastVertex = from;
+
+          if (dist[v].distance + weights.get(edge) < dist[neighbour].distance) {
+            dist[neighbour].distance = dist[v].distance + weights.get(edge);
+            dist[neighbour].lastVertex = v;
+            q.add(neighbour);
           }
         }
       }
-
       q.clear();
       visited.clear();
     }
 
-    for (int j = 0; j < g.size(); j++) {
-      q.add(j);
+    for (int i = 0; i < g.size(); i++) {
+      q.add(i);
     }
 
     while (!q.isEmpty()) {
-      int from = q.poll();
+      int v = q.poll();
 
-      for (int neighbour : g.getAdjacentVertices(from)) {
-        Pair edge = new Pair(from, neighbour);
+      for (int neighbour : g.getAdjacentVertices(v)) {
+        Pair edge = new Pair(v, neighbour);
 
         if (visited.contains(edge)) {
           continue;
@@ -154,8 +176,7 @@ public class BellmanFord {
 
         visited.add(edge);
 
-        if (dist[from].distance + weights.get(edge) <
-            dist[neighbour].distance) {
+        if (dist[v].distance + weights.get(edge) < dist[neighbour].distance) {
           throw new IllegalStateException("negative weight cycle detected");
         }
       }
@@ -171,7 +192,6 @@ public class BellmanFord {
         System.out.println("no path");
       } else {
         System.out.println(d);
-
         Stack<Integer> st = new Stack<>();
         int currVertex = i;
 
@@ -186,28 +206,6 @@ public class BellmanFord {
         }
         System.out.println();
       }
-    }
-  }
-
-  public static void main(String[] args) {
-    try (Scanner in = new Scanner(System.in)) {
-      int n = in.nextInt();
-      int m = in.nextInt();
-      int source = in.nextInt();
-
-      Graph g = new AdjacencySet(n);
-      Map<Pair, Integer> weights = new HashMap<>();
-
-      for (int i = 0; i < m; i++) {
-        int from = in.nextInt();
-        int to = in.nextInt();
-        int w = in.nextInt();
-
-        g.addEdge(from, to);
-        weights.put(new Pair(from, to), w);
-      }
-
-      bellmanFord(g, weights, source);
     }
   }
 }

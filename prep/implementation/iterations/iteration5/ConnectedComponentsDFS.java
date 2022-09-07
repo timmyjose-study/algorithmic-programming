@@ -100,7 +100,7 @@ public class ConnectedComponentsDFS {
 
     for (int i = 0; i < g.size(); i++) {
       if (!visited[i]) {
-        dfs(g, visited, i, ccId, v1Id, v2Id);
+        dfs(g, visited, ccId, v1Id, v2Id, i);
       }
       ccId++;
     }
@@ -112,8 +112,8 @@ public class ConnectedComponentsDFS {
     }
   }
 
-  private static void dfs(Graph g, boolean[] visited, int currVertex, int ccId,
-                          IntWrapper v1Id, IntWrapper v2Id) {
+  private static void dfs(Graph g, boolean[] visited, int ccId, IntWrapper v1Id,
+                          IntWrapper v2Id, int currVertex) {
     visited[currVertex] = true;
 
     if (v1Id.ival == currVertex) {
@@ -126,7 +126,7 @@ public class ConnectedComponentsDFS {
 
     for (int neighbour : g.getAdjacentVertices(currVertex)) {
       if (!visited[neighbour]) {
-        dfs(g, visited, neighbour, ccId, v1Id, v2Id);
+        dfs(g, visited, ccId, v1Id, v2Id, neighbour);
       }
     }
   }

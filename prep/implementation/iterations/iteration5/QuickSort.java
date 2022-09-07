@@ -11,16 +11,16 @@ public class QuickSort {
         a[i] = in.nextInt();
       }
 
-      display(a, n);
+      display(a);
       sort(a, n);
-      display(a, n);
+      display(a);
     }
   }
 
   public static void sort(int[] a, int n) { sort(a, 0, n - 1); }
 
   private static void sort(int[] a, int low, int high) {
-    if (low > high) {
+    if (low >= high) {
       return;
     }
 
@@ -40,7 +40,7 @@ public class QuickSort {
       if (a[i] <= pivot) {
         j++;
 
-        if (i != j) {
+        if (j != i) {
           swap(a, i, j);
         }
       }
@@ -59,9 +59,9 @@ public class QuickSort {
     a[y] = t;
   }
 
-  private static void display(int[] a, int n) {
-    for (int i = 0; i < n; i++) {
-      System.out.printf("%d ", a[i]);
+  private static void display(int[] a) {
+    for (int e : a) {
+      System.out.printf("%d ", e);
     }
     System.out.println();
   }

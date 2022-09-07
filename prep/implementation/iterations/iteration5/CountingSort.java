@@ -16,7 +16,7 @@ public class CountingSort {
     }
   }
 
-  private static void sort(int[] a, int n) {
+  public static void sort(int[] a, int n) {
     int minVal = a[0], maxVal = a[0];
     for (int i = 1; i < n; i++) {
       minVal = Math.min(minVal, a[i]);
@@ -24,8 +24,7 @@ public class CountingSort {
     }
 
     int k = Math.abs(maxVal - minVal + 1);
-    int[] b = new int[k + 1];
-
+    int[] b = new int[k];
     for (int e : a) {
       b[e - minVal]++;
     }

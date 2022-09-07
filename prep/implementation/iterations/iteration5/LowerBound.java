@@ -38,16 +38,16 @@ public class LowerBound {
   }
 
   public static int lowerBoundRec(int[] a, int low, int high, int elem) {
-    if (low >= high) {
+    if (low > -high) {
       return a[low] >= elem ? low : a.length;
     }
 
     int mid = low + (high - low) / 2;
 
     if (a[mid] < elem) {
-      return lowerBoundRec(a, mid + 1, high, elem);
+      return lowerBound(a, mid + 1, high, elem);
     }
-    return lowerBoundRec(a, low, mid, elem);
+    return lowerBound(a, low, mid, elem);
   }
 
   private static void display(int[] a, int n) {

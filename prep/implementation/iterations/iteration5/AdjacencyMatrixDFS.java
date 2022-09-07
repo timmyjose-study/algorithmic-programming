@@ -3,7 +3,7 @@ import java.util.*;
 public class AdjacencyMatrixDFS {
   static interface Graph {
     void addEdge(int from, int to);
-    List<Integer> getAdjacenctVertices(int v);
+    List<Integer> getAdjacentVertices(int v);
     int size();
   }
 
@@ -26,7 +26,7 @@ public class AdjacencyMatrixDFS {
     }
 
     @Override
-    public List<Integer> getAdjacenctVertices(int v) {
+    public List<Integer> getAdjacentVertices(int v) {
       if (v < 0 || v >= this.size) {
         throw new IllegalArgumentException("invalid vertex");
       }
@@ -50,21 +50,21 @@ public class AdjacencyMatrixDFS {
   public static void dfsPre(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
-      dfsPre(g, visited, i);
+      if (!visited[i]) {
+        dfsPre(g, visited, i);
+      }
     }
     System.out.println();
   }
 
   private static void dfsPre(Graph g, boolean[] visited, int currVertex) {
-    if (visited[currVertex]) {
-      return;
-    }
-
     visited[currVertex] = true;
-    System.out.printf("%d ", currVertex);
+    System.out.printf("%s ", currVertex);
 
-    for (int neighbour : g.getAdjacenctVertices(currVertex)) {
-      dfsPre(g, visited, neighbour);
+    for (int neighbour : g.getAdjacentVertices(currVertex)) {
+      if (!visited[neighbour]) {
+        dfsPre(g, visited, neighbour);
+      }
     }
   }
 
@@ -85,14 +85,10 @@ public class AdjacencyMatrixDFS {
     while (!st.isEmpty()) {
       int v = st.pop();
 
-      if (visited[v]) {
-        continue;
-      }
-
       visited[v] = true;
-      System.out.printf("%d ", v);
+      System.out.printf("%s ", v);
 
-      for (int neighbour : g.getAdjacenctVertices(v)) {
+      for (int neighbour : g.getAdjacentVertices(v)) {
         if (!visited[neighbour]) {
           st.push(neighbour);
         }
@@ -103,23 +99,22 @@ public class AdjacencyMatrixDFS {
   public static void dfsPost(Graph g) {
     boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
-      dfsPost(g, visited, i);
+      if (!visited[i]) {
+        dfsPost(g, visited, i);
+      }
     }
     System.out.println();
   }
 
   private static void dfsPost(Graph g, boolean[] visited, int currVertex) {
-    if (visited[currVertex]) {
-      return;
-    }
-
     visited[currVertex] = true;
 
-    for (int neighbour : g.getAdjacenctVertices(currVertex)) {
-      dfsPost(g, visited, neighbour);
+    for (int neighbour : g.getAdjacentVertices(currVertex)) {
+      if (!visited[neighbour]) {
+        dfsPost(g, visited, neighbour);
+      }
     }
-
-    System.out.printf("%d ", currVertex);
+    System.out.printf("%s ", currVertex);
   }
 
   public static void dfsPostIter(Graph g) {
@@ -135,19 +130,16 @@ public class AdjacencyMatrixDFS {
   private static void dfsPostIter(Graph g, boolean[] visited, int currVertex) {
     Stack<Integer> st = new Stack<>();
     Stack<Integer> revSt = new Stack<>();
+
     st.push(currVertex);
 
     while (!st.isEmpty()) {
       int v = st.pop();
 
-      if (visited[v]) {
-        continue;
-      }
-
       visited[v] = true;
       revSt.push(v);
 
-      for (int neighbour : g.getAdjacenctVertices(v)) {
+      for (int neighbour : g.getAdjacentVertices(v)) {
         if (!visited[neighbour]) {
           st.push(neighbour);
         }
@@ -155,7 +147,7 @@ public class AdjacencyMatrixDFS {
     }
 
     while (!revSt.isEmpty()) {
-      System.out.printf("%d ", revSt.pop());
+      System.out.printf("%s ", revSt.pop());
     }
   }
 

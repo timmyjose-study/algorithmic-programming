@@ -25,8 +25,9 @@ public class RabinKarp {
   }
 
   public static List<Integer> rabinKarp(String s, String t) {
-    long m = 53;
-    long p = (long)1e9 + 7;
+    long m = 53L;
+    long p = (long)1e9 + 7L;
+
     int slen = s.length(), tlen = t.length();
     long[] mpow = new long[Math.max(slen, tlen)];
 

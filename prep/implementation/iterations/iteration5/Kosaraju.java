@@ -91,16 +91,19 @@ public class Kosaraju {
   }
 
   public static void kosaraju(Graph g) {
+    boolean[] visited = new boolean[g.size()];
     Stack<Integer> st = new Stack<>();
 
-    boolean[] visited = new boolean[g.size()];
     for (int i = 0; i < g.size(); i++) {
-      dfs1(g, visited, i, st);
+      if (!visited[i]) {
+        dfs1(g, visited, i, st);
+      }
     }
+
+    Graph trans = g.transpose();
     Arrays.fill(visited, false);
 
     List<List<Integer>> scc = new ArrayList<>();
-    Graph trans = g.transpose();
 
     while (!st.isEmpty()) {
       int v = st.pop();
@@ -111,27 +114,31 @@ public class Kosaraju {
 
       List<Integer> comp = new ArrayList<>();
       dfs2(trans, visited, v, comp);
-      scc.add(comp);
+
+      if (!comp.isEmpty()) {
+        scc.add(comp);
+      }
     }
 
     System.out.println(scc.size());
-    for (List<Integer> comp : scc) {
-      for (int c : comp) {
-        System.out.printf("%d ", c);
+    if (!scc.isEmpty()) {
+      for (List<Integer> comp : scc) {
+        for (int c : comp) {
+          System.out.printf("%d ", c);
+        }
+        System.out.println();
       }
-      System.out.println();
     }
   }
 
   private static void dfs1(Graph g, boolean[] visited, int currVertex,
                            Stack<Integer> st) {
-    if (visited[currVertex]) {
-      return;
-    }
-
     visited[currVertex] = true;
+
     for (int neighbour : g.getAdjacentVertices(currVertex)) {
-      dfs1(g, visited, neighbour, st);
+      if (!visited[neighbour]) {
+        dfs1(g, visited, neighbour, st);
+      }
     }
 
     st.push(currVertex);
@@ -139,15 +146,13 @@ public class Kosaraju {
 
   private static void dfs2(Graph g, boolean[] visited, int currVertex,
                            List<Integer> comp) {
-    if (visited[currVertex]) {
-      return;
-    }
-
     visited[currVertex] = true;
     comp.add(currVertex);
 
     for (int neighbour : g.getAdjacentVertices(currVertex)) {
-      dfs2(g, visited, neighbour, comp);
+      if (!visited[neighbour]) {
+        dfs2(g, visited, neighbour, comp);
+      }
     }
   }
 }
