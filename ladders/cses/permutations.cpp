@@ -1,6 +1,39 @@
 #include <iostream>
+#include <set>
+#include <vector>
 
 using namespace std;
+
+void permutations(const vector<int> &a, int curr_idx, int n, set<int> &visited,
+                  vector<int> &curr_perm, vector<vector<int>> &perms) {
+  if (curr_perm.size() == n) {
+    perms.push_back(curr_perm);
+    return;
+  }
+
+  if (curr_idx == n) {
+    return;
+  }
+
+  for (int e : a) {
+    if (visited.find(e) == visited.end()) {
+      visited.insert(e);
+      curr_perm.push_back(e);
+      permutations(a, curr_idx + 1, n, visited, curr_perm, perms);
+      visited.erase(e);
+      curr_perm.pop_back();
+    }
+  }
+}
+
+vector<vector<int>> permutations(const vector<int> &a, int n) {
+  vector<vector<int>> perms;
+  set<int> visited;
+  vector<int> curr_perm;
+  permutations(a, 0, n, visited, curr_perm, perms);
+
+  return perms;
+}
 
 int main() {
   ios::sync_with_stdio(0);
@@ -9,23 +42,15 @@ int main() {
   int n;
   cin >> n;
 
-  if (n == 1) {
-    cout << 1 << "\n";
-    return 0;
+  vector<int> a(n);
+  for (int i = 0; i < n; i++) {
+    cin >> a[i];
   }
 
-  if (n < 4) {
-    cout << "NO SOLUTION\n";
-  } else {
-    int ne = n / 2;
-    int no = n - ne;
-
-    for (int e = (1 + (no - 1) * 2); e >= 1; e -= 2) {
-      cout << e << " ";
-    }
-
-    for (int e = (2 + (ne - 1) * 2); e >= 2; e -= 2) {
-      cout << e << " ";
+  auto perms = permutations(a, n);
+  for (auto perm : perms) {
+    for (int p : perm) {
+      cout << p << " ";
     }
     cout << "\n";
   }
