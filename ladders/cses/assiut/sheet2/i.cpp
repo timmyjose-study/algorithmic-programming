@@ -15,8 +15,18 @@ int main() {
   if (n == 0) {
     cout << n << "\n";
   } else {
+    bool digit_seen = false;
     while (n) {
-      if (n % 10) {
+      int d = n % 10;
+      if (!digit_seen && d) {
+        digit_seen = true;
+      }
+
+      if (!digit_seen) {
+        if (d) {
+          cout << d;
+        }
+      } else {
         cout << n % 10;
       }
       n /= 10;
@@ -25,7 +35,7 @@ int main() {
   }
 
   bool valid = true;
-  for (int i = 0, j = s.size() - 1; i <= j; i++, j--) {
+  for (int i = 0, j = s.size() - 1; i < j; i++, j--) {
     if (s[i] != s[j]) {
       valid = false;
       break;
