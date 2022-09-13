@@ -1,6 +1,5 @@
-#include <algorithm>
 #include <iostream>
-#include <string>
+#include <limits>
 #include <vector>
 
 using namespace std;
@@ -9,8 +8,9 @@ int main() {
   ios::sync_with_stdio(0);
   cin.tie(0);
 
-  int tt, n, d;
-  vector<int> a;
+  int tt, n;
+  long long d;
+  vector<long long> a;
   cin >> tt;
 
   while (tt--) {
@@ -20,7 +20,7 @@ int main() {
       a.emplace_back(d);
     }
 
-    int min_val = (int)1e9 + 7;
+    long long min_val = numeric_limits<long long>::max();
     for (int i = 0; i < n; i++) {
       for (int j = i + 1; j < n; j++) {
         if (a[i] + a[j] + j - i < min_val) {
@@ -30,6 +30,7 @@ int main() {
     }
 
     cout << min_val << "\n";
+    a.clear();
   }
 
   return 0;

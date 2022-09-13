@@ -17,7 +17,7 @@ int main() {
     cin >> a[i];
   }
 
-  int min_val = a[0], max_val = 0, min_pos = 0, max_pos = 0;
+  int min_val = a[0], max_val = a[0], min_pos = 0, max_pos = 0;
   for (int i = 1; i < n; i++) {
     if (a[i] < min_val) {
       min_pos = i;
@@ -30,9 +30,8 @@ int main() {
     }
   }
 
-  int t = a[min_pos];
-  a[min_pos] = a[max_pos];
-  a[max_pos] = t;
+  a[min_pos] = max_val;
+  a[max_pos] = min_val;
 
   for (int e : a) {
     cout << e << " ";
