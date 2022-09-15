@@ -1,0 +1,37 @@
+/*
+
+
+Hello
+   world */
+
+
+/* // Hei hej ahoj /* */ */
+
+
+
+
+
+
+#include<iostream>
+using namespace std;
+
+int main() {
+
+int a, b; /* This is a line comment */
+cin » a » b; // Reading two variables from user (please remove me!! :( )
+cout « a + b « endl;
+
+// End of the program (remove me please :))
+return 0;
+
+/**
+
+ /*
+
+   /*
+
+
+  Hello, world */again we meet
+
+}
+
