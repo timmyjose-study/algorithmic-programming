@@ -13,27 +13,39 @@ int main() {
   cin >> n;
 
   vector<int> a(n);
+
   for (int i = 0; i < n; i++) {
     cin >> a[i];
   }
 
-  int cnt = 0;
-  bool plus = a[0] >= 0 ? true : false;
-  for (int i = 1; i < n; i++) {
-    if (plus && a[i] >= 0) {
-      cnt++;
-    } else if (!plus && a[i] < 0) {
-      cnt++;
+  int asign = a[0] >= 0 ? 1 : -1;
+  int bsign = a[0] >= 0 ? -1 : 1;
+  int ac = 0, bc = 0;
+
+  for (int i = 0; i < n; i++) {
+    if (a[i] >= 0) {
+      if (asign == 1) {
+        ac++;
+      }
+
+      if (bsign == 1) {
+        bc++;
+      }
+    } else {
+      if (asign == -1) {
+        ac++;
+      }
+
+      if (bsign == -1) {
+        bc++;
+      }
     }
 
-    if (plus) {
-      plus = false;
-    } else {
-      plus = true;
-    }
+    asign *= -1;
+    bsign *= -1;
   }
 
-  cout << cnt << "\n";
+  cout << min(ac, bc) << "\n";
 
   return 0;
 }
