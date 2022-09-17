@@ -6,7 +6,9 @@ public class Main {
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
       Solution sol = new Solution();
-      System.out.println(sol.solve());
+      int n = in.nextInt();
+      int m = in.nextInt();
+      System.out.println(sol.solve(n, m));
     } catch (Exception ex) {
       throw new RuntimeException(ex);
     }
@@ -14,5 +16,5 @@ public class Main {
 }
 
 class Solution {
-  public int solve() { return 1; }
+  public int solve(int n, int m) { return n + m; }
 }
