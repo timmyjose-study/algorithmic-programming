@@ -54,16 +54,16 @@ https://leetcode.com/list/e26hp89c
 
  104.   Maximum Depth of Binary Tree. [x]
 
- 404.   Sum of Left Leaves.
+ 404.   Sum of Left Leaves. [x] (REV)
 
- 1356.   Sort Integers by The Number of 1 Bits.
+ 1356.   Sort Integers by The Number of 1 Bits. [x]
 
- 232.   Implement Queue using Stacks.
+ 232.   Implement Queue using Stacks. [x]
 
- 242.   Valid Anagram.
+ 242.   Valid Anagram. [x]
 
- 217.   Contains Duplicate.
+ 217.   Contains Duplicate. [x]
 
- 1603.   Design Parking System.
+ 1603.   Design Parking System. [x]
 
- 303.   Range Sum Query - Immutable.
+ 303.   Range Sum Query - Immutable. [x]
