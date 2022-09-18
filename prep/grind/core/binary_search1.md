@@ -1,4 +1,4 @@
-https://leetcode.com/list/e26qz0wsP
+https://leetcode.com/list/e26qz0ws/
 
 704. Binary Search
 

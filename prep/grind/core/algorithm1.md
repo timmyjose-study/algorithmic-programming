@@ -1,12 +1,12 @@
 https://leetcode.com/list/edl45xyt
 
-704. Binary Search
+704. Binary Search [x]
 
-278. First Bad Version
+278. First Bad Version (REV)
 
-35. Search Insert Position
+35. Search Insert Position [x]
 
-977. Squares of a Sorted Array
+977. Squares of a Sorted Array [x]
 
 189. Rotate Array
 
@@ -14,9 +14,9 @@ https://leetcode.com/list/edl45xyt
 
 167. Two Sum II - Input Array Is Sorted
 
-344. Reverse String
+344. Reverse String [x]
 
-557. Reverse Words in a String III
+557. Reverse Words in a String III [x]
 
 876. Middle of the Linked List
 
@@ -26,11 +26,11 @@ https://leetcode.com/list/edl45xyt
 
 567. Permutation in String
 
-733. Flood Fill
+733. Flood Fill [x]
 
 695. Max Area of Island
 
-617. Merge Two Binary Trees
+617. Merge Two Binary Trees [x]
 
 116. Populating Next Right Pointers in Each Node
 
@@ -42,9 +42,9 @@ https://leetcode.com/list/edl45xyt
 
 206. Reverse Linked List
 
-77. Combinations
+77. Combinationsa [x]
 
-46. Permutations
+46. Permutations [x]
 
 784. Letter Case Permutation
 
@@ -54,10 +54,10 @@ https://leetcode.com/list/edl45xyt
 
 120. Triangle
 
-231. Power of Two
+231. Power of Two [x] (Remember that n > 0) (REV)
 
 191. Number of 1 Bits
 
-190. Reverse Bits
+190. Reverse Bits [] (REV)
 
-136. Single Number
+136. Single Number [x] (XOR approach works for negative numbers as well)
