@@ -2,7 +2,7 @@ https://leetcode.com/list/edl45xyt
 
 704. Binary Search [x]
 
-278. First Bad Version (REV)
+278. First Bad Version [x] (REV) (Variation of Upper Bound)
 
 35. Search Insert Position [x]
 
@@ -18,7 +18,7 @@ https://leetcode.com/list/edl45xyt
 
 557. Reverse Words in a String III [x]
 
-876. Middle of the Linked List
+876. Middle of the Linked List [x]
 
 19. Remove Nth Node From End of List
 
@@ -48,7 +48,7 @@ https://leetcode.com/list/edl45xyt
 
 784. Letter Case Permutation
 
-70. Climbing Stairs
+70. Climbing Stairs [x] (REV)
 
 198. House Robber
 
