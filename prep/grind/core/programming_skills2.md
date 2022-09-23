@@ -1,26 +1,26 @@
 https://leetcode.com/list/e2feacm6
 
-896. Monotonic Array
+896. Monotonic Array [x]
 
-28. Implement strStr()
+28. Implement strStr() [x] (using Rabin-Karp)
 
-110. Balanced Binary Tree
+110. Balanced Binary Tree [x]
 
-459. Repeated Substring Pattern
+459. Repeated Substring Pattern [x] (REV)
 
-150. Evaluate Reverse Polish Notation
+150. Evaluate Reverse Polish Notation [x]
 
-66. Plus One
+66. Plus One [x]
 
-1367. Linked List in Binary Tree
+1367. Linked List in Binary Tree (REV)
 
-43. Multiply Strings
+43. Multiply Strings [x]
 
-67. Add Binary
+67. Add Binary [x]
 
-989. Add to Array-Form of Integer
+989. Add to Array-Form of Integer [x]
 
-739. Daily Temperatures
+739. Daily Temperatures [x] (REV) (Monotonic Stack)
 
 58. Length of Last Word
 
@@ -56,7 +56,7 @@ https://leetcode.com/list/e2feacm6
 
 138. Copy List with Random Pointer
 
-2. Add Two Numbers
+2. Add Two Numbers [x]
 
 445. Add Two Numbers II
 
