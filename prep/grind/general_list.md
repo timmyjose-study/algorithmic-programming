@@ -86,6 +86,55 @@
 
 1710. Maximum Units on a Truck [x] (Fractional Knapsack, Greedy)
 
+1742. Maximum Number of Balls in a Box [x]
+
+1748. Sum of Unique Elements [x]
+
+1768. Merge Strings Alternately [x]
+
+1832. Check if the Sentence Is Pangram [x]
+
+1859. Sorting the Sentence [x]
+
+1876. Substrings of Size Three with Distinct Characters [x]
+
+1941. Check if All Characters Have Equal Number of Occurrences [x]
+
+1967. Number of Strings That Appear as Substrings in Word [x]
+
+2037. Minimum Number of Moves to Seat Everyone [x]
+
+2006. Count Number of Pairs With Absolute Difference K [x]
+
+2053. Kth Distinct String in an Array [x]
+
+2057. Smallest Index With Equal Value [x]
+
+2114. Maximum Number of Words Found in Sentences [x]
+
+2108. Find First Palindromic String in the Array [x]
+
+2325. Decode the Message [x]
+
+2331. Evaluate Boolean Binary Tree [x]
+
+2351. First Letter to Appear Twice [x]
+
+2248. Intersection of Multiple Arrays [x]
+
+349. Intersection of Two Arrays [x]
+
+2215. Find the Difference of Two Arrays [x]
+
+463. Island Perimeter [x] (REV) (count wall contribution by 1s)
+
+637. Average of Levels in Binary Tree [x]
+
+965. Univalued Binary Tree [x]
+
+509. Fibonacci Number [x]
+
+2309. Greatest English Letter in Upper and Lower Case [x]
 
 
 
