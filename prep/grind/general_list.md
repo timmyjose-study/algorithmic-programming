@@ -1,3 +1,11 @@
+## Bit Manipulation
+
+
+## Monotonic Queue
+
+
+
+
 ##  MONOTONIC STACK 
 
 496. Next Greater Element I [x]
@@ -136,14 +144,130 @@
 
 2309. Greatest English Letter in Upper and Lower Case [x]
 
+1502. Can Make Arithmetic Progression From Sequence [x]
+
+412. Fizz Buzz [x]
+
+118. Pascal's Triangle [x]
+
+1160. Find Words That Can Be Formed by Characters [x]
+
+1122. Relative Sort Array [x]
+
+108. Convert Sorted Array to Binary Search Tree [x] (REV) (Divide and Conquer)
+
+766. Toeplitz Matrix [x] (REV) ((r1, c1) and (r2, c2) belong to the same diagonal iff r1 - c1 == r2 - c2)
+
+2367. Number of Arithmetic Triplets [x]
+
+2319. Check if Matrix Is X-Matrix [x]
+
+1991. Find the Middle Index in Array [x]
+
+2078. Two Furthest Houses With Different Colors [x]
+
+476. Number Complement
+
+1009. Complement of Base 10 Integer [x] (REV)
+
+2042. Check if Numbers Are Ascending in a Sentence [x]
+
+2243. Calculate Digit Sum of a String [x]
+
+705. Design HashSet [x]
+
+1822. Sign of the Product of an Array [x]
+
+338. Counting Bits [x]
+
+2138. Divide a String Into Groups of Size k [x]
+
+806. Number of Lines To Write String [x] (REV)
+
+2373. Largest Local Values in a Matrix [x]
+
+2068. Check Whether Two Strings are Almost Equivalent [x]
+
+2363. Merge Similar Items [x]
+
+145. Binary Tree Postorder Traversal  [x]
+
+1475. Final Prices With a Special Discount in a Shop [x] (REV) (Monotone Stack)
+
+1582. Special Positions in a Binary Matrix [x]
+
+884. Uncommon Words from Two Sentences [x]
+
+1455. Check If a Word Occurs As a Prefix of Any Word in a Sentence [x]
+
+1598. Crawler Log Folder
+
+2200. Find All K-Distant Indices in an Array
+
+2293. Min Max Game
+
+144. Binary Tree Preorder Traversal [x]
+
+191. Number of 1 Bits [x] (Shift for each of 32 positions and check)
+
+1550. Three Consecutive Odds [x]
+
+1491. Average Salary Excluding the Minimum and Maximum Salary [x]
+
+867. Transpose Matrix [x]
+
+169. Majority Element [x]
+
+1394. Find Lucky Integer in an Array [x]
+
+1137. N-th Tribonacci Number [x]
+
+1446. Consecutive Characters [x] (REV)
+
+2303. Calculate Amount Paid in Taxes [x] (REV) (Pay careful attention to the question details)
+
+1189. Maximum Number of Balloons [x]
+
+1022. Sum of Root To Leaf Binary Numbers [x] (REV)
+
+242. Valid Anagram [x]
+
+21. Merge Two Sorted Lists [x]
+
+2347. Best Poker Hand [x]
+
+2389. Longest Subsequence With Limited Sum [x] (UpperBound)
+
+917. Reverse Only Letters [x] (REV)
+
+693. Binary Number with Alternating Bits [x]
+
+268. Missing Number [x]
+
+283. Move Zeroes [x]
+
+217. Contains Duplicate [x]
+
+389. Find the Difference [x]
+
+2273. Find Resultant Array After Removing Anagrams
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## liuzhenglaichn
 
 
-
 ## Unsorted
 
 58. Length of Last Word [x]
-
 
