@@ -166,8 +166,6 @@
 
 2078. Two Furthest Houses With Different Colors [x]
 
-476. Number Complement
-
 1009. Complement of Base 10 Integer [x] (REV)
 
 2042. Check if Numbers Are Ascending in a Sentence [x]
@@ -250,17 +248,75 @@
 
 389. Find the Difference [x]
 
+232. Implement Queue using Stacks [x]
+
+1518. Water Bottles [x]
+
+171. Excel Sheet Column Number [x]
+
+1945. Sum of Digits of String After Convert [x]
+
+2144. Minimum Cost of Buying Candies With Discount [x]
+
+476. Number Complement [x]
+
+1598. Crawler Log Folder [x]
+
+2200. Find All K-Distant Indices in an Array [x]
+
+2293. Min Max Game [x] 
+
+1103. Distribute Candies to People [x]
+
+1800. Maximum Ascending Subarray Sum [x]
+
+1869. Longer Contiguous Segments of Ones than Zeros [x]
+
+13. Roman to Integer [x]
+
+896. Monotonic Array [x]
+
+2273. Find Resultant Array After Removing Anagrams [x] (REV)
+
+1422. Maximum Score After Splitting a String [x]
+
+383. Ransom Note [x]
+
+2287. Rearrange Characters to Make Target String [x]
+
+1608. Special Array With X Elements Greater Than or Equal X [x]
+
+2148. Count Elements With Strictly Smaller and Greater Elements [x] (LowerBound and UpperBound)
+
+2129. Capitalize the Title
+
 2273. Find Resultant Array After Removing Anagrams
 
+1217. Minimum Cost to Move Chips to The Same Position [x]
 
+506. Relative Ranks [x]
 
+387. First Unique Character in a String [x]
 
+2264. Largest 3-Same-Digit Number in String [x]
 
+1331. Rank Transform of an Array [x]
 
+1848. Minimum Distance to the Target Element [x]
 
+1629. Slowest Key [x]
 
+448. Find All Numbers Disappeared in an Array [x]
 
+1287. Element Appearing More Than 25% In Sorted Array [x]
 
+733. Flood Fill [x]
+
+1897. Redistribute Characters to Make All Strings Equal [x] (REV)
+
+257. Binary Tree Paths [x] (Backtracking)
+
+2129. Capitalize the Title [x]
 
 
 
