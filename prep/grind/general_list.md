@@ -1,6 +1,8 @@
 ## Bit Manipulation
 
 
+
+
 ## Monotonic Queue
 
 
@@ -320,10 +322,17 @@
 
 
 
+
+
+
 ## liuzhenglaichn
+
+
+
 
 
 ## Unsorted
 
 58. Length of Last Word [x]
 
+31. Next Permutation [x] (REV)

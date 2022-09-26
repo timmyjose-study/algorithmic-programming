@@ -12,7 +12,7 @@ https://leetcode.com/list/e2feacm6
 
 66. Plus One [x]
 
-1367. Linked List in Binary Tree (REV)
+1367. Linked List in Binary Tree [x] (REV) (Not using a helper gives TLE!)
 
 43. Multiply Strings [x]
 
@@ -22,27 +22,27 @@ https://leetcode.com/list/e2feacm6
 
 739. Daily Temperatures [x] (REV) (Monotonic Stack)
 
-58. Length of Last Word
+58. Length of Last Word [x]
 
-48. Rotate Image
+48. Rotate Image [x] (REV) (Transpose in-place).
 
-1886. Determine Whether Matrix Can Be Obtained By Rotation
+1886. Determine Whether Matrix Can Be Obtained By Rotation [x]
 
-54. Spiral Matrix
+54. Spiral Matrix [x]
 
-973. K Closest Points to Origin
+973. K Closest Points to Origin [x]
 
-1630. Arithmetic Subarrays
+1630. Arithmetic Subarrays [x]
 
-429. N-ary Tree Level Order Traversal
+429. N-ary Tree Level Order Traversal [x]
 
-503. Next Greater Element II
+503. Next Greater Element II [x] (Monotonic Stack)
 
-556. Next Greater Element III
+556. Next Greater Element III (REV) (Next Permutation with constraints)
 
 1376. Time Needed to Inform All Employees
 
-49. Group Anagrams
+49. Group Anagrams [x]
 
 438. Find All Anagrams in a String
 
@@ -66,7 +66,7 @@ https://leetcode.com/list/e2feacm6
 
 1845. Seat Reservation Manager
 
-860. Lemonade Change
+860. Lemonade Change [x]
 
 155. Min Stack
 
