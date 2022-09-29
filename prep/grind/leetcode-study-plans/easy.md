@@ -59,3 +59,94 @@
 2315. Count Asterisks [x]
 
 2418. Sort the People [x]
+
+1688. Count of Matches in Tournament [x]
+
+804. Unique Morse Code Words [x]
+
+2220. Minimum Bit Flips to Convert Number [x]
+
+27. Remove Element [x]
+
+26. Remove Duplicates from Sorted Array [x]
+
+14. Longest Common Prefix [x]
+
+151. Reverse Words in a String [x]
+
+100. Same Tree [x]
+
+129. Sum Root to Leaf Numbers [x]
+
+102. Binary Tree Level Order Traversal [x]
+
+160. Intersection of Two Linked Lists [x]
+
+234. Palindrome Linked List [x]
+
+543. Diameter of Binary Tree [x]
+
+9. Palindrome Number [x]
+
+572. Subtree of Another Tree [x] (Always use helper methods when checking a condition for a particular node)
+
+620. Not Boring Movies [x]
+
+933. Number of Recent Calls [x] (Lower Bound and Upper Bound for number of events in range)
+
+2255. Count Prefixes of a Given String [x]
+
+2154. Keep Multiplying Found Values by Two [x]
+
+682. Baseball Game [x]
+
+1880. Check if Word Equals Summation of Two Words [x]
+
+1837. Sum of Digits in Base K [x]
+
+2341. Maximum Number of Pairs in Array [x]
+
+1295. Find Numbers with Even Number of Digits [x]
+
+1979. Find Greatest Common Divisor of Array [x]
+
+2185. Counting Words With a Given Prefix [x]
+
+2089. Find Target Indices After Sorting Array [x]
+
+961. N-Repeated Element in Size 2N Array [x]
+
+2169. Count Operations to Obtain Zero [x]
+
+2119. A Number After a Double Reversal [x]
+
+657. Robot Return to Origin [x]
+
+1051. Height Checker [x]
+
+1332. Remove Palindromic Subsequences
+
+2278. Percentage of Letter in String [x]
+
+595. Big Countries [x]
+
+728. Self Dividing Numbers [x]
+
+1374. Generate a String With Characters That Have Odd Counts [x]
+
+2000. Reverse Prefix of Word [x]
+
+1436. Destination City [x]
+
+1827. Minimum Operations to Make the Array Increasing [x]
+
+1863. Sum of All Subset XOR Totals [x]
+
+1725. Number Of Rectangles That Can Form The Largest Square [x]
+
+1732. Find the Highest Altitude [x]
+
+1464. Maximum Product of Two Elements in an Array [x]
+
+1323. Maximum 69 Number [x]
+
