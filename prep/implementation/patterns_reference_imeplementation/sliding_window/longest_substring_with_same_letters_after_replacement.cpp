@@ -1,6 +1,5 @@
 #include <algorithm>
 #include <iostream>
-#include <limits>
 #include <unordered_map>
 #include <vector>
 
@@ -14,33 +13,32 @@ int main() {
   string s;
 
   cin >> tt;
+  cin.ignore(1);
   while (tt--) {
     cin >> s;
-    cin.ignore(1);
     cin >> k;
 
     int n = s.size();
-    unordered_map<char, int> m;
-    int max_len = 0;
-    int window_start = 0;
+    int max_len = 0, window_start = 0;
+    unordered_map<char, int> freq;
+    int max_letter_freq = 0;
 
     for (int window_end = 0; window_end < n; window_end++) {
       char c = s[window_end];
-      if (m.find(c) != m.end()) {
-        m[c]++;
+
+      if (freq.find(c) == freq.end()) {
+        freq[c] = 1;
       } else {
-        m[c] = 1;
+        freq[c]++;
       }
 
-      while (m.size() > k) {
+      max_letter_freq = max(max_letter_freq, freq[c]);
+
+      if (window_end - window_start + 1 - max_letter_freq > k) {
         char d = s[window_start];
-        m[d]--;
-        if (m[d] == 0) {
-          m.erase(d);
-        }
+        freq[d]--;
         window_start++;
       }
-
       max_len = max(max_len, window_end - window_start + 1);
     }
 

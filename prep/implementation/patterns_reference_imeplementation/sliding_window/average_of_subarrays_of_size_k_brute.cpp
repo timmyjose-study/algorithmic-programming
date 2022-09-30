@@ -16,22 +16,17 @@ int main() {
     cin >> n >> k;
 
     vector<int> a(n);
-    for (int i = -0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
       cin >> a[i];
     }
 
     vector<double> res(n - k + 1);
-    double sum = 0.0;
-    int window_start = 0;
-
-    for (int window_end = 0; window_end < n; window_end++) {
-      sum += a[window_end];
-
-      if (window_end >= k - 1) {
-        res[window_start] = sum / (double)k;
-        sum -= a[window_start];
-        window_start++;
+    for (int i = 0; i < n - k + 1; i++) {
+      double sum = 0.0;
+      for (int j = i; j < i + k; j++) {
+        sum += a[j];
       }
+      res[i] = sum / (double)k;
     }
 
     for (double r : res) {

@@ -20,17 +20,13 @@ int main() {
       cin >> a[i];
     }
 
-    int max_sum = 0, curr_sum = 0;
-    int window_start = 0;
-
-    for (int window_end = 0; window_end < n; window_end++) {
-      curr_sum += a[window_end];
-
-      if (window_end >= k - 1) {
-        max_sum = max(max_sum, curr_sum);
-        curr_sum -= a[window_start];
-        window_start++;
+    int max_sum = 0;
+    for (int i = 0; i < n - k + 1; i++) {
+      int curr_sum = 0;
+      for (int j = i; j < i + k; j++) {
+        curr_sum += a[j];
       }
+      max_sum = max(max_sum, curr_sum);
     }
 
     cout << max_sum << "\n";

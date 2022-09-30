@@ -150,3 +150,12 @@
 
 1323. Maximum 69 Number [x]
 
+1460. Make Two Arrays Equal by Reversing Subarrays [x]
+
+2283. Check if Number Has Equal Digit Count and Digit Value [x]
+
+2032. Two Out of Three [x]
+
+1370. Increasing Decreasing String [x]
+
+1252. Cells with Odd Values in a Matrix

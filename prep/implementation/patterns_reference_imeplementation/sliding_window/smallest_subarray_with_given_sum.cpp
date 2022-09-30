@@ -21,20 +21,19 @@ int main() {
     }
 
     int min_len = numeric_limits<int>::max();
-    int curr_sum = 0;
-    int window_start = 0;
+    int sum = 0, window_start = 0;
 
     for (int window_end = 0; window_end < n; window_end++) {
-      curr_sum += a[window_end];
+      sum += a[window_end];
 
-      while (curr_sum >= s) {
+      while (sum >= s) {
         min_len = min(min_len, window_end - window_start + 1);
-        curr_sum -= a[window_start];
+        sum -= a[window_start];
         window_start++;
       }
     }
 
-    cout << min_len << "\n";
+    cout << (min_len == numeric_limits<int>::max() ? 0 : min_len) << "\n";
   }
 
   return 0;
