@@ -158,4 +158,28 @@
 
 1370. Increasing Decreasing String [x]
 
-1252. Cells with Odd Values in a Matrix
+1636. Sort Array by Increasing Frequency [x]
+
+2206. Divide Array Into Equal Pairs [x]
+
+461. Hamming Distance [x]
+
+1299. Replace Elements with Greatest Element on Right Side [x]
+
+2357. Make Array Zero by Subtracting Equal Amounts [x]
+
+2395. Find Subarrays With Equal Sum [x] (Sliding Window)
+
+2399. Check Distances Between Same Letters [x]
+
+2404. Most Frequent Even Element [x]
+
+2383. Minimum Hours of Training to Win a Competition [x]
+
+2231. Largest Number After Digit Swaps by Parity [x]
+
+2239. Find Closest Number to Zero [x]
+
+2259. Remove Digit From Number to Maximize Result [x]
+
+2269. Find the K-Beauty of a Number [x]
