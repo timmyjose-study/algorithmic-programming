@@ -13,18 +13,17 @@ public class LongestSubstringWithSameLettersAfterReplacement {
         String s = in.next().trim();
         int k = in.nextInt();
 
-        int n = s.length();
         Map<Character, Integer> freq = new HashMap<>();
-        int maxLen = 0, maxFreq = 0, windowStart = 0;
+        int maxFreq = 0, maxLen = 0, windowStart = 0;
 
-        for (int windowEnd = 0; windowEnd < n; windowEnd++) {
-          char c = s.charAt(windowEnd);
-          freq.put(c, freq.getOrDefault(c, 0) + 1);
-          maxFreq = Math.max(maxFreq, freq.get(c));
+        for (int windowEnd = 0; windowEnd < s.length(); windowEnd++) {
+          char r = s.charAt(windowEnd);
+          freq.put(r, freq.getOrDefault(r, 0) + 1);
+          maxFreq = Math.max(maxFreq, freq.get(r));
 
-          while (windowEnd - windowStart + 1 - maxFreq > k) {
-            char d = s.charAt(windowStart);
-            freq.put(d, freq.get(d) - 1);
+          if (windowEnd - windowStart + 1 - maxFreq > k) {
+            char l = s.charAt(windowStart);
+            freq.put(l, freq.get(l) - 1);
             windowStart++;
           }
 

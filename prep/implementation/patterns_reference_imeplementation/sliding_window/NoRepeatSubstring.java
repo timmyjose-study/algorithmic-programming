@@ -2,7 +2,6 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
-// O(n) / O(1)
 public class NoRepeatSubstring {
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
@@ -12,18 +11,17 @@ public class NoRepeatSubstring {
       while (tt-- > 0) {
         String s = in.nextLine().trim();
 
-        int n = s.length();
         Map<Character, Integer> pos = new HashMap<>();
-        int maxLen = 0, windowStart = 0;
+        int windowStart = 0, maxLen = 0;
 
-        for (int windowEnd = 0; windowEnd < n; windowEnd++) {
-          char c = s.charAt(windowEnd);
+        for (int windowEnd = 0; windowEnd < s.length(); windowEnd++) {
+          char r = s.charAt(windowEnd);
 
-          if (pos.containsKey(c)) {
-            windowStart = Math.max(windowStart, pos.get(c) + 1);
+          if (pos.containsKey(r)) {
+            windowStart = Math.max(windowStart, pos.get(r) + 1);
           }
 
-          pos.put(c, windowEnd);
+          pos.put(r, windowEnd);
           maxLen = Math.max(maxLen, windowEnd - windowStart + 1);
         }
 

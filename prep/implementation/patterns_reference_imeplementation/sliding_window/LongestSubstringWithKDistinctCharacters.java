@@ -2,30 +2,30 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
-// O(n) / O(1)
+// O(n) / O(k)
 public class LongestSubstringWithKDistinctCharacters {
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
       int tt = in.nextInt();
+      in.nextLine();
 
       while (tt-- > 0) {
         String s = in.next().trim();
         int k = in.nextInt();
 
-        int n = s.length();
         Map<Character, Integer> freq = new HashMap<>();
-        int maxLen = 0, windowStart = 0;
+        int windowStart = 0, maxLen = 0;
 
-        for (int windowEnd = 0; windowEnd < n; windowEnd++) {
-          char c = s.charAt(windowEnd);
-          freq.put(c, freq.getOrDefault(c, 0) + 1);
+        for (int windowEnd = 0; windowEnd < s.length(); windowEnd++) {
+          char r = s.charAt(windowEnd);
+          freq.put(r, freq.getOrDefault(r, 0) + 1);
 
           while (freq.size() > k) {
-            char d = s.charAt(windowStart);
-            freq.put(d, freq.get(d) - 1);
+            char l = s.charAt(windowStart);
+            freq.put(l, freq.get(l) - 1);
 
-            if (freq.get(d) == 0) {
-              freq.remove(d);
+            if (freq.get(l) == 0) {
+              freq.remove(l);
             }
             windowStart++;
           }

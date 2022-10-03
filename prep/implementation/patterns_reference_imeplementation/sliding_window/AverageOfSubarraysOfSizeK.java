@@ -18,13 +18,14 @@ public class AverageOfSubarraysOfSizeK {
         }
 
         double[] res = new double[n - k + 1];
-        int sum = 0, windowStart = 0;
+        int windowStart = 0;
+        double sum = 0;
 
         for (int windowEnd = 0; windowEnd < n; windowEnd++) {
           sum += a[windowEnd];
 
           if (windowEnd >= k - 1) {
-            res[windowStart] = (double)sum / k;
+            res[windowStart] = sum / k;
             sum -= a[windowStart];
             windowStart++;
           }

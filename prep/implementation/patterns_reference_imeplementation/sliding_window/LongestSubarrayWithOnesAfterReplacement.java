@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
-// O(n) / O(1)
+// O(m) / O(1)
 public class LongestSubarrayWithOnesAfterReplacement {
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
@@ -17,15 +17,15 @@ public class LongestSubarrayWithOnesAfterReplacement {
           a[i] = in.nextInt();
         }
 
-        int maxOnesCount = 0, maxLen = 0, windowStart = 0;
-        for (int windowEnd = 0; windowEnd < n; windowEnd++) {
+        int maxOnes = 0, maxLen = 0, windowStart = 0;
+        for (int windowEnd = 0; windowEnd < a.length; windowEnd++) {
           if (a[windowEnd] == 1) {
-            maxOnesCount++;
+            maxOnes++;
           }
 
-          while (windowEnd - windowStart + 1 - maxOnesCount > k) {
+          if (windowEnd - windowStart + 1 - maxOnes > k) {
             if (a[windowStart] == 1) {
-              maxOnesCount--;
+              maxOnes--;
             }
             windowStart++;
           }

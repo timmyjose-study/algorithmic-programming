@@ -2,8 +2,8 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
-// O(n) / O(1)
-public class MaximumSumSubarrayOfSizeK {
+// O(n^2) / O(1)
+public class MaximumSumSubarrayOfSizeKBrute {
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
       int tt = in.nextInt();
@@ -17,17 +17,13 @@ public class MaximumSumSubarrayOfSizeK {
           a[i] = in.nextInt();
         }
 
-        int maxSum = 0, currSum = 0;
-        int windowStart = 0;
-
-        for (int windowEnd = 0; windowEnd < n; windowEnd++) {
-          currSum += a[windowEnd];
-
-          if (windowEnd >= k - 1) {
-            maxSum = Math.max(maxSum, currSum);
-            currSum -= a[windowStart];
-            windowStart++;
+        int maxSum = 0;
+        for (int i = 0; i < n - k + 1; i++) {
+          int currSum = 0;
+          for (int j = i; j < i + k; j++) {
+            currSum += a[j];
           }
+          maxSum = Math.max(maxSum, currSum);
         }
 
         System.out.println(maxSum);

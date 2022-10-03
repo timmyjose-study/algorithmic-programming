@@ -2,6 +2,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
+// O(n) / O(1)
 public class SmallestSubarrayWithGivenSum {
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
@@ -16,15 +17,15 @@ public class SmallestSubarrayWithGivenSum {
           a[i] = in.nextInt();
         }
 
-        int minLen = Integer.MAX_VALUE, sum = 0;
-        int windowStart = 0;
+        int minLen = Integer.MAX_VALUE;
+        int windowStart = 0, currSum = 0;
 
         for (int windowEnd = 0; windowEnd < n; windowEnd++) {
-          sum += a[windowEnd];
+          currSum += a[windowEnd];
 
-          while (sum >= s) {
+          while (currSum >= s) {
             minLen = Math.min(minLen, windowEnd - windowStart + 1);
-            sum -= a[windowStart];
+            currSum -= a[windowStart];
             windowStart++;
           }
         }

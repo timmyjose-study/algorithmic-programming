@@ -10,30 +10,26 @@ public class FruitsIntoBaskets {
 
       while (tt-- > 0) {
         int n = in.nextInt();
-        in.nextLine();
 
-        String[] parts = in.nextLine().trim().split(" ");
         char[] a = new char[n];
-
         for (int i = 0; i < n; i++) {
-          a[i] = parts[i].charAt(0);
+          a[i] = in.next().charAt(0);
         }
 
         Map<Character, Integer> freq = new HashMap<>();
         int maxLen = 0, windowStart = 0;
 
         for (int windowEnd = 0; windowEnd < n; windowEnd++) {
-          char c = a[windowEnd];
-          freq.put(c, freq.getOrDefault(c, 0) + 1);
+          char r = a[windowEnd];
+          freq.put(r, freq.getOrDefault(r, 0) + 1);
 
           while (freq.size() > 2) {
-            char d = a[windowStart];
-            freq.put(d, freq.get(d) - 1);
+            char l = a[windowStart];
+            freq.put(l, freq.get(l) - 1);
 
-            if (freq.get(d) == 0) {
-              freq.remove(d);
+            if (freq.get(l) == 0) {
+              freq.remove(l);
             }
-
             windowStart++;
           }
 
