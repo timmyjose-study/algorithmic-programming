@@ -17,7 +17,7 @@ void permute(vector<int> &a, vector<bool> &visited, vector<int> &curr_perm,
       continue;
     }
 
-    if (i > 0 && (a[i - 1] == a[i]) && !visited[i - 1]) {
+    if (i > 0 && (a[i - 1] == a[i]) && visited[i - 1]) {
       continue;
     }
 
