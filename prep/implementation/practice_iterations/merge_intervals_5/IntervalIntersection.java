@@ -2,8 +2,8 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
-// O(nlogn) / O(1)
-public class MergeIntervals {
+// O(n + m) / O(1)
+public class IntervalIntersection {
   static class Interval {
     int start;
     int end;
@@ -20,7 +20,6 @@ public class MergeIntervals {
 
       while (tt-- > 0) {
         int n = in.nextInt();
-
         List<Interval> a = new ArrayList<>();
         for (int i = 0; i < n; i++) {
           int start = in.nextInt();
@@ -28,23 +27,32 @@ public class MergeIntervals {
           a.add(new Interval(start, end));
         }
 
-        a.sort((x, y) -> Integer.compare(x.start, y.start));
-
-        List<Interval> res = new ArrayList<>();
-        int start = a.get(0).start;
-        int end = a.get(0).end;
-
-        for (int i = 1; i < n; i++) {
-          if (a.get(i).start <= end) {
-            end = Math.max(end, a.get(i).end);
-          } else {
-            res.add(new Interval(start, end));
-            start = a.get(i).start;
-            end = a.get(i).end;
-          }
+        int m = in.nextInt();
+        List<Interval> b = new ArrayList<>();
+        for (int i = 0; i < m; i++) {
+          int start = in.nextInt();
+          int end = in.nextInt();
+          b.add(new Interval(start, end));
         }
 
-        res.add(new Interval(start, end));
+        int i = 0, j = 0;
+        List<Interval> res = new ArrayList<>();
+
+        while (i < n && j < m) {
+          if ((a.get(i).start >= b.get(j).start &&
+               a.get(i).start <= b.get(j).end) ||
+              (b.get(j).start >= a.get(i).start &&
+               b.get(j).start <= a.get(i).end)) {
+            res.add(new Interval(Math.max(a.get(i).start, b.get(j).start),
+                                 Math.min(a.get(i).end, b.get(j).end)));
+          }
+
+          if (a.get(i).end <= b.get(j).end) {
+            i++;
+          } else {
+            j++;
+          }
+        }
 
         for (Interval inter : res) {
           System.out.printf("%d %d\n", inter.start, inter.end);

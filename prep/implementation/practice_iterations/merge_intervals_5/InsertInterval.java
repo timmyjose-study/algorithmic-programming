@@ -2,8 +2,8 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
-// O(nlogn) / O(1)
-public class MergeIntervals {
+// O(n) / O(1)
+public class InsertInterval {
   static class Interval {
     int start;
     int end;
@@ -28,23 +28,30 @@ public class MergeIntervals {
           a.add(new Interval(start, end));
         }
 
-        a.sort((x, y) -> Integer.compare(x.start, y.start));
+        int start = in.nextInt();
+        int end = in.nextInt();
+        Interval newInterval = new Interval(start, end);
 
         List<Interval> res = new ArrayList<>();
-        int start = a.get(0).start;
-        int end = a.get(0).end;
+        int i = 0;
 
-        for (int i = 1; i < n; i++) {
-          if (a.get(i).start <= end) {
-            end = Math.max(end, a.get(i).end);
-          } else {
-            res.add(new Interval(start, end));
-            start = a.get(i).start;
-            end = a.get(i).end;
-          }
+        while (i < n && a.get(i).end < newInterval.start) {
+          res.add(a.get(i));
+          i++;
         }
 
-        res.add(new Interval(start, end));
+        while (i < n && a.get(i).start <= newInterval.end) {
+          newInterval.start = Math.min(newInterval.start, a.get(i).start);
+          newInterval.end = Math.max(newInterval.end, a.get(i).end);
+          i++;
+        }
+
+        res.add(newInterval);
+
+        while (i < n) {
+          res.add(a.get(i));
+          i++;
+        }
 
         for (Interval inter : res) {
           System.out.printf("%d %d\n", inter.start, inter.end);
