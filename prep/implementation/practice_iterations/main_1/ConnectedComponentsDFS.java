@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
 
 public class ConnectedComponentsDFS {
   static interface Graph {
@@ -12,10 +14,11 @@ public class ConnectedComponentsDFS {
       Set<Integer> vs;
 
       Vertex() { this.vs = new HashSet<>(); }
-      void addEdge(int v) { this.vs.add(v); }
 
+      void addEdge(int v) { this.vs.add(v); }
       List<Integer> getAdjacentVertices() {
         List<Integer> ns = new ArrayList<>();
+
         for (int v : this.vs) {
           ns.add(v);
         }
@@ -39,7 +42,7 @@ public class ConnectedComponentsDFS {
     @Override
     public void addEdge(int from, int to) {
       if (from < 0 || from >= this.size || to < 0 || to >= this.size) {
-        throw new IllegalArgumentException("invalid vertex");
+        throw new IllegalArgumentException("invalid vertices");
       }
 
       this.vertices.get(from).addEdge(to);
@@ -60,22 +63,46 @@ public class ConnectedComponentsDFS {
     }
   }
 
-  static class IntWrapper {
-    int id;
-    int ccId;
+  // O(E + V) / O(E + V)
+  public static void dfs(Graph g, Map<Integer, Integer> compMap) {
+    boolean[] visited = new boolean[g.size()];
+    int compId = 0;
 
-    IntWrapper(int id, int ccId) {
-      this.id = id;
-      this.ccId = ccId;
+    for (int i = 0; i < g.size(); i++) {
+      if (!visited[i]) {
+        dfs(g, visited, i, compId, compMap);
+      }
+      compId++;
+    }
+  }
+
+  private static void dfs(Graph g, boolean[] visited, int currVertex,
+                          int compId, Map<Integer, Integer> compMap) {
+    Stack<Integer> st = new Stack<>();
+    st.push(currVertex);
+
+    while (!st.isEmpty()) {
+      int v = st.pop();
+
+      if (visited[v]) {
+        continue;
+      }
+
+      visited[v] = true;
+      compMap.put(v, compId);
+
+      for (int neighbour : g.getAdjacentVertices(v)) {
+        st.push(neighbour);
+      }
     }
   }
 
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
       int n = in.nextInt();
-      int m = in.nextInt();
-
       Graph g = new AdjacencySet(n);
+
+      int m = in.nextInt();
       for (int i = 0; i < m; i++) {
         int from = in.nextInt();
         int to = in.nextInt();
@@ -84,51 +111,19 @@ public class ConnectedComponentsDFS {
         g.addEdge(to, from);
       }
 
+      Map<Integer, Integer> compMap = new HashMap<>();
+      dfs(g, compMap);
+
       int nq = in.nextInt();
       while (nq-- > 0) {
-        int v1 = in.nextInt();
-        int v2 = in.nextInt();
+        int from = in.nextInt();
+        int to = in.nextInt();
 
-        System.out.println(dfs(g, v1, v2) ? "yes" : "no");
-      }
-    }
-  }
-
-  private static boolean dfs(Graph g, int v1, int v2) {
-    boolean[] visited = new boolean[g.size()];
-    int ccId = 0;
-    IntWrapper v1Id = new IntWrapper(v1, -1);
-    IntWrapper v2Id = new IntWrapper(v2, -1);
-
-    for (int i = 0; i < g.size(); i++) {
-      dfs(g, visited, i, ccId, v1Id, v2Id);
-      ccId++;
-    }
-
-    if (v1Id.ccId == v2Id.ccId) {
-      return true;
-    }
-    return false;
-  }
-
-  private static void dfs(Graph g, boolean[] visited, int currVertex, int ccId,
-                          IntWrapper v1Id, IntWrapper v2Id) {
-    if (visited[currVertex]) {
-      return;
-    }
-
-    if (currVertex == v1Id.id) {
-      v1Id.ccId = ccId;
-    }
-
-    if (currVertex == v2Id.id) {
-      v2Id.ccId = ccId;
-    }
-
-    visited[currVertex] = true;
-    for (int neighbour : g.getAdjacentVertices(currVertex)) {
-      if (!visited[neighbour]) {
-        dfs(g, visited, neighbour, ccId, v1Id, v2Id);
+        if (compMap.get(from) == compMap.get(to)) {
+          System.out.println("yes");
+        } else {
+          System.out.println("no");
+        }
       }
     }
   }
