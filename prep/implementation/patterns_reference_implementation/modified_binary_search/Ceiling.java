@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
-public class OrderAgnosticBinarySearch {
+public class Ceiling {
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
       int tt = in.nextInt();
@@ -16,40 +16,31 @@ public class OrderAgnosticBinarySearch {
           a[i] = in.nextInt();
         }
 
-        System.out.println(binarySearch(a, k));
+        System.out.println(ceiling(a, k));
       }
     }
   }
 
   // O(logn) / O(1)
-  public static int binarySearch(int[] a, int k) {
-    if (a.length == 1) {
-      return (a[0] == k ? 0 : -1);
+  public static int ceiling(int[] a, int k) {
+    if (a[a.length - 1] < k) {
+      return -1;
     }
 
     int low = 0, high = a.length - 1;
-    boolean isIncreasing = a[low] <= a[high];
 
     while (low <= high) {
       int mid = low + (high - low) / 2;
 
-      if (a[mid] == k) {
-        return mid;
-      } else if (a[mid] < k) {
-        if (isIncreasing) {
-          low = mid + 1;
-        } else {
-          high = mid - 1;
-        }
+      if (a[mid] < k) {
+        low = mid + 1;
+      } else if (a[mid] > k) {
+        high = mid - 1;
       } else {
-        if (isIncreasing) {
-          high = mid - 1;
-        } else {
-          low = mid + 1;
-        }
+        return mid;
       }
     }
 
-    return -1;
+    return low;
   }
 }

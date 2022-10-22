@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
-public class CeilingOfANumber {
+public class Floor {
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
       int tt = in.nextInt();
@@ -16,29 +16,30 @@ public class CeilingOfANumber {
           a[i] = in.nextInt();
         }
 
-        System.out.println(ceiling(a, 0, n - 1, k));
+        System.out.println(floor(a, k));
       }
     }
   }
 
   // O(logn) / O(1)
-  public static int ceiling(int[] a, int low, int high, int elem) {
-    if (a[high] < elem) {
+  public static int floor(int[] a, int k) {
+    if (a[0] > k) {
       return -1;
     }
 
+    int low = 0, high = a.length - 1;
     while (low <= high) {
       int mid = low + (high - low) / 2;
 
-      if (a[mid] == elem) {
-        return mid;
-      } else if (a[mid] < elem) {
+      if (a[mid] < k) {
         low = mid + 1;
-      } else {
+      } else if (a[mid] > k) {
         high = mid - 1;
+      } else {
+        return mid;
       }
     }
 
-    return low;
+    return high;
   }
 }
