@@ -1,0 +1,86 @@
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#include <sstream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+
+  TreeNode(int val) : val(val), left(nullptr), right(nullptr) {}
+};
+
+TreeNode *build(const vector<string> &a, int curr_idx) {
+  if (curr_idx >= a.size() || a[curr_idx] == "null") {
+    return nullptr;
+  }
+
+  TreeNode *node = new TreeNode(stoi(a[curr_idx]));
+  node->left = build(a, 2 * curr_idx + 1);
+  node->right = build(a, 2 * curr_idx + 2);
+
+  return node;
+}
+
+TreeNode *build(const vector<string> &a) { return build(a, 0); }
+
+bool path_with_given_sequence_exists(TreeNode *root, int curr_idx,
+                                     const vector<int> &seq) {
+  if (root == nullptr) {
+    return false;
+  }
+
+  if (root->left == nullptr && root->right == nullptr) {
+    return curr_idx == seq.size() - 1 && root->val == seq[curr_idx];
+  }
+
+  if (root->val == seq[curr_idx]) {
+    return path_with_given_sequence_exists(root->left, curr_idx + 1, seq) ||
+           path_with_given_sequence_exists(root->right, curr_idx + 1, seq);
+  }
+
+  return false;
+}
+
+// O(n) / O(n)
+bool path_with_given_sequence_exists(TreeNode *root, const vector<int> &seq) {
+  return path_with_given_sequence_exists(root, 0, seq);
+}
+
+int main() {
+  ios::sync_with_stdio(0);
+  cin.tie(0);
+
+  int tt, n;
+  string s;
+
+  cin >> tt;
+  while (tt--) {
+  cin.ignore(1, '\n');
+    getline(cin, s);
+
+    stringstream ss(s);
+    string tmp;
+    vector<string> a;
+
+    while (getline(ss, tmp, ' ')) {
+      a.push_back(tmp);
+    }
+
+    TreeNode *root = build(a);
+
+    cin >> n;
+    vector<int> seq(n);
+    for (int i = 0; i < n; i++) {
+      cin >> seq[i];
+    }
+
+    cout << (path_with_given_sequence_exists(root, seq) ? "true" : "false")
+         << "\n";
+  }
+}
