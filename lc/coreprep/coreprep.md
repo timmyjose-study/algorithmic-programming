@@ -252,7 +252,7 @@ References: https://www.bigocheatsheet.com/
    |-----------------------------------------------------------------------------------|----|----|----|----|----|
    | Sliding Window - Longest Subarray with 1s after replacement                  | ✓  | ✓  | ✓  |    |    |    |
    |-----------------------------------------------------------------------------------|----|----|----|----|----|
-   | Two Pointers - Pair with Target Sum                                          | ✓  | ✓  |    |    |    |    |
+   | Two Pointers - Pair with Target Sum                                          | ✓  | ✓  | ✓  |    |    |    |
    |-----------------------------------------------------------------------------------|----|----|----|----|----|
    | Two Pointers - Remove Duplicates                                             | ✓  | ✓  | ✓  |    |    |    |
    |-----------------------------------------------------------------------------------|----|----|----|----|----|
@@ -404,15 +404,15 @@ References: https://www.bigocheatsheet.com/
    -----------------------------------------------------------------------------------------|----|----|----|----|
    | Topological Sort - Alien Dictionary                                          | ✓  | ✓  |    |    |    |    |
    -----------------------------------------------------------------------------------------|----|----|----|----|
-   | Miscellaneous - Kth Smallest Number                                          | ✓  | ✓  |    |    |    |    |
+   | Miscellaneous - Kth Smallest Number                                          | ✓  | ✓  | ✓  |    |    |    |
    -----------------------------------------------------------------------------------------|----|----|----|----|
-   | Monotonic Queue - Next Greater Element                                       | ✓  | ✓  |    |    |    |    |
+   | Monotonic Queue - Next Greater Element                                       | ✓  | ✓  | ✓  |    |    |    |
    -----------------------------------------------------------------------------------------|----|----|----|----|
-   | Monotonic Queue - Next Smaller Element                                       | ✓  | ✓  |    |    |    |    |
+   | Monotonic Queue - Next Smaller Element                                       | ✓  | ✓  | ✓  |    |    |    |
    -----------------------------------------------------------------------------------------|----|----|----|----|
-   | Monotonic Queue - Previous Greater Element                                   | ✓  | ✓  |    |    |    |    |
+   | Monotonic Queue - Previous Greater Element                                   | ✓  | ✓  | ✓  |    |    |    |
    -----------------------------------------------------------------------------------------|----|----|----|----|
-   | Monotonic Queue - Previous Smaller Element                                   | ✓  | ✓  |    |    |    |    |
+   | Monotonic Queue - Previous Smaller Element                                   | ✓  | ✓  | ✓  |    |    |    |
    --------------------------------------------------------------------------------------------------------------
  
   https://www.geeksforgeeks.org/find-first-node-of-loop-in-a-linked-list/ (Fast and Slow pointers - find starting node of cycle).
