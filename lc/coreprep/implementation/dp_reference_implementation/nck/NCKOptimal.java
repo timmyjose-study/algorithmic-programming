@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
-public class NCKDP {
+public class NCKOptimal {
   public static void main(String[] args) {
     try (Scanner in = new Scanner(System.in)) {
       int tt = in.nextInt();
@@ -16,24 +16,17 @@ public class NCKDP {
     }
   }
 
-  // O(nk) / O(nk)
+  // O(nk) / O(k)
   public static long nck(int n, int k) {
-    long[][] dp = new long[n + 1][k + 1];
+    long[] dp = new long[k + 1];
+    dp[0] = 1;
 
-    for (int i = 0; i <= n; i++) {
-      dp[i][0] = 1;
-
-      if (i <= k) {
-        dp[i][i] = 1;
+    for (int i = 1; i <= n; i++) {
+      for (int j = Math.min(i, k); j > 0; j--) {
+        dp[j] = dp[j] + dp[j - 1];
       }
     }
 
-    for (int i = 2; i <= n; i++) {
-      for (int j = 1; j <= k; j++) {
-        dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
-      }
-    }
-
-    return dp[n][k];
+    return dp[k];
   }
 }

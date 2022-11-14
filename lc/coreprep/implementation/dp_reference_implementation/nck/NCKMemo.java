@@ -17,7 +17,7 @@ public class NCKMemo {
 
   // O(nk) / O(nk)
   public static long nck(int n, int k) {
-    long[][] memo = new long[n + 1][n + 1];
+    long[][] memo = new long[n + 1][k + 1];
     return nck(memo, n, k);
   }
 
