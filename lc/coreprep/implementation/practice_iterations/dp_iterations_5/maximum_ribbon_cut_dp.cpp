@@ -1,0 +1,75 @@
+#include <algorithm>
+#include <cmath>
+#include <iostream>
+#include <limits>
+#include <list>
+#include <queue>
+#include <random>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
+using namespace std;
+
+int next_random(int low, int high) {
+  random_device rd;
+  mt19937 engine(rd());
+  uniform_int_distribution<int> dist(low, high);
+
+  return dist(engine);
+}
+
+// O(nl) / O(nl)
+int max_cut(int length, const vector<int> &lengths) {
+  if (length == 0 || lengths.empty()) {
+    return 0;
+  }
+
+  vector<vector<int>> dp(lengths.size(),
+                         vector<int>(length + 1, numeric_limits<int>::min()));
+
+  for (int i = 0; i < lengths.size(); i++) {
+    dp[i][0] = 0;
+  }
+
+  for (int i = 0; i < lengths.size(); i++) {
+    for (int l = 1; l <= length; l++) {
+      dp[i][l] = numeric_limits<int>::min();
+
+      if (lengths[i] <= l &&
+          dp[i][l - lengths[i]] != numeric_limits<int>::min()) {
+        dp[i][l] = max(dp[i][l], 1 + dp[i][l - lengths[i]]);
+      }
+
+      if (i > 0) {
+        dp[i][l] = max(dp[i][l], dp[i - 1][l]);
+      }
+    }
+  }
+
+  return dp[lengths.size() - 1][length] == numeric_limits<int>::min()
+             ? -1
+             : dp[lengths.size() - 1][length];
+}
+
+int main() {
+  ios_base::sync_with_stdio(0);
+  cin.tie(0);
+
+  int tt, n, length;
+  cin >> tt;
+
+  while (tt--) {
+    cin >> n >> length;
+
+    vector<int> lengths(n);
+    for (int i = 0; i < n; i++) {
+      cin >> lengths[i];
+    }
+
+    cout << max_cut(length, lengths) << "\n";
+  }
+
+  return 0;
+}
