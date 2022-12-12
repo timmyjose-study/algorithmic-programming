@@ -25,7 +25,7 @@ case "${extension}" in
       
       if [[ $? -ne 0 ]]
       then
-        diff -y ${output_file} ${check_file}
+        diff -y -b ${output_file} ${check_file}
       else
         echo "Passed"
       fi
@@ -47,7 +47,7 @@ case "${extension}" in
       
       if [[ $? -ne 0 ]]
       then
-        diff -y ${output_file} ${check_file}
+        diff -y -b ${output_file} ${check_file}
       else
         echo "Passed"
       fi
@@ -69,7 +69,7 @@ case "${extension}" in
       
       if [[ $? -ne 0 ]]
       then
-        diff -y  ${output_file} ${check_file}
+        diff -y -b  ${output_file} ${check_file}
       else
         echo "Passed"
       fi
@@ -90,7 +90,7 @@ case "${extension}" in
       
       if [[ $? -ne 0 ]]
       then
-        diff -y ${output_file} ${check_file}
+        diff -y -b  ${output_file} ${check_file}
       else
         echo "Passed"
       fi
